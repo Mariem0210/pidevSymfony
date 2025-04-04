@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Giveaway{% endblock %}
+
+{% block body %}
+    <h1>Edit Giveaway</h1>
+
+    {{ include('giveaway/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_giveaway_index') }}">back to list</a>
+
+    {{ include('giveaway/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Giveaway index{% endblock %}
+
+{% block body %}
+    <h1>Giveaway index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idg</th>
+                <th>Titreg</th>
+                <th>Descg</th>
+                <th>Datedg</th>
+                <th>Datefg</th>
+                <th>Statusg</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for giveaway in giveaways %}
+            <tr>
+                <td>{{ giveaway.idg }}</td>
+                <td>{{ giveaway.titreg }}</td>
+                <td>{{ giveaway.descg }}</td>
+                <td>{{ giveaway.datedg ? giveaway.datedg|date('Y-m-d') : '' }}</td>
+                <td>{{ giveaway.datefg ? giveaway.datefg|date('Y-m-d') : '' }}</td>
+                <td>{{ giveaway.statusg }}</td>
+                <td>
+                    <a href="{{ path('app_giveaway_show', {'idg': giveaway.idg}) }}">show</a>
+                    <a href="{{ path('app_giveaway_edit', {'idg': giveaway.idg}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_giveaway_new') }}">Create new</a>
+{% endblock %}

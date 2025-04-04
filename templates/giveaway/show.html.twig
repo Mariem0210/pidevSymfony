@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Giveaway{% endblock %}
+
+{% block body %}
+    <h1>Giveaway</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idg</th>
+                <td>{{ giveaway.idg }}</td>
+            </tr>
+            <tr>
+                <th>Titreg</th>
+                <td>{{ giveaway.titreg }}</td>
+            </tr>
+            <tr>
+                <th>Descg</th>
+                <td>{{ giveaway.descg }}</td>
+            </tr>
+            <tr>
+                <th>Datedg</th>
+                <td>{{ giveaway.datedg ? giveaway.datedg|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Datefg</th>
+                <td>{{ giveaway.datefg ? giveaway.datefg|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Statusg</th>
+                <td>{{ giveaway.statusg }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_giveaway_index') }}">back to list</a>
+
+    <a href="{{ path('app_giveaway_edit', {'idg': giveaway.idg}) }}">edit</a>
+
+    {{ include('giveaway/_delete_form.html.twig') }}
+{% endblock %}

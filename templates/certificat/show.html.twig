@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Certificat{% endblock %}
+
+{% block body %}
+    <h1>Certificat</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ certificat.id }}</td>
+            </tr>
+            <tr>
+                <th>Formation ID</th>
+                <td>{{ certificat.idf}}</td>
+            </tr>
+            <tr>
+                <th>User ID</th>
+                <td>{{ certificat.idu }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ certificat.nomc }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ certificat.typec }}</td>
+            </tr>
+            <tr>
+                <th>Score</th>
+                <td>{{ certificat.scorec }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ certificat.etatc }}</td>
+            </tr>
+            <tr>
+                <th>DateExpiration</th>
+                <td>{{ certificat.dateExpirationc ? certificat.dateExpirationc|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_certificat_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_certificat_edit', {'id': certificat.id}) }}">Modifier</a>
+
+    {{ include('certificat/_delete_form.html.twig') }}
+{% endblock %}
