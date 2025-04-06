@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transfert index{% endblock %}
+
+{% block body %}
+    <h1>Transfert index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idtr</th>
+                <th>Idu</th>
+                <th>Ancienne_equipe</th>
+                <th>Nouvelle_equipe</th>
+                <th>Montantt</th>
+                <th>Datet</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transfert in transferts %}
+            <tr>
+                <td>{{ transfert.idtr }}</td>
+                <td>{{ transfert.idu }}</td>
+                <td>{{ transfert.ancienneEquipe }}</td>
+                <td>{{ transfert.nouvelleEquipe }}</td>
+                <td>{{ transfert.montantt }}</td>
+                <td>{{ transfert.datet ? transfert.datet|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_transfert_show', {'idtr': transfert.idtr}) }}">show</a>
+                    <a href="{{ path('app_transfert_edit', {'idtr': transfert.idtr}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_transfert_new') }}">Create new</a>
+{% endblock %}

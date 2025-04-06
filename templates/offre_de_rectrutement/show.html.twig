@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OffreDeRectrutement{% endblock %}
+
+{% block body %}
+    <h1>OffreDeRectrutement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Ido</th>
+                <td>{{ offre_de_rectrutement.ido }}</td>
+            </tr>
+            <tr>
+                <th>Idu</th>
+                <td>{{ offre_de_rectrutement.idu }}</td>
+            </tr>
+            <tr>
+                <th>Poste_recherche</th>
+                <td>{{ offre_de_rectrutement.posteRecherche }}</td>
+            </tr>
+            <tr>
+                <th>Niveu_requis</th>
+                <td>{{ offre_de_rectrutement.niveuRequis }}</td>
+            </tr>
+            <tr>
+                <th>Salaire_propose</th>
+                <td>{{ offre_de_rectrutement.salairePropose }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ offre_de_rectrutement.status }}</td>
+            </tr>
+            <tr>
+                <th>Contrat</th>
+                <td>{{ offre_de_rectrutement.contrat }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_offre_de_rectrutement_index') }}">back to list</a>
+
+    <a href="{{ path('app_offre_de_rectrutement_edit', {'ido': offre_de_rectrutement.ido}) }}">edit</a>
+
+    {{ include('offre_de_rectrutement/_delete_form.html.twig') }}
+{% endblock %}
