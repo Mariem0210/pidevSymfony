@@ -5,6 +5,13 @@
 {% block body %}
     <h1>Edit Equipe</h1>
 
+    {# Affichage des messages d'erreur globaux #}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {{ include('equipe/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_equipe_index') }}">back to list</a>

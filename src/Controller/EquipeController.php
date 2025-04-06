@@ -29,11 +29,13 @@ final class EquipeController extends AbstractController
         $form = $this->createForm(EquipeType::class, $equipe);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($equipe);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $entityManager->persist($equipe);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
+            }
+            $this->addFlash('error', 'Veuillez remplir tous les champs obligatoires correctement.');
         }
 
         return $this->render('equipe/new.html.twig', [
@@ -56,10 +58,12 @@ final class EquipeController extends AbstractController
         $form = $this->createForm(EquipeType::class, $equipe);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $entityManager->flush();
+                return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
+            }
+            $this->addFlash('error', 'Veuillez corriger les erreurs dans le formulaire.');
         }
 
         return $this->render('equipe/edit.html.twig', [
@@ -71,7 +75,7 @@ final class EquipeController extends AbstractController
     #[Route('/{ideq}', name: 'app_equipe_delete', methods: ['POST'])]
     public function delete(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$equipe->getIdeq(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$equipe->getIdeq(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($equipe);
             $entityManager->flush();
         }
