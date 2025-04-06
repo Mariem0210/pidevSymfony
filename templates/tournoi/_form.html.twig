@@ -1,0 +1,52 @@
+{{ form_start(form) }}
+
+{# Affichage global des erreurs du formulaire #}
+{{ form_errors(form) }}
+
+<div class="form-group mb-3">
+    {{ form_label(form.nomt) }}
+    {{ form_widget(form.nomt, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.nomt) }}
+</div>
+
+<div class="form-group mb-3">
+    {{ form_label(form.descriptiont) }}
+    {{ form_widget(form.descriptiont, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.descriptiont) }}
+</div>
+
+<div class="form-group mb-3">
+    {{ form_label(form.date_debutt) }}
+    {{ form_widget(form.date_debutt, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.date_debutt) }}
+</div>
+
+<div class="form-group mb-3">
+    {{ form_label(form.date_fint) }}
+    {{ form_widget(form.date_fint, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.date_fint) }}
+</div>
+
+<div class="form-group mb-3">
+    {{ form_label(form.nbr_equipes) }}
+    {{ form_widget(form.nbr_equipes, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.nbr_equipes) }}
+</div>
+
+<div class="form-group mb-3">
+    {{ form_label(form.prixt) }}
+    {{ form_widget(form.prixt, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.prixt) }}
+</div>
+
+<div class="form-group mb-3">
+    {{ form_label(form.statutt) }}
+    {{ form_widget(form.statutt, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.statutt) }}
+</div>
+
+<button class="btn btn-success mt-3">
+    {{ button_label|default('Save') }}
+</button>
+
+{{ form_end(form) }}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournoi {% endblock %}
+
+{% block body %}
+    <h1>Tournoi </h1>
+
+    <!-- Formulaire de recherche -->
+    <form method="get" action="{{ path('app_tournoi_index') }}">
+        <input type="text" name="search" value="{{ searchTerm }}" placeholder="Rechercher par nom" />
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <!-- Liens pour trier par prix -->
+    <div>
+        <a href="{{ path('app_tournoi_index', {'search': searchTerm, 'sort': 'asc'}) }}">Tri croissant par prix</a>
+        <a href="{{ path('app_tournoi_index', {'search': searchTerm, 'sort': 'desc'}) }}">Tri décroissant par prix</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idt</th>
+                <th>Nomt</th>
+                <th>Descriptiont</th>
+                <th>Date_debutt</th>
+                <th>Date_fint</th>
+                <th>Nbr_equipes</th>
+                <th>Prixt</th>
+                <th>Statutt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tournoi in tournois %}
+            <tr>
+                <td>{{ tournoi.idt }}</td>
+                <td>{{ tournoi.nomt }}</td>
+                <td>{{ tournoi.descriptiont }}</td>
+                <td>{{ tournoi.dateDebutt ? tournoi.dateDebutt|date('Y-m-d') : '' }}</td>
+                <td>{{ tournoi.dateFint ? tournoi.dateFint|date('Y-m-d') : '' }}</td>
+                <td>{{ tournoi.nbrEquipes }}</td>
+                <td>{{ tournoi.prixt }}</td>
+                <td>{{ tournoi.statutt }}</td>
+                <td>
+                    <a href="{{ path('app_tournoi_show', {'idt': tournoi.idt}) }}">show</a>
+                    <a href="{{ path('app_tournoi_edit', {'idt': tournoi.idt}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tournoi_new') }}">Create new</a>
+{% endblock %}

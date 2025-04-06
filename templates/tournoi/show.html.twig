@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournoi{% endblock %}
+
+{% block body %}
+    <h1>Tournoi</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idt</th>
+                <td>{{ tournoi.idt }}</td>
+            </tr>
+            <tr>
+                <th>Nomt</th>
+                <td>{{ tournoi.nomt }}</td>
+            </tr>
+            <tr>
+                <th>Descriptiont</th>
+                <td>{{ tournoi.descriptiont }}</td>
+            </tr>
+            <tr>
+                <th>Date_debutt</th>
+                <td>{{ tournoi.dateDebutt ? tournoi.dateDebutt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fint</th>
+                <td>{{ tournoi.dateFint ? tournoi.dateFint|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nbr_equipes</th>
+                <td>{{ tournoi.nbrEquipes }}</td>
+            </tr>
+            <tr>
+                <th>Prixt</th>
+                <td>{{ tournoi.prixt }}</td>
+            </tr>
+            <tr>
+                <th>Statutt</th>
+                <td>{{ tournoi.statutt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tournoi_index') }}">back to list</a>
+
+    <a href="{{ path('app_tournoi_edit', {'idt': tournoi.idt}) }}">edit</a>
+
+    {{ include('tournoi/_delete_form.html.twig') }}
+{% endblock %}
