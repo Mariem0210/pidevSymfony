@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Utilisateur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idu</th>
+                <td>{{ utilisateur.idu }}</td>
+            </tr>
+            <tr>
+                <th>Nomu</th>
+                <td>{{ utilisateur.nomu }}</td>
+            </tr>
+            <tr>
+                <th>Prenomu</th>
+                <td>{{ utilisateur.prenomu }}</td>
+            </tr>
+            <tr>
+                <th>Typeu</th>
+                <td>{{ utilisateur.typeu }}</td>
+            </tr>
+            <tr>
+                <th>Mailu</th>
+                <td>{{ utilisateur.mailu }}</td>
+            </tr>
+            <tr>
+                <th>Mdpu</th>
+                <td>{{ utilisateur.mdpu }}</td>
+            </tr>
+            <tr>
+                <th>Datenaissanceu</th>
+                <td>{{ utilisateur.datenaissanceu ? utilisateur.datenaissanceu|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Dateinscriu</th>
+                <td>{{ utilisateur.dateinscriu ? utilisateur.dateinscriu|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Numtelu</th>
+                <td>{{ utilisateur.numtelu }}</td>
+            </tr>
+            <tr>
+                <th>Photo_profilu</th>
+                <td>{{ utilisateur.photoProfilu }}</td>
+            </tr>
+            <tr>
+                <th>Reset_code</th>
+                <td>{{ utilisateur.resetCode }}</td>
+            </tr>
+            <tr>
+                <th>Code_expiration</th>
+                <td>{{ utilisateur.codeExpiration ? utilisateur.codeExpiration|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+
+    <a href="{{ path('app_utilisateur_edit', {'idu': utilisateur.idu}) }}">edit</a>
+
+    {{ include('utilisateur/_delete_form.html.twig') }}
+{% endblock %}

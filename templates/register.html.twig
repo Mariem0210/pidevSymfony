@@ -1,0 +1,236 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <style>
+        .signup_section {
+            padding: 100px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .signup_form {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            margin-bottom: 50px;
+        }
+
+        .signup_form h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-transform: uppercase;
+        }
+
+        .form_group {
+            margin-bottom: 25px;
+        }
+
+        .form_group label {
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .form_control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form_control:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: #ff0000;
+            outline: none;
+        }
+
+        .signup_btn {
+            background: linear-gradient(to right, #ff0000, #ff5e00);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .signup_btn:hover {
+            background: linear-gradient(to right, #ff5e00, #ff0000);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+        }
+
+        .form_footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .form_footer a {
+            color: #ff5e00;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .form_footer a:hover {
+            color: #ff0000;
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <section class="signup_section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="signup_form">
+                        <h2>Create Account</h2>
+                        <form action="#" method="post" enctype="multipart/form-data">
+                            <div class="row form_row">
+                                <div class="col-md-6 form_col">
+                                    <div class="form_group">
+                                        <label for="nomu">Last Name</label>
+                                        <input type="text" id="nomu" name="nomu" class="form_control" placeholder="Enter your last name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form_col">
+                                    <div class="form_group">
+                                        <label for="prenomu">First Name</label>
+                                        <input type="text" id="prenomu" name="prenomu" class="form_control" placeholder="Enter your first name" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form_group">
+                                <label for="mailu">Email Address</label>
+                                <input type="email" id="mailu" name="mailu" class="form_control" placeholder="Enter your email" required>
+                            </div>
+
+                            <div class="form_group">
+                                <label for="numtelu">Phone Number</label>
+                                <input type="tel" id="numtelu" name="numtelu" class="form_control" placeholder="Enter your phone number" required>
+                            </div>
+
+                            <div class="form_group">
+                                <label for="datenaissanceu">Date of Birth</label>
+                                <div class="form_date">
+                                    <select id="day" name="datenaissanceu[day]" required>
+                                        <option value="" disabled selected>Day</option>
+                                        <script>
+                                            for (let i = 1; i <= 31; i++) {
+                                                document.write(`<option value="${i}">${i}</option>`);
+                                            }
+                                        </script>
+                                    </select>
+                                    <select id="month" name="datenaissanceu[month]" required>
+                                        <option value="" disabled selected>Month</option>
+                                        <option value="1">January</option>
+                                        <option value="2">February</option>
+                                        <option value="3">March</option>
+                                        <option value="4">April</option>
+                                        <option value="5">May</option>
+                                        <option value="6">June</option>
+                                        <option value="7">July</option>
+                                        <option value="8">August</option>
+                                        <option value="9">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                    <select id="year" name="datenaissanceu[year]" required>
+                                        <option value="" disabled selected>Year</option>
+                                        <script>
+                                            const currentYear = new Date().getFullYear();
+                                            for (let i = currentYear - 10; i >= currentYear - 100; i--) {
+                                                document.write(`<option value="${i}">${i}</option>`);
+                                            }
+                                        </script>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form_group">
+                                <label for="typeu">User Type</label>
+                                <div class="form_date">
+                                    <select id="typeu" name="typeu" required>
+                                        <option value="" disabled selected>Select user type</option>
+                                        <option value="JOUEUR">Joueur</option>
+                                        <option value="COACH">Coach</option>
+                                        <option value="ADMIN">Administrateur</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form_group">
+                                <label for="plainPassword">Password</label>
+                                <input type="password" id="plainPassword" name="plainPassword" class="form_control" placeholder="Enter your password (min. 6 characters)" required>
+                            </div>
+
+                            <div class="file_upload">
+                                <label for="photo_profilu">Profile Picture</label>
+                                <div class="file_upload_btn">
+                                    <span>Choose File</span>
+                                    <input type="file" id="photo_profilu" name="photo_profilu" accept="image/jpeg, image/png">
+                                </div>
+                                <div class="file_name" id="fileName">No file selected</div>
+                            </div>
+
+                            <div class="terms_checkbox">
+                                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                                <label for="agreeTerms">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
+                            </div>
+
+                            <button type="submit" class="signup_btn">Create Account</button>
+
+                            <div class="form_footer">
+                                <p>Already have an account? <a href="{{ path('app_login') }}">Sign In</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/jquery-1.12.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script>
+        document.getElementById('photo_profilu').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'No file selected';
+            document.getElementById('fileName').textContent = fileName;
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur index{% endblock %}
+
+{% block body %}
+    <h1>Utilisateur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idu</th>
+                <th>Nomu</th>
+                <th>Prenomu</th>
+                <th>Typeu</th>
+                <th>Mailu</th>
+                <th>Mdpu</th>
+                <th>Datenaissanceu</th>
+                <th>Dateinscriu</th>
+                <th>Numtelu</th>
+                <th>Photo_profilu</th>
+                <th>Reset_code</th>
+                <th>Code_expiration</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+                <td>{{ utilisateur.idu }}</td>
+                <td>{{ utilisateur.nomu }}</td>
+                <td>{{ utilisateur.prenomu }}</td>
+                <td>{{ utilisateur.typeu }}</td>
+                <td>{{ utilisateur.mailu }}</td>
+                <td>{{ utilisateur.mdpu }}</td>
+                <td>{{ utilisateur.datenaissanceu ? utilisateur.datenaissanceu|date('Y-m-d') : '' }}</td>
+                <td>{{ utilisateur.dateinscriu ? utilisateur.dateinscriu|date('Y-m-d') : '' }}</td>
+                <td>{{ utilisateur.numtelu }}</td>
+                <td>{{ utilisateur.photoProfilu }}</td>
+                <td>{{ utilisateur.resetCode }}</td>
+                <td>{{ utilisateur.codeExpiration ? utilisateur.codeExpiration|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_utilisateur_show', {'idu': utilisateur.idu}) }}">show</a>
+                    <a href="{{ path('app_utilisateur_edit', {'idu': utilisateur.idu}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_utilisateur_new') }}">Create new</a>
+{% endblock %}
