@@ -1,4 +1,17 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_row(form.idu) }}
+    {{ form_row(form.ancienne_equipe) }}
+    {{ form_row(form.nouvelle_equipe) }}
+    
+    <div class="form-group">
+        {{ form_label(form.montantt) }}
+        {{ form_widget(form.montantt, {'attr': {'class': 'form-control' ~ (form.montantt.vars.valid ? '' : ' is-invalid')}}) }}
+        <div class="invalid-feedback">
+            {{ form_errors(form.montantt) }}
+        </div>
+    </div>
+    
+    {{ form_row(form.datet) }}
+    
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
