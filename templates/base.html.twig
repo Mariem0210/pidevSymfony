@@ -214,12 +214,28 @@
     <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <!-- Control Center for Material Dashboard -->
     <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.0.0') }}"></script>
 
     <script>
-        // Script pour gérer le toggle de la sidebar
+        // Fonction de debounce améliorée
+        function debounce(func, wait, immediate) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                const later = function() {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                const callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Gestion de la sidebar
             const iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
             const iconSidenav = document.getElementById('iconSidenav');
             const sidenavMain = document.getElementById('sidenav-main');
@@ -237,6 +253,91 @@
                     sidenavMain.classList.toggle('d-none');
                     mainContent.classList.toggle('main-content-margin');
                 });
+            }
+
+            // Gestion de la recherche
+            const searchInput = document.querySelector('.navbar .form-control');
+            
+            if (searchInput) {
+                // Activer le label lorsque l'input est focus ou contient du texte
+                searchInput.addEventListener('focus', function() {
+                    this.parentNode.classList.add('is-focused');
+                });
+
+                searchInput.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentNode.classList.remove('is-focused');
+                    }
+                });
+
+                // Gestionnaire de recherche avec debounce
+                const processSearch = debounce(function(e) {
+                    const searchTerm = e.target.value.trim().toLowerCase();
+                    const noResultsMessage = document.getElementById('no-results-message');
+                    
+                    // Cachez le message "no results" s'il existe
+                    if (noResultsMessage) {
+                        noResultsMessage.remove();
+                    }
+                    
+                    // Sélectionnez tous les éléments à filtrer
+                    const itemsToFilter = document.querySelectorAll('.card, .table-responsive, table tbody tr, .dashboard-item');
+                    let hasResults = false;
+
+                    itemsToFilter.forEach(item => {
+                        const textContent = item.textContent.toLowerCase();
+                        const isMatch = textContent.includes(searchTerm);
+                        
+                        if (searchTerm === '') {
+                            item.style.display = '';
+                            hasResults = true;
+                        } else if (isMatch) {
+                            item.style.display = '';
+                            hasResults = true;
+                            
+                            // Mettez en surbrillance les correspondances
+                            highlightMatches(item, searchTerm);
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    // Afficher un message si aucun résultat n'est trouvé
+                    if (!hasResults && searchTerm !== '') {
+                        showNoResultsMessage(searchTerm);
+                    }
+                }, 300);
+
+                searchInput.addEventListener('input', processSearch);
+            }
+
+            function highlightMatches(element, searchTerm) {
+                // Ne traitez que les éléments texte pour éviter de casser le HTML
+                if (element.nodeType === Node.TEXT_NODE && element.textContent.toLowerCase().includes(searchTerm)) {
+                    const span = document.createElement('span');
+                    span.className = 'highlight-match bg-yellow-100 text-dark';
+                    element.parentNode.replaceChild(span, element);
+                    span.appendChild(document.createTextNode(element.textContent));
+                } else if (element.childNodes && element.childNodes.length > 0) {
+                    element.childNodes.forEach(child => {
+                        highlightMatches(child, searchTerm);
+                    });
+                }
+            }
+
+            function showNoResultsMessage(searchTerm) {
+                const container = document.querySelector('.container-fluid.py-4');
+                if (!container) return;
+                
+                const existingMessage = document.getElementById('no-results-message');
+                if (existingMessage) return;
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.id = 'no-results-message';
+                messageDiv.className = 'alert alert-warning mt-4';
+                messageDiv.textContent = `Aucun résultat trouvé pour "${searchTerm}"`;
+                
+                container.prepend(messageDiv);
             }
         });
     </script>
