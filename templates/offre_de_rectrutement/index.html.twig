@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OffreDeRectrutement index{% endblock %}
+
+{% block body %}
+    <h1>OffreDeRectrutement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ido</th>
+                <th>Idu</th>
+                <th>Poste_recherche</th>
+                <th>Niveu_requis</th>
+                <th>Salaire_propose</th>
+                <th>Status</th>
+                <th>Contrat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offre_de_rectrutement in offre_de_rectrutements %}
+            <tr>
+                <td>{{ offre_de_rectrutement.ido }}</td>
+                <td>{{ offre_de_rectrutement.idu }}</td>
+                <td>{{ offre_de_rectrutement.posteRecherche }}</td>
+                <td>{{ offre_de_rectrutement.niveuRequis }}</td>
+                <td>{{ offre_de_rectrutement.salairePropose }}</td>
+                <td>{{ offre_de_rectrutement.status }}</td>
+                <td>{{ offre_de_rectrutement.contrat }}</td>
+                <td>
+                    <a href="{{ path('app_offre_de_rectrutement_show', {'ido': offre_de_rectrutement.ido}) }}">show</a>
+                    <a href="{{ path('app_offre_de_rectrutement_edit', {'ido': offre_de_rectrutement.ido}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_offre_de_rectrutement_new') }}">Create new</a>
+{% endblock %}

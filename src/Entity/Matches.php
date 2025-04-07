@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use App\Repository\MatchesRepository;
 
 #[ORM\Entity(repositoryClass: MatchesRepository::class)]
-#[ORM\Table(name: 'matches')]
+#[ORM\Table(name: 'matche')]
 class Matches
 {
     #[ORM\Id]

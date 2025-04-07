@@ -1,42 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Giveaway{% endblock %}
+{% block title %}Détails du Giveaway{% endblock %}
 
-{% block body %}
-    <h1>Giveaway</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Idg</th>
-                <td>{{ giveaway.idg }}</td>
-            </tr>
-            <tr>
-                <th>Titreg</th>
-                <td>{{ giveaway.titreg }}</td>
-            </tr>
-            <tr>
-                <th>Descg</th>
-                <td>{{ giveaway.descg }}</td>
-            </tr>
-            <tr>
-                <th>Datedg</th>
-                <td>{{ giveaway.datedg ? giveaway.datedg|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Datefg</th>
-                <td>{{ giveaway.datefg ? giveaway.datefg|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Statusg</th>
-                <td>{{ giveaway.statusg }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_giveaway_index') }}">back to list</a>
-
-    <a href="{{ path('app_giveaway_edit', {'idg': giveaway.idg}) }}">edit</a>
-
-    {{ include('giveaway/_delete_form.html.twig') }}
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">
+                            <i class="material-icons opacity-10">info</i>
+                            Détails du Giveaway
+                        </h6>
+                    </div>
+                </div>
+                <div class="card-body px-4 pb-2">
+                    <div class="table-responsive">
+                        <table class="table align-items-center mb-0">
+                            <tbody>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ giveaway.idg }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Titre</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ giveaway.titreg }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Description</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ giveaway.descg }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Date Début</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ giveaway.datedg ? giveaway.datedg|date('Y-m-d') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Date Fin</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ giveaway.datefg ? giveaway.datefg|date('Y-m-d') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Statut</th>
+                                    <td class="text-xs font-weight-bold mb-0">
+                                        <span class="badge badge-sm bg-gradient-{{ giveaway.statusg == 'actif' ? 'success' : 'secondary' }}">
+                                            {{ giveaway.statusg }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer p-3 d-flex justify-content-between">
+                    <a href="{{ path('app_giveaway_index') }}" class="btn bg-gradient-secondary">
+                        <i class="material-icons opacity-10">arrow_back</i>
+                        Retour à la liste
+                    </a>
+                    <div>
+                        <a href="{{ path('app_giveaway_edit', {'idg': giveaway.idg}) }}" class="btn bg-gradient-warning me-2">
+                            <i class="material-icons opacity-10">edit</i>
+                            Modifier
+                        </a>
+                        {{ include('giveaway/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

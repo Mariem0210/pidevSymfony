@@ -9,7 +9,7 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ certificat.id }}</td>
+                <td>{{ certificat.idc }}</td>
             </tr>
             <tr>
                 <th>Formation ID</th>
@@ -43,7 +43,7 @@
     </table>
 
     <a href="{{ path('app_certificat_index') }}">Retour à la liste</a>
-    <a href="{{ path('app_certificat_edit', {'id': certificat.id}) }}">Modifier</a>
+    <a href="{{ path('app_certificat_edit', {'id': certificat.idc}) }}">Modifier</a>
 
     {{ include('certificat/_delete_form.html.twig') }}
 {% endblock %}

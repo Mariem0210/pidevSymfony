@@ -23,7 +23,6 @@ final class FormationController extends AbstractController
             'formations' => $formationRepository->findAll(),
         ]);
     }
-
     #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {

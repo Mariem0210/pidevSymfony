@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails Utilisateur{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+   
+
+    <!-- Contenu principal -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">
+                            <i class="material-icons opacity-10">person</i>
+                            Fiche Utilisateur #{{ utilisateur.idu }}
+                        </h6>
+                    </div>
+                </div>
+                <div class="card-body px-4 pb-2">
+                    <div class="table-responsive">
+                        <table class="table align-items-center mb-0">
+                            <tbody>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ utilisateur.idu }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nom</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ utilisateur.nomu }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Prénom</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ utilisateur.prenomu }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Type</th>
+                                    <td class="text-xs font-weight-bold mb-0">
+                                        <span class="badge badge-sm bg-gradient-{{ utilisateur.typeu == 'admin' ? 'danger' : 'info' }}">
+                                            {{ utilisateur.typeu }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Email</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ utilisateur.mailu }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Date de naissance</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ utilisateur.datenaissanceu ? utilisateur.datenaissanceu|date('d/m/Y') : 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Date d'inscription</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ utilisateur.dateinscriu ? utilisateur.dateinscriu|date('d/m/Y') : 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Téléphone</th>
+                                    <td class="text-xs font-weight-bold mb-0">{{ utilisateur.numtelu ?? 'N/A' }}</td>
+                                </tr>
+                                {% if utilisateur.photoProfilu %}
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Photo de profil</th>
+                                    <td class="text-xs font-weight-bold mb-0">
+                                        <img src="{{ asset('uploads/profiles/' ~ utilisateur.photoProfilu) }}" alt="Photo profil" class="img-thumbnail" style="max-width: 100px;">
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer p-3 d-flex justify-content-between">
+                    <a href="{{ path('app_utilisateur_index') }}" class="btn bg-gradient-secondary">
+                        <i class="material-icons opacity-10">arrow_back</i>
+                        Retour à la liste
+                    </a>
+                    <div>
+                        <a href="{{ path('app_utilisateur_edit', {'idu': utilisateur.idu}) }}" class="btn bg-gradient-warning me-2">
+                            <i class="material-icons opacity-10">edit</i>
+                            Modifier
+                        </a>
+                        <button type="button" class="btn bg-gradient-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="material-icons opacity-10">delete</i>
+                            Supprimer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de suppression -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmer la suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer définitivement cet utilisateur ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Annuler</button>
+                {{ include('utilisateur/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

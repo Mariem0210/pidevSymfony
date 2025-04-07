@@ -125,7 +125,7 @@ final class CertificatController extends AbstractController
     #[Route('/{id}', name: 'app_certificat_delete', methods: ['POST'])]
     public function delete(Request $request, Certificat $certificat, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$certificat->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$certificat->getIdc(), $request->request->get('_token'))) {
             $entityManager->remove($certificat);
             $entityManager->flush();
         }

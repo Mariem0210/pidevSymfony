@@ -11,7 +11,7 @@ class Certificat
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'idc', type: 'integer')]
-    private ?int $id = null;
+    private ?int $idc = null;
 
  
     #[ORM\Column(name: 'idf', type: 'integer')]
@@ -36,7 +36,7 @@ class Certificat
     private ?\DateTimeInterface $dateExpirationc = null; // Nom corrigé pour cohérence
 
     // Getters and setters...
-    public function getId(): ?int { return $this->id; }
+    public function getIdc(): ?int { return $this->idc; }
     
     public function getIdf(): ?int { return $this->idf; }
     public function setIdf(int $idf): self { $this->idf = $idf; return $this; }
