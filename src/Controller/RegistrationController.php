@@ -16,43 +16,49 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger
+    ): Response {
         $user = new Utilisateur();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // 🔑 Hachage du mot de passe
-            $plainPassword = $form->get('plainPassword')->getData();
-            $user->setMdpu($userPasswordHasher->hashPassword($user, $plainPassword));
+            // Hachage du mot de passe
+            $user->setMdpu(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
 
-            // 📷 Gestion de l'image
-       // 📷 Gestion de l'image
-$imageFile = $form->get('photo_profilu')->getData(); // Nom corrigé
-if ($imageFile) {
-    $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-    $safeFilename = $slugger->slug($originalFilename);
-    $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+            // Gestion de l'upload d'image
+            $imageFile = $form->get('photo_profilu')->getData();
+            
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
 
-  // 📷 Gestion de l'image
-try {
-    $imageFile->move(
-        $this->getParameter('photos_directory'), // Nom du paramètre corrigé
-        $newFilename
-    );
-} catch (FileException $e) {
-    $this->addFlash('error', 'Erreur lors de l\'upload de l\'image.');
-}
+                try {
+                    $imageFile->move(
+                        $this->getParameter('photos_directory'),
+                        $newFilename
+                    );
+                    $user->setPhotoProfilu($newFilename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'upload de votre photo de profil');
+                }
+            }
 
-    $user->setPhotoProfilu($newFilename);
-}
-
-            // 📥 Sauvegarde en base de données
+            // Persistance de l'utilisateur
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // 🔄 Redirection vers la connexion
+            $this->addFlash('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
             return $this->redirectToRoute('app_login');
         }
 

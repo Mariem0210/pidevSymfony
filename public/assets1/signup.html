@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="zxx">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gaming - Sign Up</title>
+    <link rel="icon" href="img/favicon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="css/all.css">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="css/slick.css">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .signup_section {
+            padding: 100px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .signup_form {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            margin-bottom: 50px;
+        }
+
+        .signup_form h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-transform: uppercase;
+        }
+
+        .form_group {
+            margin-bottom: 25px;
+        }
+
+        .form_group label {
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .form_control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form_control:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: #ff0000;
+            outline: none;
+        }
+
+        .form_select {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+        }
+
+        .form_select:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: #ff0000;
+            outline: none;
+        }
+
+        .form_select option {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .form_date {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .form_date select {
+            flex: 1;
+            min-width: 80px;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+        }
+
+        .form_date select:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: #ff0000;
+            outline: none;
+        }
+
+        .file_upload {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .file_upload label {
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .file_upload_btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: linear-gradient(to right, #ff0000, #ff5e00);
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+        }
+
+        .file_upload_btn:hover {
+            background: linear-gradient(to right, #ff5e00, #ff0000);
+            transform: translateY(-3px);
+        }
+
+        .file_upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file_name {
+            margin-top: 10px;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .signup_btn {
+            background: linear-gradient(to right, #ff0000, #ff5e00);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .signup_btn:hover {
+            background: linear-gradient(to right, #ff5e00, #ff0000);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+        }
+
+        .terms_checkbox {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .terms_checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            accent-color: #ff0000;
+        }
+
+        .terms_checkbox label {
+            color: #fff;
+            margin-bottom: 0;
+        }
+
+        .terms_checkbox a {
+            color: #ff5e00;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .terms_checkbox a:hover {
+            color: #ff0000;
+            text-decoration: underline;
+        }
+
+        .form_footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .form_footer a {
+            color: #ff5e00;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .form_footer a:hover {
+            color: #ff0000;
+            text-decoration: underline;
+        }
+
+        .row.form_row {
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        .col-md-6.form_col {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .signup_form {
+                padding: 30px 20px;
+            }
+            
+            .form_date {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .form_date select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body_bg">
+        <!--::header part start::-->
+        <header class="main_menu single_page_menu">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Header content would go here -->
+                </div>
+            </div>
+        </header>
+        <!-- Header part end-->
+
+        <!-- Sign Up Section Start -->
+        <section class="signup_section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="signup_form">
+                            <h2>Create Account</h2>
+                            <form action="#" method="post" enctype="multipart/form-data">
+                                <div class="row form_row">
+                                    <div class="col-md-6 form_col">
+                                        <div class="form_group">
+                                            <label for="nomu">Last Name</label>
+                                            <input type="text" id="nomu" name="nomu" class="form_control" placeholder="Enter your last name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form_col">
+                                        <div class="form_group">
+                                            <label for="prenomu">First Name</label>
+                                            <input type="text" id="prenomu" name="prenomu" class="form_control" placeholder="Enter your first name" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form_group">
+                                    <label for="mailu">Email Address</label>
+                                    <input type="email" id="mailu" name="mailu" class="form_control" placeholder="Enter your email" required>
+                                </div>
+
+                                <div class="form_group">
+                                    <label for="numtelu">Phone Number</label>
+                                    <input type="tel" id="numtelu" name="numtelu" class="form_control" placeholder="Enter your phone number" required>
+                                </div>
+
+                                <div class="form_group">
+                                    <label for="datenaissanceu">Date of Birth</label>
+                                    <div class="form_date">
+                                        <select id="day" name="datenaissanceu[day]" required>
+                                            <option value="" disabled selected>Day</option>
+                                            <!-- Generate days 1-31 -->
+                                            <script>
+                                                for (let i = 1; i <= 31; i++) {
+                                                    document.write(`<option value="${i}">${i}</option>`);
+                                                }
+                                            </script>
+                                        </select>
+                                        <select id="month" name="datenaissanceu[month]" required>
+                                            <option value="" disabled selected>Month</option>
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                        <select id="year" name="datenaissanceu[year]" required>
+                                            <option value="" disabled selected>Year</option>
+                                            <!-- Generate years from current year-100 to current year-10 -->
+                                            <script>
+                                                const currentYear = new Date().getFullYear();
+                                                for (let i = currentYear - 10; i >= currentYear - 100; i--) {
+                                                    document.write(`<option value="${i}">${i}</option>`);
+                                                }
+                                            </script>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form_group">
+                                    <label for="typeu">User Type</label>
+                                    <div class="form_date">
+                                        <select id="typeu" name="typeu" required>
+                                            <option value="" disabled selected>Select user type</option>
+                                            <option value="JOUEUR">Joueur</option>
+                                            <option value="COACH">Coach</option>
+                                            <option value="ADMIN">Administrateur</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form_group">
+                                    <label for="plainPassword">Password</label>
+                                    <input type="password" id="plainPassword" name="plainPassword" class="form_control" placeholder="Enter your password (min. 6 characters)" required>
+                                </div>
+
+                                <div class="file_upload">
+                                    <label for="photo_profilu">Profile Picture</label>
+                                    <div class="file_upload_btn">
+                                        <span>Choose File</span>
+                                        <input type="file" id="photo_profilu" name="photo_profilu" accept="image/jpeg, image/png">
+                                    </div>
+                                    <div class="file_name" id="fileName">No file selected</div>
+                                </div>
+
+                                <div class="terms_checkbox">
+                                    <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                                    <label for="agreeTerms">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
+                                </div>
+
+                                <button type="submit" class="signup_btn">Create Account</button>
+                                
+                                <div class="form_footer">
+                                    <p>Already have an account? <a href="signin.html">Sign In</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Sign Up Section End -->
+
+        <!--::footer_part start::-->
+        <footer class="footer_part">
+            <div class="footer_top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="single_footer_part">
+                                <a href="index.html" class="footer_logo_iner"> <img src="img/logo.png" alt="#"> </a>
+                                <p>Heaven fruitful doesn't over lesser days appear creeping seasons so behold bearing
+                                    days
+                                    open
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="single_footer_part">
+                                <h4>Contact Info</h4>
+                                <p>Address : Your address goes
+                                    here, your demo address.
+                                    Bangladesh.</p>
+                                <p>Phone : +8880 44338899</p>
+                                <p>Email : info@colorlib.com</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="single_footer_part">
+                                <h4>Important Link</h4>
+                                <ul class="list-unstyled">
+                                    <li><a href=""> WHMCS-bridge</a></li>
+                                    <li><a href="">Search Domain</a></li>
+                                    <li><a href="">My Account</a></li>
+                                    <li><a href="">Shopping Cart</a></li>
+                                    <li><a href="">Our Shop</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="single_footer_part">
+                                <h4>Newsletter</h4>
+                                <p>Heaven fruitful doesn't over lesser in days. Appear creeping seasons deve behold
+                                    bearing
+                                    days
+                                    open
+                                </p>
+                                <div id="mc_embed_signup">
+                                    <form target="_blank"
+                                        action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                                        method="get" class="subscribe_form relative mail_part">
+                                        <input type="email" name="email" id="newsletter-form-email"
+                                            placeholder="Email Address" class="placeholder hide-on-focus"
+                                            onfocus="this.placeholder = ''"
+                                            onblur="this.placeholder = ' Email Address '">
+                                        <button type="submit" name="submit" id="newsletter-submit"
+                                            class="email_icon newsletter-submit button-contactForm"><i
+                                                class="far fa-paper-plane"></i></button>
+                                        <div class="mt-10 info"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copygight_text">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <div class="copyright_text">
+                                <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="footer_icon social_icon">
+                                <ul class="list-unstyled">
+                                    <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li><a href="#" class="single_social_icon"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#" class="single_social_icon"><i class="fas fa-globe"></i></a></li>
+                                    <li><a href="#" class="single_social_icon"><i class="fab fa-behance"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--::footer_part end::-->
+    </div>
+
+    <!-- jquery plugins here-->
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <!-- popper js -->
+    <script src="js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- easing js -->
+    <script src="js/jquery.magnific-popup.js"></script>
+    <!-- swiper js -->
+    <script src="js/swiper.min.js"></script>
+    <!-- swiper js -->
+    <script src="js/masonry.pkgd.js"></script>
+    <!-- particles js -->
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <!-- slick js -->
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/mail-script.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+    <script>
+        // Show file name when selecting profile picture
+        document.getElementById('photo_profilu').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'No file selected';
+            document.getElementById('fileName').textContent = fileName;
+        });
+    </script>
+</body>
+
+</html>

@@ -185,6 +185,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return (string) $this->mailu;
     }
+    public function getUsername(): string
+{
+    return $this->getUserIdentifier();
+}
 
     public function getRoles(): array
     {

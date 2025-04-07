@@ -79,35 +79,5 @@ final class UtilisateurController extends AbstractController
 
         return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
     }*/
-    #[Route('/signup', name: 'app_signup', methods: ['GET', 'POST'])]
-public function signup(
-    Request $request,
-    UserPasswordHasherInterface $passwordHasher,
-    EntityManagerInterface $entityManager
-): Response {
-    $utilisateur = new Utilisateur();
-    $form = $this->createForm(UtilisateurType::class, $utilisateur);
-    $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        // Hacher le mot de passe
-        $utilisateur->setMdpu(
-            $passwordHasher->hashPassword(
-                $utilisateur,
-                $form->get('mdpu')->getData()
-            )
-        );
-        // Définir le rôle par défaut
-        $utilisateur->setRoles(['ROLE_USER']);
-
-        $entityManager->persist($utilisateur);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_login');
-    }
-
-    return $this->render('utilisateur/signup.html.twig', [
-        'form' => $form,
-    ]);
-}
 }
