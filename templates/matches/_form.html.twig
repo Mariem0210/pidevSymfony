@@ -1,4 +1,51 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.equipe1, 'Équipe 1', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.equipe1, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.equipe2, 'Équipe 2', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.equipe2, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.date_debutm, 'Date du match', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.date_debutm, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.status, 'Statut', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.score, 'Score', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.score, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <button type="submit" class="btn bg-gradient-primary">
+                <i class="material-icons text-sm me-2">save</i>
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+    </div>
 {{ form_end(form) }}

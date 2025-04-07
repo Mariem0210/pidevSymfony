@@ -12,8 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/matches')]
-final class MatchesController extends AbstractController
-{
+final class MatchesController extends AbstractController{
     #[Route(name: 'app_matches_index', methods: ['GET'])]
     public function index(MatchesRepository $matchesRepository): Response
     {
@@ -78,4 +77,4 @@ final class MatchesController extends AbstractController
 
         return $this->redirectToRoute('app_matches_index', [], Response::HTTP_SEE_OTHER);
     }
-}
+} 

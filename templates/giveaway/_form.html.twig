@@ -1,4 +1,32 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'id': 'giveaway-form', 'class': 'row g-3'}}) }}
+    <div class="col-md-6">
+        <div class="input-group input-group-outline mb-4">
+            {{ form_label(form.titreg, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.titreg, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="input-group input-group-outline mb-4">
+            {{ form_label(form.statusg, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.statusg, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="input-group input-group-outline mb-4">
+            {{ form_label(form.descg, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.descg, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="input-group input-group-outline mb-4">
+            {{ form_label(form.datedg, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.datedg, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="input-group input-group-outline mb-4">
+            {{ form_label(form.datefg, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.datefg, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
 {{ form_end(form) }}

@@ -1,50 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tournoi{% endblock %}
+{% block title %}Détails du Tournoi{% endblock %}
 
-{% block body %}
-    <h1>Tournoi</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Idt</th>
-                <td>{{ tournoi.idt }}</td>
-            </tr>
-            <tr>
-                <th>Nomt</th>
-                <td>{{ tournoi.nomt }}</td>
-            </tr>
-            <tr>
-                <th>Descriptiont</th>
-                <td>{{ tournoi.descriptiont }}</td>
-            </tr>
-            <tr>
-                <th>Date_debutt</th>
-                <td>{{ tournoi.dateDebutt ? tournoi.dateDebutt|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date_fint</th>
-                <td>{{ tournoi.dateFint ? tournoi.dateFint|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Nbr_equipes</th>
-                <td>{{ tournoi.nbrEquipes }}</td>
-            </tr>
-            <tr>
-                <th>Prixt</th>
-                <td>{{ tournoi.prixt }}</td>
-            </tr>
-            <tr>
-                <th>Statutt</th>
-                <td>{{ tournoi.statutt }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_tournoi_index') }}">back to list</a>
-
-    <a href="{{ path('app_tournoi_edit', {'idt': tournoi.idt}) }}">edit</a>
-
-    {{ include('tournoi/_delete_form.html.twig') }}
+{% block content %}
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">
+                                <i class="material-icons opacity-10 me-2">sports_esports</i>
+                                Détails du Tournoi
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-4">
+                            <table class="table align-items-center mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">ID</th>
+                                        <td class="px-4">{{ tournoi.idt }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Nom</th>
+                                        <td class="px-4">{{ tournoi.nomt }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Description</th>
+                                        <td class="px-4">{{ tournoi.descriptiont }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Date Début</th>
+                                        <td class="px-4">{{ tournoi.dateDebutt ? tournoi.dateDebutt|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Date Fin</th>
+                                        <td class="px-4">{{ tournoi.dateFint ? tournoi.dateFint|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Nombre d'équipes</th>
+                                        <td class="px-4">{{ tournoi.nbrEquipes }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Prix</th>
+                                        <td class="px-4">{{ tournoi.prixt }} DT</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Statut</th>
+                                        <td class="px-4">{{ tournoi.statutt }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer p-3 d-flex justify-content-between">
+                        <a href="{{ path('app_tournoi_index') }}" class="btn btn-outline-secondary">
+                            <i class="material-icons text-sm me-2">arrow_back</i> Retour à la liste
+                        </a>
+                        <div>
+                            <a href="{{ path('app_tournoi_edit', {'idt': tournoi.idt}) }}" class="btn btn-outline-primary me-2">
+                                <i class="material-icons text-sm me-2">edit</i> Modifier
+                            </a>
+                            {{ include('tournoi/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

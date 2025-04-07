@@ -6,17 +6,35 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
 use App\Repository\MatchesRepository;
 
 #[ORM\Entity(repositoryClass: MatchesRepository::class)]
-#[ORM\Table(name: 'matche')]
+#[ORM\Table(name: '`match`')]
 class Matches
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $idm = null;
+
+    #[ORM\ManyToOne(targetEntity: Tournoi::class, inversedBy: 'matches')]
+    #[ORM\JoinColumn(name: 'idt', referencedColumnName: 'idt')]
+    private ?Tournoi $tournoi = null;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private ?string $equipe1 = null;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private ?string $equipe2 = null;
+
+    #[ORM\Column(type: 'date', nullable: false)]
+    private ?\DateTimeInterface $date_debutm = null;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private ?string $status = null;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private ?string $score = null;
 
     public function getIdm(): ?int
     {
@@ -29,22 +47,16 @@ class Matches
         return $this;
     }
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $idt = null;
-
-    public function getIdt(): ?int
+    public function getTournoi(): ?Tournoi
     {
-        return $this->idt;
+        return $this->tournoi;
     }
 
-    public function setIdt(int $idt): self
+    public function setTournoi(?Tournoi $tournoi): self
     {
-        $this->idt = $idt;
+        $this->tournoi = $tournoi;
         return $this;
     }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $equipe1 = null;
 
     public function getEquipe1(): ?string
     {
@@ -57,9 +69,6 @@ class Matches
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $equipe2 = null;
-
     public function getEquipe2(): ?string
     {
         return $this->equipe2;
@@ -71,22 +80,16 @@ class Matches
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $date_debutm = null;
-
-    public function getDate_debutm(): ?\DateTimeInterface
+    public function getDateDebutm(): ?\DateTimeInterface
     {
         return $this->date_debutm;
     }
 
-    public function setDate_debutm(\DateTimeInterface $date_debutm): self
+    public function setDateDebutm(\DateTimeInterface $date_debutm): self
     {
         $this->date_debutm = $date_debutm;
         return $this;
     }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $status = null;
 
     public function getStatus(): ?string
     {
@@ -99,9 +102,6 @@ class Matches
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $score = null;
-
     public function getScore(): ?string
     {
         return $this->score;
@@ -112,17 +112,4 @@ class Matches
         $this->score = $score;
         return $this;
     }
-
-    public function getDateDebutm(): ?\DateTimeInterface
-    {
-        return $this->date_debutm;
-    }
-
-    public function setDateDebutm(\DateTimeInterface $date_debutm): static
-    {
-        $this->date_debutm = $date_debutm;
-
-        return $this;
-    }
-
 }

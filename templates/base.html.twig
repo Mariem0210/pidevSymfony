@@ -74,27 +74,52 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/virtual-reality.html">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_equipe_' ? 'active bg-gradient-primary' }}" href="{{ path('app_equipe_index') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">view_in_ar</i>
             </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
+            <span class="nav-link-text ms-1">Equipes</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/rtl.html">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_transfert_' ? 'active bg-gradient-primary' }}" href="{{ path('app_transfert_index') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
             </div>
-            <span class="nav-link-text ms-1">RTL</span>
+            <span class="nav-link-text ms-1">Transferts</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/notifications.html">
+         <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_offre_de_rectrutement_' ? 'active bg-gradient-primary' }}" href="{{ path('app_offre_de_rectrutement_index') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">notifications</i>
             </div>
-            <span class="nav-link-text ms-1">Notifications</span>
+            <span class="nav-link-text ms-1">Les Offres de recrutement</span>
+          </a>
+        </li>
+           <li class="nav-item">
+         <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_tournoi_' ? 'active bg-gradient-primary' }}" href="{{ path('app_tournoi_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Les Tournois</span>
+          </a>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_matches_' ? 'active bg-gradient-primary' }}" href="{{ path('app_matches_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Les matchs</span>
+          </a>
+        </li>
+          </li>
+           <li class="nav-item">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_produit_' ? 'active bg-gradient-primary' }}" href="{{ path('app_produit_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Les produits</span>
           </a>
         </li>
         <li class="nav-item mt-3">

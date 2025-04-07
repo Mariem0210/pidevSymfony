@@ -1,46 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}OffreDeRectrutement{% endblock %}
+{% block title %}Détails de l'Offre de Recrutement{% endblock %}
 
-{% block body %}
-    <h1>OffreDeRectrutement</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Ido</th>
-                <td>{{ offre_de_rectrutement.ido }}</td>
-            </tr>
-            <tr>
-                <th>Idu</th>
-                <td>{{ offre_de_rectrutement.idu }}</td>
-            </tr>
-            <tr>
-                <th>Poste_recherche</th>
-                <td>{{ offre_de_rectrutement.posteRecherche }}</td>
-            </tr>
-            <tr>
-                <th>Niveu_requis</th>
-                <td>{{ offre_de_rectrutement.niveuRequis }}</td>
-            </tr>
-            <tr>
-                <th>Salaire_propose</th>
-                <td>{{ offre_de_rectrutement.salairePropose }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ offre_de_rectrutement.status }}</td>
-            </tr>
-            <tr>
-                <th>Contrat</th>
-                <td>{{ offre_de_rectrutement.contrat }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_offre_de_rectrutement_index') }}">back to list</a>
-
-    <a href="{{ path('app_offre_de_rectrutement_edit', {'ido': offre_de_rectrutement.ido}) }}">edit</a>
-
-    {{ include('offre_de_rectrutement/_delete_form.html.twig') }}
+{% block content %}
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">
+                                <i class="material-icons opacity-10 me-2">work_outline</i>
+                                Détails de l'Offre de Recrutement
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-4">
+                            <table class="table align-items-center mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">ID</th>
+                                        <td class="px-4">{{ offre_de_rectrutement.ido }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Responsable</th>
+                                        <td class="px-4">{{ offre_de_rectrutement.idu }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Poste recherché</th>
+                                        <td class="px-4">{{ offre_de_rectrutement.posteRecherche }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Niveau requis</th>
+                                        <td class="px-4">{{ offre_de_rectrutement.niveuRequis }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Salaire proposé</th>
+                                        <td class="px-4">{{ offre_de_rectrutement.salairePropose }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Statut</th>
+                                        <td class="px-4">{{ offre_de_rectrutement.status }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder">Type de contrat</th>
+                                        <td class="px-4">{{ offre_de_rectrutement.contrat }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer p-3 d-flex justify-content-between">
+                        <a href="{{ path('app_offre_de_rectrutement_index') }}" class="btn btn-outline-secondary">
+                            <i class="material-icons text-sm me-2">arrow_back</i> Retour à la liste
+                        </a>
+                        <div>
+                            <a href="{{ path('app_offre_de_rectrutement_edit', {'ido': offre_de_rectrutement.ido}) }}" class="btn btn-outline-primary me-2">
+                                <i class="material-icons text-sm me-2">edit</i> Modifier
+                            </a>
+                            {{ include('offre_de_rectrutement/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,55 +1,97 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur index{% endblock %}
+{% block title %}Liste des Utilisateurs{% endblock %}
 
-{% block body %}
-    <h1>Utilisateur index</h1>
+{% block content %}
+<div class="container-fluid py-4">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Idu</th>
-                <th>Nomu</th>
-                <th>Prenomu</th>
-                <th>Typeu</th>
-                <th>Mailu</th>
-                <th>Mdpu</th>
-                <th>Datenaissanceu</th>
-                <th>Dateinscriu</th>
-                <th>Numtelu</th>
-                <th>Photo_profilu</th>
-                <th>Reset_code</th>
-                <th>Code_expiration</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for utilisateur in utilisateurs %}
-            <tr>
-                <td>{{ utilisateur.idu }}</td>
-                <td>{{ utilisateur.nomu }}</td>
-                <td>{{ utilisateur.prenomu }}</td>
-                <td>{{ utilisateur.typeu }}</td>
-                <td>{{ utilisateur.mailu }}</td>
-                <td>{{ utilisateur.mdpu }}</td>
-                <td>{{ utilisateur.datenaissanceu ? utilisateur.datenaissanceu|date('Y-m-d') : '' }}</td>
-                <td>{{ utilisateur.dateinscriu ? utilisateur.dateinscriu|date('Y-m-d') : '' }}</td>
-                <td>{{ utilisateur.numtelu }}</td>
-                <td>{{ utilisateur.photoProfilu }}</td>
-                <td>{{ utilisateur.resetCode }}</td>
-                <td>{{ utilisateur.codeExpiration ? utilisateur.codeExpiration|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_utilisateur_show', {'idu': utilisateur.idu}) }}">show</a>
-                    <a href="{{ path('app_utilisateur_edit', {'idu': utilisateur.idu}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_utilisateur_new') }}">Create new</a>
+    <!-- Contenu principal -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">
+                            <i class="material-icons opacity-10">people</i>
+                            Liste des Utilisateurs
+                        </h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom & Prénom</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Téléphone</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inscription</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for utilisateur in utilisateurs %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <p class="text-xs font-weight-bold mb-0">{{ utilisateur.idu }}</p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            {% if utilisateur.photoProfilu %}
+                                            <div>
+                                                <img src="{{ asset('uploads/profiles/' ~ utilisateur.photoProfilu) }}" class="avatar avatar-sm me-3 border-radius-lg" alt="Photo profil">
+                                            </div>
+                                            {% endif %}
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ utilisateur.nomu }}</h6>
+                                                <p class="text-xs text-secondary mb-0">{{ utilisateur.prenomu }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-sm bg-gradient-{{ utilisateur.typeu == 'admin' ? 'danger' : 'success' }}">
+                                            {{ utilisateur.typeu }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ utilisateur.mailu }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ utilisateur.numtelu ?? 'N/A' }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ utilisateur.dateinscriu ? utilisateur.dateinscriu|date('d/m/Y') : '' }}</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="{{ path('app_utilisateur_show', {'idu': utilisateur.idu}) }}" class="btn btn-link text-info px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">visibility</i>
+                                        </a>
+                                        <a href="{{ path('app_utilisateur_edit', {'idu': utilisateur.idu}) }}" class="btn btn-link text-dark px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">edit</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7" class="text-center p-4">
+                                        <p class="text-xs font-weight-bold mb-0">Aucun utilisateur trouvé</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer p-3">
+                    <a href="{{ path('app_utilisateur_new') }}" class="btn bg-gradient-primary">
+                        <i class="material-icons text-sm me-2">add</i> Nouvel Utilisateur
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

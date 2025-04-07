@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier Tournoi{% endblock %}
+{% block title %}Nouveau Produit{% endblock %}
 
 {% block content %}
     <div class="container-fluid py-4">
@@ -10,21 +10,21 @@
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                             <h6 class="text-white text-capitalize ps-3">
-                                <i class="material-icons opacity-10 me-2">sports_esports</i>
-                                Modifier le Tournoi
+                                <i class="material-icons opacity-10 me-2">add_box</i>
+                                Créer un nouveau produit
                             </h6>
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="px-4 py-3">
-                            {{ include('tournoi/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+                            {{ include('produit/_form.html.twig') }}
                         </div>
                     </div>
-                    <div class="card-footer p-3 d-flex justify-content-between">
-                        <a href="{{ path('app_tournoi_index') }}" class="btn btn-outline-secondary">
-                            <i class="material-icons text-sm me-2">arrow_back</i> Retour à la liste
+                    <div class="card-footer p-3">
+                        <a href="{{ path('app_produit_index') }}" class="btn btn-outline-secondary">
+                            <i class="material-icons text-sm me-2">arrow_back</i>
+                            Retour à la liste
                         </a>
-                        {{ include('tournoi/_delete_form.html.twig') }}
                     </div>
                 </div>
             </div>

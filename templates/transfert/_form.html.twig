@@ -1,4 +1,56 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'id': 'transfertForm', 'class': 'needs-validation'}}) }}
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.idu, 'Utilisateur', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.idu, {'attr': {'class': 'form-control'}}) }}
+                <span class="text-danger error-message">{{ form_errors(form.idu) }}</span>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.montantt, 'Montant', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.montantt, {'attr': {'class': 'form-control'}}) }}
+                <span class="text-danger error-message">{{ form_errors(form.montantt) }}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.ancienne_equipe, 'Ancienne Équipe', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.ancienne_equipe, {'attr': {'class': 'form-control'}}) }}
+                <span class="text-danger error-message">{{ form_errors(form.ancienne_equipe) }}</span>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.nouvelle_equipe, 'Nouvelle Équipe', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.nouvelle_equipe, {'attr': {'class': 'form-control'}}) }}
+                <span class="text-danger error-message">{{ form_errors(form.nouvelle_equipe) }}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.datet, 'Date Transfert', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.datet, {'attr': {'class': 'form-control'}}) }}
+                <span class="text-danger error-message">{{ form_errors(form.datet) }}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <button type="submit" class="btn bg-gradient-primary">
+                <i class="material-icons text-sm me-2">save</i>
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+    </div>
 {{ form_end(form) }}

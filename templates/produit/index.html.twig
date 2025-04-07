@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Tournois{% endblock %}
+{% block title %}Liste des Produits{% endblock %}
 
 {% block content %}
     <div class="row">
@@ -9,8 +9,8 @@
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">
-                            <i class="material-icons opacity-10 me-2">sports_esports</i>
-                            Gestion des Tournois
+                            <i class="material-icons opacity-10 me-2">inventory_2</i>
+                            Gestion des Produits
                         </h6>
                     </div>
                 </div>
@@ -22,46 +22,46 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Début</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Fin</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Équipes</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stock</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Création</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Catégorie</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            {% for tournoi in tournois %}
+                            {% for produit in produits %}
                                 <tr>
                                     <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.idt }}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.idProduit }}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.nomt }}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.nom }}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.descriptiont|slice(0, 30) ~ (tournoi.descriptiont|length > 30 ? '...' : '') }}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.description|slice(0, 30) ~ (produit.description|length > 30 ? '...' : '') }}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.dateDebutt ? tournoi.dateDebutt|date('Y-m-d') : '' }}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.prix }} DT</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.dateFint ? tournoi.dateFint|date('Y-m-d') : '' }}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.stock }}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.nbrEquipes }}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.dateCreation ? produit.dateCreation|date('Y-m-d') : '' }}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.prixt }}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.categorie }}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.statutt }}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.imageProduit|slice(0, 15) ~ (produit.imageProduit|length > 15 ? '...' : '') }}</p>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="{{ path('app_tournoi_show', {'idt': tournoi.idt}) }}" class="btn btn-link text-info px-3 mb-0">
+                                        <a href="{{ path('app_produit_show', {'id_produit': produit.id_produit}) }}" class="btn btn-link text-info px-3 mb-0">
                                             <i class="material-icons text-sm me-2">visibility</i>Voir
                                         </a>
-                                        <a href="{{ path('app_tournoi_edit', {'idt': tournoi.idt}) }}" class="btn btn-link text-dark px-3 mb-0">
+                                        <a href="{{ path('app_produit_edit', {'id_produit': produit.id_produit}) }}" class="btn btn-link text-dark px-3 mb-0">
                                             <i class="material-icons text-sm me-2">edit</i>Modifier
                                         </a>
                                     </td>
@@ -69,7 +69,7 @@
                             {% else %}
                                 <tr>
                                     <td colspan="9" class="text-center p-4">
-                                        <p class="text-xs font-weight-bold mb-0">Aucun tournoi trouvé</p>
+                                        <p class="text-xs font-weight-bold mb-0">Aucun produit trouvé</p>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -78,8 +78,8 @@
                     </div>
                 </div>
                 <div class="card-footer p-3">
-                    <a href="{{ path('app_tournoi_new') }}" class="btn bg-gradient-primary">
-                        <i class="material-icons text-sm me-2">add</i> Nouveau Tournoi
+                    <a href="{{ path('app_produit_new') }}" class="btn bg-gradient-primary">
+                        <i class="material-icons text-sm me-2">add</i> Nouveau Produit
                     </a>
                 </div>
             </div>

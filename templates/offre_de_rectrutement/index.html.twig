@@ -1,45 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}OffreDeRectrutement index{% endblock %}
+{% block title %}Liste des Offres de Recrutement{% endblock %}
 
-{% block body %}
-    <h1>OffreDeRectrutement index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Ido</th>
-                <th>Idu</th>
-                <th>Poste_recherche</th>
-                <th>Niveu_requis</th>
-                <th>Salaire_propose</th>
-                <th>Status</th>
-                <th>Contrat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for offre_de_rectrutement in offre_de_rectrutements %}
-            <tr>
-                <td>{{ offre_de_rectrutement.ido }}</td>
-                <td>{{ offre_de_rectrutement.idu }}</td>
-                <td>{{ offre_de_rectrutement.posteRecherche }}</td>
-                <td>{{ offre_de_rectrutement.niveuRequis }}</td>
-                <td>{{ offre_de_rectrutement.salairePropose }}</td>
-                <td>{{ offre_de_rectrutement.status }}</td>
-                <td>{{ offre_de_rectrutement.contrat }}</td>
-                <td>
-                    <a href="{{ path('app_offre_de_rectrutement_show', {'ido': offre_de_rectrutement.ido}) }}">show</a>
-                    <a href="{{ path('app_offre_de_rectrutement_edit', {'ido': offre_de_rectrutement.ido}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_offre_de_rectrutement_new') }}">Create new</a>
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Gestion des Offres de Recrutement</h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Utilisateur</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Poste recherché</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Niveau requis</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salaire</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type de contrat</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for offre in offre_de_rectrutements %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <p class="text-xs font-weight-bold mb-0">{{ offre.ido }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ offre.idu }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ offre.posteRecherche }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ offre.niveuRequis }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ offre.salairePropose }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ offre.status }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ offre.contrat }}</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="{{ path('app_offre_de_rectrutement_show', {'ido': offre.ido}) }}" class="btn btn-link text-info px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">visibility</i>Voir
+                                        </a>
+                                        <a href="{{ path('app_offre_de_rectrutement_edit', {'ido': offre.ido}) }}" class="btn btn-link text-dark px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">edit</i>Modifier
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="8" class="text-center p-4">
+                                        <p class="text-xs font-weight-bold mb-0">Aucune offre trouvée</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer p-3">
+                    <a href="{{ path('app_offre_de_rectrutement_new') }}" class="btn bg-gradient-primary">
+                        <i class="material-icons text-sm me-2">add</i> Nouvelle Offre
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
