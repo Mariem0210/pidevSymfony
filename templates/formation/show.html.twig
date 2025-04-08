@@ -1,54 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formation{% endblock %}
+{% block title %}Détails de la Formation{% endblock %}
 
-{% block body %}
-    <h1>Formation</h1>
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Détails de la Formation</h6>
+                    </div>
+                </div>
+                <div class="card-body px-4 pb-2">
+                    <table class="table align-items-center mb-0">
+                        <tbody>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">IDF</th>
+                                <td class="px-4">{{ formation.idf }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                                <td class="px-4">{{ formation.nomf }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                                <td class="px-4">{{ formation.descriptionf }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Niveau</th>
+                                <td class="px-4">{{ formation.niveauf }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date début</th>
+                               <td class="px-4">{{ formation.dateDebut ? formation.dateDebut|date('Y-m-d') : '' }}</td>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Idf</th>
-                <td>{{ formation.idf }}</td>
-            </tr>
-            <tr>
-                <th>Nomf</th>
-                <td>{{ formation.nomf }}</td>
-            </tr>
-            <tr>
-                <th>Descriptionf</th>
-                <td>{{ formation.descriptionf }}</td>
-            </tr>
-            <tr>
-                <th>Niveauf</th>
-                <td>{{ formation.niveauf }}</td>
-            </tr>
-            <tr>
-                <th>DateDebutf</th>
-                <td>{{ formation.dateDebut|date('Y-m-d') }}</td>
-            </tr>
-            <tr>
-                <th>DateFinf</th>
-                <td>{{ formation.dateFin|date('Y-m-d') }}</td>
-            </tr>
-            <tr>
-                <th>Capacitef</th>
-                <td>{{ formation.capacitef }}</td>
-            </tr>
-            <tr>
-                <th>Prixf</th>
-                <td>{{ formation.prixf }}</td>
-            </tr>
-            <tr>
-                <th>Idu</th>
-                <td>{{ formation.idu }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_formation_index') }}">back to list</a>
-
-    <a href="{{ path('app_formation_edit', {'idf': formation.idf}) }}">edit</a>
-
-    {{ include('formation/_delete_form.html.twig') }}
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date fin</th>
+                                <td class="px-4">{{ formation.dateFin ? formation.dateFin|date('Y-m-d') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Capacité</th>
+                                <td class="px-4">{{ formation.capacitef }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
+                                <td class="px-4">{{ formation.prixf }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID Utilisateur</th>
+                                <td class="px-4">{{ formation.idu }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer p-3 d-flex justify-content-between">
+                    <a href="{{ path('app_formation_index') }}" class="btn btn-outline-secondary">
+                        <i class="material-icons text-sm me-2">arrow_back</i> Retour à la liste
+                    </a>
+                    <div>
+                        <a href="{{ path('app_formation_edit', {'idf': formation.idf}) }}" class="btn btn-outline-primary me-2">
+                            <i class="material-icons text-sm me-2">edit</i> Modifier
+                        </a>
+                        {{ include('formation/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

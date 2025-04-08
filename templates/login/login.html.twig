@@ -1,0 +1,233 @@
+{% extends 'signinup.html.twig' %}
+
+{% block title %}Sign In - Gaming{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            background: linear-gradient(to bottom, #0f1117, #1e222e);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .signin_section {
+            padding: 100px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .signin_form {
+            background-color: rgba(45, 48, 58, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            margin-bottom: 50px;
+        }
+
+        .signin_form h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .form_group {
+            margin-bottom: 25px;
+        }
+
+        .form_group label {
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .form_control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form_control:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: #ff0000;
+            outline: none;
+        }
+
+        .signin_btn {
+            background: linear-gradient(to right, #ff0000, #ff5e00);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .signin_btn:hover {
+            background: linear-gradient(to right, #ff5e00, #ff0000);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+        }
+
+        .form_footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .form_footer a {
+            color: #ff5e00;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .form_footer a:hover {
+            color: #ff0000;
+            text-decoration: underline;
+        }
+
+        .signin_social {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .signin_social p {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .social_icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social_icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .social_icon:hover {
+            background-color: #ff0000;
+            transform: translateY(-5px);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="body_bg">
+    <section class="signin_section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="signin_form">
+                        <h2>Sign In</h2>
+                        <form method="post">
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
+                            <div class="form_group">
+                                <label for="inputEmail">Email Address</label>
+                                <input type="email" 
+                                       value="{{ last_username|default('') }}" 
+                                       name="_mailu" 
+                                       id="inputEmail" 
+                                       class="form_control" 
+                                       required 
+                                       autofocus>
+                            </div>
+
+                            <div class="form_group">
+                                <label for="inputPassword">Password</label>
+                                <input type="password" 
+                                       name="_password" 
+                                       id="inputPassword" 
+                                       class="form_control" 
+                                       required>
+                            </div>
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                            <button type="submit" class="signin_btn">Sign In</button>
+                            
+                            <div class="form_footer">
+                                <div class="remember">
+                                    <input type="checkbox" id="remember_me" name="_remember_me">
+                                    <label for="remember_me">Remember me</label>
+                                </div>
+                                <a href="{{ path('app_register') }}">Forgot Password?</a>
+                            </div>
+                        </form>
+
+                        <div class="signin_social">
+                            <p>Or sign in with</p>
+                            <div class="social_icons">
+                                <a href="{{ path('app_register') }}" class="social_icon">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="{{ path('app_register') }}" class="social_icon">
+                                    <i class="fab fa-google"></i>
+                                </a>
+                                <a href="{{ path('app_register') }}" class="social_icon">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                            <p class="mt-4">Don't have an account? <a href="{{ path('app_register') }}">Sign Up</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/jquery-1.12.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion de l'upload de fichier
+            const fileInput = document.querySelector('input[type="file"]');
+            if (fileInput) {
+                fileInput.addEventListener('change', function() {
+                    const fileName = this.files[0]?.name || 'No file selected';
+                    document.getElementById('fileName').textContent = fileName;
+                });
+            }
+        });
+    </script>
+{% endblock %}
