@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CertificatController extends AbstractController
 {
     #[Route(name: 'app_certificat_index', methods: ['GET'])]
-    #[Route(name: 'app_certificat1_index', methods: ['GET'])]
+    
     public function index(CertificatRepository $certificatRepository): Response
     {
         return $this->render('certificat/index.html.twig', [

@@ -141,4 +141,20 @@ final class FormationController extends AbstractController
 
         return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/frontend/formation', name: 'app_formation_index_frontend', methods: ['GET'])]
+    public function indexFrontend(FormationRepository $formationRepository): Response
+    {
+        return $this->render('formation/frontend/index.html.twig', [
+            'formations' => $formationRepository->findAll(),
+        ]);
+    }
+    
+    #[Route('/frontend/formation/{idf}', name: 'app_formation_show_frontend', methods: ['GET'])]
+    public function showFrontend(Formation $formation): Response
+    {
+        return $this->render('formation/frontend/show.html.twig', [
+            'formation' => $formation,
+        ]);
+    }
+    
 }

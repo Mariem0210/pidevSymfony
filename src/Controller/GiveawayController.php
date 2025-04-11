@@ -78,4 +78,23 @@ final class GiveawayController extends AbstractController
 
         return $this->redirectToRoute('app_giveaway_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/frontend/giveaway', name: 'app_giveaway_index_frontend', methods: ['GET'])]
+public function indexFrontend(GiveawayRepository $giveawayRepository): Response
+{
+    // Récupérer tous les giveaways
+    $giveaways = $giveawayRepository->findAll();
+
+    // Retourner la vue frontend
+    return $this->render('giveaway/frontend/index.html.twig', [
+        'giveaways' => $giveaways,
+    ]);
+}
+#[Route('/frontend/giveaway/{idg}', name: 'app_giveaway_show_frontend', methods: ['GET'])]
+public function showFrontend(Giveaway $giveaway): Response
+{
+    // Retourner la vue frontend avec les détails du giveaway
+    return $this->render('giveaway/frontend/show.html.twig', [
+        'giveaway' => $giveaway,
+    ]);
+}
 }
