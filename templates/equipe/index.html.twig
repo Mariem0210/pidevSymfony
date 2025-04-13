@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Équipes{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <h6 class="text-white text-capitalize ps-3">Liste des Équipes</h6>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ideq</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom équipe</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date création</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Idu</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for equipe in equipes %}
+                            <tr>
+                                <td class="ps-4">{{ equipe.ideq }}</td>
+                                <td class="ps-4">{{ equipe.nomEquipe }}</td>
+                                <td class="ps-4">{{ equipe.dateCreation ? equipe.dateCreation|date('Y-m-d') : '' }}</td>
+                                <td class="ps-4">{{ equipe.idu }}</td>
+                                <td class="ps-4">
+                                    <a href="{{ path('app_equipe_show', {'ideq': equipe.ideq}) }}" class="btn btn-info btn-sm">
+                                        <i class="material-icons text-sm">visibility</i>
+                                        <span class="d-none d-md-inline-block ms-1">Voir</span>
+                                    </a>
+                                    <a href="{{ path('app_equipe_edit', {'ideq': equipe.ideq}) }}" class="btn btn-warning btn-sm">
+                                        <i class="material-icons text-sm">edit</i>
+                                        <span class="d-none d-md-inline-block ms-1">Modifier</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center py-4">Aucun enregistrement trouvé</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer p-3">
+                <a href="{{ path('app_equipe_new') }}" class="btn bg-gradient-primary">
+                    <i class="material-icons text-sm me-2">add</i> Créer une nouvelle équipe
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

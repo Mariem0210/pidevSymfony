@@ -1,0 +1,7 @@
+<form method="post" action="{{ path('app_giveaway_delete', {'idg': giveaway.idg}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce giveaway?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ giveaway.idg) }}">
+    <button class="btn bg-gradient-danger">
+        <i class="material-icons opacity-10">delete</i>
+        Supprimer
+    </button>
+</form>
