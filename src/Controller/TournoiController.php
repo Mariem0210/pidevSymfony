@@ -12,25 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/tournoi')]
-final class TournoiController extends AbstractController{
-    
+final class TournoiController extends AbstractController
+{
     #[Route(name: 'app_tournoi_index', methods: ['GET'])]
-    public function index(Request $request, TournoiRepository $tournoiRepository): Response
+    public function index(TournoiRepository $tournoiRepository): Response
     {
-        // Récupérer le terme de recherche et l'ordre de tri (ascendant ou descendant)
-        $searchTerm = $request->query->get('search', '');
-        $sortOrder = $request->query->get('sort', 'asc'); // Tri par défaut sur 'asc'
-
-        // Filtrer les tournois avec le terme de recherche et trier par prixt
-        $tournois = $tournoiRepository->findBySearchTermAndSort($searchTerm, $sortOrder);
-
         return $this->render('tournoi/index.html.twig', [
-            'tournois' => $tournois,
-            'searchTerm' => $searchTerm,  // Passe le terme de recherche à la vue
-            'sortOrder' => $sortOrder,    // Passe l'ordre de tri à la vue
+            'tournois' => $tournoiRepository->findAll(),
         ]);
     }
-
 
     #[Route('/new', name: 'app_tournoi_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -87,5 +77,20 @@ final class TournoiController extends AbstractController{
         }
 
         return $this->redirectToRoute('app_tournoi_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/frontend/tournoi', name: 'app_tournoi_index_frontend', methods: ['GET'])]
+    public function indexFrontend(TournoiRepository $tournoiRepository): Response
+    {
+        return $this->render('tournoi/frontend/index.html.twig', [
+            'tournois' => $tournoiRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/frontend/tournoi/{idt}', name: 'app_tournoi_show_frontend', methods: ['GET'])]
+    public function showFrontend(Tournoi $tournoi): Response
+    {
+        return $this->render('tournoi/frontend/show.html.twig', [
+            'tournoi' => $tournoi,
+        ]);
     }
 }

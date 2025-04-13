@@ -1,42 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Matches{% endblock %}
+{% block title %}Détails du Match{% endblock %}
 
-{% block body %}
-    <h1>Matches</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Idm</th>
-                <td>{{ match.idm }}</td>
-            </tr>
-            <tr>
-                <th>Equipe1</th>
-                <td>{{ match.equipe1 }}</td>
-            </tr>
-            <tr>
-                <th>Equipe2</th>
-                <td>{{ match.equipe2 }}</td>
-            </tr>
-            <tr>
-                <th>Date_debutm</th>
-                <td>{{ match.dateDebutm ? match.dateDebutm|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ match.status }}</td>
-            </tr>
-            <tr>
-                <th>Score</th>
-                <td>{{ match.score }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_matches_index') }}">back to list</a>
-
-    <a href="{{ path('app_matches_edit', {'idm': match.idm}) }}">edit</a>
-
-    {{ include('matches/_delete_form.html.twig') }}
+{% block content %}
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">
+                                <i class="material-icons opacity-10 me-2">sports_soccer</i>
+                                Détails du Match
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-4">
+                            <table class="table align-items-center mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID Match</th>
+                                        <td class="px-4">{{ match.idm }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Équipe 1</th>
+                                        <td class="px-4">{{ match.equipe1 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Équipe 2</th>
+                                        <td class="px-4">{{ match.equipe2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Date du Match</th>
+                                        <td class="px-4">{{ match.dateDebutm ? match.dateDebutm|date('Y-m-d H:i') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Statut</th>
+                                        <td class="px-4">{{ match.status }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Score</th>
+                                        <td class="px-4">{{ match.score ?? 'À venir' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer p-3 d-flex justify-content-between">
+                        <a href="{{ path('app_matches_index') }}" class="btn btn-outline-secondary">
+                            <i class="material-icons text-sm me-2">arrow_back</i> Retour à la liste
+                        </a>
+                        <div>
+                            <a href="{{ path('app_matches_edit', {'idm': match.idm}) }}" class="btn btn-outline-primary me-2">
+                                <i class="material-icons text-sm me-2">edit</i> Modifier
+                            </a>
+                            {{ include('matches/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -126,31 +127,32 @@ class Produit
         return $this;
     }
 
-    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'produit')]
-    private Collection $paniers;
-
-    /**
-     * @return Collection<int, Panier>
-     */
-    public function getPaniers(): Collection
+    public function getIdProduit(): ?int
     {
-        if (!$this->paniers instanceof Collection) {
-            $this->paniers = new ArrayCollection();
-        }
-        return $this->paniers;
+        return $this->id_produit;
     }
 
-    public function addPanier(Panier $panier): self
+    public function getDateCreation(): ?\DateTimeInterface
     {
-        if (!$this->getPaniers()->contains($panier)) {
-            $this->getPaniers()->add($panier);
-        }
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(?\DateTimeInterface $date_creation): static
+    {
+        $this->date_creation = $date_creation;
+
         return $this;
     }
 
-    public function removePanier(Panier $panier): self
+    public function getImageProduit(): ?string
     {
-        $this->getPaniers()->removeElement($panier);
+        return $this->image_produit;
+    }
+
+    public function setImageProduit(?string $image_produit): static
+    {
+        $this->image_produit = $image_produit;
+
         return $this;
     }
 

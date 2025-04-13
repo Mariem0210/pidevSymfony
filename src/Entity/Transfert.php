@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -95,6 +96,30 @@ class Transfert
     public function setDatet(\DateTimeInterface $datet): self
     {
         $this->datet = $datet;
+        return $this;
+    }
+
+    public function getAncienneEquipe(): ?string
+    {
+        return $this->ancienne_equipe;
+    }
+
+    public function setAncienneEquipe(string $ancienne_equipe): static
+    {
+        $this->ancienne_equipe = $ancienne_equipe;
+
+        return $this;
+    }
+
+    public function getNouvelleEquipe(): ?string
+    {
+        return $this->nouvelle_equipe;
+    }
+
+    public function setNouvelleEquipe(string $nouvelle_equipe): static
+    {
+        $this->nouvelle_equipe = $nouvelle_equipe;
+
         return $this;
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,33 +29,31 @@ class Panier
         return $this;
     }
 
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'paniers')]
-    #[ORM\JoinColumn(name: 'idu', referencedColumnName: 'idu')]
-    private ?Utilisateur $utilisateur = null;
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $idu = null;
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getIdu(): ?int
     {
-        return $this->utilisateur;
+        return $this->idu;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self
+    public function setIdu(int $idu): self
     {
-        $this->utilisateur = $utilisateur;
+        $this->idu = $idu;
         return $this;
     }
 
-    #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'paniers')]
-    #[ORM\JoinColumn(name: 'id_produit', referencedColumnName: 'id_produit')]
-    private ?Produit $produit = null;
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $id_produit = null;
 
-    public function getProduit(): ?Produit
+    public function getId_produit(): ?int
     {
-        return $this->produit;
+        return $this->id_produit;
     }
 
-    public function setProduit(?Produit $produit): self
+    public function setId_produit(int $id_produit): self
     {
-        $this->produit = $produit;
+        $this->id_produit = $id_produit;
         return $this;
     }
 
@@ -83,6 +82,35 @@ class Panier
     public function setDate_ajout(\DateTimeInterface $date_ajout): self
     {
         $this->date_ajout = $date_ajout;
+        return $this;
+    }
+
+    public function getIdPanier(): ?int
+    {
+        return $this->id_panier;
+    }
+
+    public function getIdProduit(): ?int
+    {
+        return $this->id_produit;
+    }
+
+    public function setIdProduit(int $id_produit): static
+    {
+        $this->id_produit = $id_produit;
+
+        return $this;
+    }
+
+    public function getDateAjout(): ?\DateTimeInterface
+    {
+        return $this->date_ajout;
+    }
+
+    public function setDateAjout(\DateTimeInterface $date_ajout): static
+    {
+        $this->date_ajout = $date_ajout;
+
         return $this;
     }
 

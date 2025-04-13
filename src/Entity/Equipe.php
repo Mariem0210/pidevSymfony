@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -67,6 +68,30 @@ class Equipe
     public function setIdu(?int $idu): self
     {
         $this->idu = $idu;
+        return $this;
+    }
+
+    public function getNomEquipe(): ?string
+    {
+        return $this->nom_equipe;
+    }
+
+    public function setNomEquipe(string $nom_equipe): static
+    {
+        $this->nom_equipe = $nom_equipe;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $date_creation): static
+    {
+        $this->date_creation = $date_creation;
+
         return $this;
     }
 

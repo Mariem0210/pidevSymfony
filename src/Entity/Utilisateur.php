@@ -2,34 +2,63 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
 use App\Repository\UtilisateurRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-#[ORM\Table(name: 'utilisateur')]
-class Utilisateur
+#[UniqueEntity(fields: ['mailu'], message: 'There is already an account with this Mail')]
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: "integer")]
     private ?int $idu = null;
+
+    #[ORM\Column(type: "string", length: 30)]
+    private ?string $nomu = null;
+
+    #[ORM\Column(type: "string", length: 30)]
+    private ?string $prenomu = null;
+
+    #[ORM\Column(type: "string", length: 30)]
+    private ?string $typeu = null;
+
+    #[ORM\Column(type: "string", length: 40, unique: true)]
+    private ?string $mailu = null;
+
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $mdpu = null;
+
+    #[ORM\Column(type: "date")]
+    private ?\DateTimeInterface $datenaissanceu = null;
+
+    #[ORM\Column(type: "date", options: ["default" => "CURRENT_TIMESTAMP"])]
+    private ?\DateTimeInterface $dateinscriu = null;
+
+    #[ORM\Column(type: "integer")]
+    private ?int $numtelu = null;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $photo_profilu = null;
+
+    #[ORM\Column(type: "string", length: 4, nullable: true)]
+    private ?string $reset_code = null;
+
+    #[ORM\Column(type: "datetime", options: ["default" => "CURRENT_TIMESTAMP", "onUpdate" => "CURRENT_TIMESTAMP"])]
+    private ?\DateTimeInterface $code_expiration = null;
+
+    #[ORM\Column(type: "json")]
+    private array $roles = [];
 
     public function getIdu(): ?int
     {
         return $this->idu;
     }
-
-    public function setIdu(int $idu): self
-    {
-        $this->idu = $idu;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $nomu = null;
 
     public function getNomu(): ?string
     {
@@ -42,9 +71,6 @@ class Utilisateur
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $prenomu = null;
-
     public function getPrenomu(): ?string
     {
         return $this->prenomu;
@@ -55,9 +81,6 @@ class Utilisateur
         $this->prenomu = $prenomu;
         return $this;
     }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $typeu = null;
 
     public function getTypeu(): ?string
     {
@@ -70,9 +93,6 @@ class Utilisateur
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $mailu = null;
-
     public function getMailu(): ?string
     {
         return $this->mailu;
@@ -83,9 +103,6 @@ class Utilisateur
         $this->mailu = $mailu;
         return $this;
     }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $mdpu = null;
 
     public function getMdpu(): ?string
     {
@@ -98,9 +115,6 @@ class Utilisateur
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $datenaissanceu = null;
-
     public function getDatenaissanceu(): ?\DateTimeInterface
     {
         return $this->datenaissanceu;
@@ -111,9 +125,6 @@ class Utilisateur
         $this->datenaissanceu = $datenaissanceu;
         return $this;
     }
-
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $dateinscriu = null;
 
     public function getDateinscriu(): ?\DateTimeInterface
     {
@@ -126,9 +137,6 @@ class Utilisateur
         return $this;
     }
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $numtelu = null;
-
     public function getNumtelu(): ?int
     {
         return $this->numtelu;
@@ -140,102 +148,92 @@ class Utilisateur
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $photo_profilu = null;
-
-    public function getPhoto_profilu(): ?string
+    public function getPhotoProfilu(): ?string
     {
         return $this->photo_profilu;
     }
 
-    public function setPhoto_profilu(?string $photo_profilu): self
+    public function setPhotoProfilu(?string $photo_profilu): self
     {
         $this->photo_profilu = $photo_profilu;
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $reset_code = null;
-
-    public function getReset_code(): ?string
+    public function getResetCode(): ?string
     {
         return $this->reset_code;
     }
 
-    public function setReset_code(?string $reset_code): self
+    public function setResetCode(?string $reset_code): self
     {
         $this->reset_code = $reset_code;
         return $this;
     }
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $code_expiration = null;
-
-    public function getCode_expiration(): ?\DateTimeInterface
+    public function getCodeExpiration(): ?\DateTimeInterface
     {
         return $this->code_expiration;
     }
 
-    public function setCode_expiration(?\DateTimeInterface $code_expiration): self
+    public function setCodeExpiration(\DateTimeInterface $code_expiration): self
     {
         $this->code_expiration = $code_expiration;
         return $this;
     }
 
-    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'utilisateur')]
-    private Collection $commandes;
-
-    /**
-     * @return Collection<int, Commande>
-     */
-    public function getCommandes(): Collection
+    public function getUserIdentifier(): string
     {
-        if (!$this->commandes instanceof Collection) {
-            $this->commandes = new ArrayCollection();
-        }
-        return $this->commandes;
+        return (string) $this->mailu;
     }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->getCommandes()->contains($commande)) {
-            $this->getCommandes()->add($commande);
-        }
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        $this->getCommandes()->removeElement($commande);
-        return $this;
-    }
-
-    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'utilisateur')]
-    private Collection $paniers;
-
-    /**
-     * @return Collection<int, Panier>
-     */
-    public function getPaniers(): Collection
-    {
-        if (!$this->paniers instanceof Collection) {
-            $this->paniers = new ArrayCollection();
-        }
-        return $this->paniers;
-    }
-
-    public function addPanier(Panier $panier): self
-    {
-        if (!$this->getPaniers()->contains($panier)) {
-            $this->getPaniers()->add($panier);
-        }
-        return $this;
-    }
-
-    public function removePanier(Panier $panier): self
-    {
-        $this->getPaniers()->removeElement($panier);
-        return $this;
-    }
-
+    public function getUsername(): string
+{
+    return $this->getUserIdentifier();
 }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->mdpu;
+    }
+
+    public function setPassword(string $mdpu): self
+    {
+        $this->mdpu = $mdpu;
+        return $this;
+    }
+
+    public function eraseCredentials(): void
+    {
+    }
+    public function __construct()
+    {
+        $this->dateinscriu = new \DateTime(); // Date/heure actuelle par défaut
+    }
+    public function synchronizeTypeAndRoles(): void
+{
+    switch ($this->typeu) {
+        case 'ADMIN':
+            $this->roles = ['ROLE_ADMIN'];
+            break;
+        case 'COACH':
+            $this->roles = ['ROLE_COACH'];
+            break;
+        case 'JOUEUR':
+            $this->roles = ['ROLE_JOUEUR'];
+            break;
+        default:
+            $this->roles = ['ROLE_USER'];
+    }
+}}

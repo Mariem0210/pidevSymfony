@@ -1,59 +1,88 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tournoi {% endblock %}
+{% block title %}Liste des Tournois{% endblock %}
 
-{% block body %}
-    <h1>Tournoi </h1>
-
-    <!-- Formulaire de recherche -->
-    <form method="get" action="{{ path('app_tournoi_index') }}">
-        <input type="text" name="search" value="{{ searchTerm }}" placeholder="Rechercher par nom" />
-        <button type="submit">Rechercher</button>
-    </form>
-
-    <!-- Liens pour trier par prix -->
-    <div>
-        <a href="{{ path('app_tournoi_index', {'search': searchTerm, 'sort': 'asc'}) }}">Tri croissant par prix</a>
-        <a href="{{ path('app_tournoi_index', {'search': searchTerm, 'sort': 'desc'}) }}">Tri décroissant par prix</a>
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">
+                            <i class="material-icons opacity-10 me-2">sports_esports</i>
+                            Gestion des Tournois
+                        </h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Début</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Fin</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Équipes</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for tournoi in tournois %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.idt }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.nomt }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.descriptiont|slice(0, 30) ~ (tournoi.descriptiont|length > 30 ? '...' : '') }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.dateDebutt ? tournoi.dateDebutt|date('Y-m-d') : '' }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.dateFint ? tournoi.dateFint|date('Y-m-d') : '' }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.nbrEquipes }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.prixt }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ tournoi.statutt }}</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="{{ path('app_tournoi_show', {'idt': tournoi.idt}) }}" class="btn btn-link text-info px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">visibility</i>Voir
+                                        </a>
+                                        <a href="{{ path('app_tournoi_edit', {'idt': tournoi.idt}) }}" class="btn btn-link text-dark px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">edit</i>Modifier
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9" class="text-center p-4">
+                                        <p class="text-xs font-weight-bold mb-0">Aucun tournoi trouvé</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer p-3">
+                    <a href="{{ path('app_tournoi_new') }}" class="btn bg-gradient-primary">
+                        <i class="material-icons text-sm me-2">add</i> Nouveau Tournoi
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Idt</th>
-                <th>Nomt</th>
-                <th>Descriptiont</th>
-                <th>Date_debutt</th>
-                <th>Date_fint</th>
-                <th>Nbr_equipes</th>
-                <th>Prixt</th>
-                <th>Statutt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tournoi in tournois %}
-            <tr>
-                <td>{{ tournoi.idt }}</td>
-                <td>{{ tournoi.nomt }}</td>
-                <td>{{ tournoi.descriptiont }}</td>
-                <td>{{ tournoi.dateDebutt ? tournoi.dateDebutt|date('Y-m-d') : '' }}</td>
-                <td>{{ tournoi.dateFint ? tournoi.dateFint|date('Y-m-d') : '' }}</td>
-                <td>{{ tournoi.nbrEquipes }}</td>
-                <td>{{ tournoi.prixt }}</td>
-                <td>{{ tournoi.statutt }}</td>
-                <td>
-                    <a href="{{ path('app_tournoi_show', {'idt': tournoi.idt}) }}">show</a>
-                    <a href="{{ path('app_tournoi_edit', {'idt': tournoi.idt}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_tournoi_new') }}">Create new</a>
 {% endblock %}

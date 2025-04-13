@@ -1,0 +1,50 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Liste des formations{% endblock %}
+
+{% block content %}
+<!-- banner part start-->
+<section class="banner_part">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-10">
+                <div class="banner_text text-center">
+                    <div class="banner_text_iner">
+                        <h1>Nos Formations</h1>
+                        <p>Découvrez notre catalogue de formations pour développer vos compétences</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner part end-->
+
+<!-- formations list section -->
+<section class="learning_part section_padding">
+    <div class="container">
+        <div class="row">
+            {% for formation in formations %}
+                <div class="col-md-4 mb-4">
+                    <div class="single_gaming gaming_section">
+                        
+                        <div class="learning_member_text">
+                            <h4>{{ formation.nomf }}</h4>
+                            <p>{{ formation.descriptionf|slice(0, 120) }}{% if formation.descriptionf|length > 120 %}...{% endif %}</p>
+                            <a href="{{ path('app_formation_show_frontend', {'idf': formation.idf}) }}" class="btn_2">Voir Détails</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center">
+                    <div class="no_data">
+                        <h3>Aucune formation disponible pour le moment.</h3>
+                        <p>Veuillez revenir ultérieurement pour découvrir nos nouvelles formations.</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- formations list section end -->
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -56,18 +57,46 @@ class Commande
         return $this;
     }
 
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'commandes')]
-    #[ORM\JoinColumn(name: 'idu', referencedColumnName: 'idu')]
-    private ?Utilisateur $utilisateur = null;
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $idu = null;
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getIdu(): ?int
     {
-        return $this->utilisateur;
+        return $this->idu;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self
+    public function setIdu(int $idu): self
     {
-        $this->utilisateur = $utilisateur;
+        $this->idu = $idu;
+        return $this;
+    }
+
+    public function getIdCommande(): ?int
+    {
+        return $this->id_commande;
+    }
+
+    public function getDateCommande(): ?\DateTimeInterface
+    {
+        return $this->date_commande;
+    }
+
+    public function setDateCommande(?\DateTimeInterface $date_commande): static
+    {
+        $this->date_commande = $date_commande;
+
+        return $this;
+    }
+
+    public function getMontantTotal(): ?float
+    {
+        return $this->montant_total;
+    }
+
+    public function setMontantTotal(?float $montant_total): static
+    {
+        $this->montant_total = $montant_total;
+
         return $this;
     }
 

@@ -112,4 +112,40 @@ class OffreDeRectrutement
         return $this;
     }
 
+    public function getPosteRecherche(): ?string
+    {
+        return $this->poste_recherche;
+    }
+
+    public function setPosteRecherche(string $poste_recherche): static
+    {
+        $this->poste_recherche = $poste_recherche;
+
+        return $this;
+    }
+
+    public function getNiveuRequis(): ?string
+    {
+        return $this->niveu_requis;
+    }
+
+    public function setNiveuRequis(string $niveu_requis): static
+    {
+        $this->niveu_requis = $niveu_requis;
+
+        return $this;
+    }
+
+    public function getSalairePropose(): ?float
+    {
+        return $this->salaire_propose;
+    }
+
+    public function setSalairePropose(float $salaire_propose): static
+    {
+        $this->salaire_propose = $salaire_propose;
+
+        return $this;
+    }
+
 }

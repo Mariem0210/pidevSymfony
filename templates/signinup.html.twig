@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Gaming - Sign In{% endblock %}</title>
+    <link rel="icon" href="{{ asset('img/favicon.png') }}">
+    
+    <!-- Styles CSS -->
+    <link rel="stylesheet" href="{{ asset('assets1/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets1/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets1/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets1/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets1/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets1/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets1/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets1/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets1/css/style.css') }}">
+    
+    <style>
+        .signin_section {
+            padding: 100px 0;
+            background-color: #0f0f0f;
+            min-height: 100vh;
+        }
+    </style>
+    
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+
+    <!-- Contenu principal -->
+    <main>
+        {% block body %}
+        <!-- Le contenu spécifique de chaque page viendra ici -->
+        {% endblock %}
+    </main>
+
+    <!-- Scripts JS -->
+    <script src="{{ asset('assets1/js/jquery-1.12.1.min.js') }}"></script>
+    <script src="{{ asset('assets1/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets1/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets1/js/jquery.magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets1/js/swiper.min.js') }}"></script>
+    <script src="{{ asset('assets1/js/masonry.pkgd.js') }}"></script>
+    <script src="{{ asset('assets1/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets1/js/slick.min.js') }}"></script>
+    <script src="{{ asset('assets1/+js/custom.js') }}"></script>
+
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

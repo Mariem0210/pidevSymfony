@@ -1,0 +1,349 @@
+{% extends 'signinup.html.twig' %}
+{% block title %}Register{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/themify-icons.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+<style>
+    /* Background styling */
+    body {
+        background: linear-gradient(to bottom, #0f1117, #1e222e) !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+        min-height: 100vh !important;
+    }
+
+    .signup_section {
+        padding: 100px 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background-color: transparent; /* Removed semi-transparent overlay */
+    }
+
+    .signup_form {
+        background-color: rgba(45, 48, 58, 0.9);
+        border-radius: 15px;
+        padding: 40px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px); /* For Safari support */
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        margin-bottom: 50px;
+    }
+
+    .signup_form h2 {
+        color: #fff;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 36px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+    }
+
+    .form_group {
+        margin-bottom: 25px;
+    }
+
+    .form_group label {
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .form_control {
+        width: 100%;
+        padding: 12px 15px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        color: #fff;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+
+    .form_control:focus {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: #ff0000;
+        outline: none;
+    }
+
+    /* Style for date inputs */
+    .form_control select {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        color: #fff;
+        padding: 10px;
+    }
+
+    /* File upload styling */
+    .file_upload_btn {
+        display: inline-block;
+        padding: 12px 20px;
+        background: linear-gradient(to right, #ff0000, #ff5e00);
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+        width: 100%;
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    .file_upload_btn:hover {
+        background: linear-gradient(to right, #ff5e00, #ff0000);
+        transform: translateY(-3px);
+    }
+
+    .file_upload_btn input[type="file"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .file_name {
+        margin-top: 10px;
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    /* Terms checkbox styling */
+    .terms_checkbox {
+        display: flex;
+        align-items: center;
+        margin: 25px 0;
+    }
+
+    .terms_checkbox input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        accent-color: #ff0000;
+    }
+
+    .terms_checkbox label {
+        color: #fff;
+        margin-bottom: 0;
+    }
+
+    .terms_checkbox a {
+        color: #ff5e00;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .terms_checkbox a:hover {
+        color: #ff0000;
+        text-decoration: underline;
+    }
+
+    .signup_btn {
+        background: linear-gradient(to right, #ff0000, #ff5e00);
+        color: #fff;
+        border: none;
+        width: 100%;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 18px;
+        text-transform: uppercase;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 20px;
+    }
+
+    .signup_btn:hover {
+        background: linear-gradient(to right, #ff5e00, #ff0000);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+    }
+
+    .form_footer {
+        text-align: center;
+        margin-top: 20px;
+        color: #fff;
+    }
+
+    .form_footer a {
+        color: #ff5e00;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .form_footer a:hover {
+        color: #ff0000;
+        text-decoration: underline;
+    }
+
+    .row.form_row {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .col-md-6.form_col {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Fix for Symfony date widget */
+    .form_control div {
+        display: flex;
+        gap: 10px;
+    }
+
+    .form_control div select {
+        flex: 1;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<section class="signup_section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="signup_form">
+                    <h2>Create Account</h2>
+                    {{ form_start(registrationForm, {'attr': {'enctype': 'multipart/form-data'}}) }}
+                    
+                    <div class="row form_row">
+                        <div class="col-md-6 form_col">
+                            <div class="form_group">
+                                {{ form_label(registrationForm.nomu) }}
+                                {{ form_widget(registrationForm.nomu, {'attr': {'class': 'form_control', 'placeholder': 'Enter your last name'}}) }}
+                                {% for error in registrationForm.nomu.vars.errors %}
+                                    <div class="alert alert-danger">{{ error.message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-6 form_col">
+                            <div class="form_group">
+                                {{ form_label(registrationForm.prenomu) }}
+                                {{ form_widget(registrationForm.prenomu, {'attr': {'class': 'form_control', 'placeholder': 'Enter your first name'}}) }}
+                                {% for error in registrationForm.prenomu.vars.errors %}
+                                    <div class="alert alert-danger">{{ error.message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form_group">
+                        {{ form_label(registrationForm.mailu) }}
+                        {{ form_widget(registrationForm.mailu, {'attr': {'class': 'form_control', 'placeholder': 'Enter your email'}}) }}
+                        {% for error in registrationForm.mailu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form_group">
+                        {{ form_label(registrationForm.numtelu) }}
+                        {{ form_widget(registrationForm.numtelu, {'attr': {'class': 'form_control', 'placeholder': 'Enter your phone number'}}) }}
+                        {% for error in registrationForm.numtelu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form_group">
+                        {{ form_label(registrationForm.datenaissanceu) }}
+                        {{ form_widget(registrationForm.datenaissanceu, {
+                            'attr': {'class': 'form_control'},
+                            'years': range('now'|date('Y') - 100, 'now'|date('Y') - 10)
+                        }) }}
+                        {% for error in registrationForm.datenaissanceu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form_group">
+                        {{ form_label(registrationForm.typeu) }}
+                        {{ form_widget(registrationForm.typeu, {'attr': {'class': 'form_control'}}) }}
+                        {% for error in registrationForm.typeu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form_group">
+                        {{ form_label(registrationForm.plainPassword) }}
+                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form_control', 'placeholder': 'Enter your password (min. 6 characters)'}}) }}
+                        {% for error in registrationForm.plainPassword.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form_group">
+                        {{ form_label(registrationForm.photo_profilu) }}
+                        <div class="file_upload_btn">
+                            <span>Choose File</span>
+                            {{ form_widget(registrationForm.photo_profilu, {'attr': {'class': 'custom_file_input'}}) }}
+                        </div>
+                        <div class="file_name" id="fileName">No file selected</div>
+                        {% for error in registrationForm.photo_profilu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
+                    </div>
+
+                    {% if registrationForm.agreeTerms is defined %}
+                    <div class="terms_checkbox">
+                        {{ form_widget(registrationForm.agreeTerms) }}
+                        {{ form_label(registrationForm.agreeTerms) }}
+                        {% for error in registrationForm.agreeTerms.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <button type="submit" class="signup_btn">Create Account</button>
+
+                    <div class="form_footer">
+                        <p>Already have an account? <a href="{{ path('app_login') }}">Sign In</a></p>
+                    </div>
+
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('assets/js/jquery-1.12.1.min.js') }}"></script>
+<script src="{{ asset('assets/js/popper.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
+<script>
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    var fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            var fileName = this.files[0] ? this.files[0].name : 'No file selected';
+            document.getElementById('fileName').textContent = fileName;
+        });
+    }
+    
+    // Debug code to check loaded stylesheets
+    console.log("Checking loaded stylesheets:");
+    for (let i = 0; i < document.styleSheets.length; i++) {
+        console.log(i + ": " + document.styleSheets[i].href);
+    }
+});
+</script>
+{% endblock %}
