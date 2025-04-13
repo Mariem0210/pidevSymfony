@@ -35,12 +35,18 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Type d\'utilisateur',
                 'choices' => [
                     'Administrateur' => 'ADMIN',
-                    'Joueur' => 'JOUEUR',
+                    'Joueur' => 'JOUEUR', 
                     'Coach' => 'COACH'
                 ],
                 'attr' => [
-                    'class' => 'form-select' // Classe Bootstrap pour les listes déroulantes
-                ]
+                    'class' => 'form-select'
+                ],
+                // Ajoutez cette option pour déclencher la synchronisation
+                'setter' => function(Utilisateur $user, $typeu) {
+                    $user->setTypeu($typeu);
+                    // Appel explicite à la synchronisation
+                    $user->synchronizeTypeAndRoles();
+                }
             ])
             
             // Champ texte à la place de la checkbox "agreeTerms"

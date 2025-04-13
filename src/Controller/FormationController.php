@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Form\FormationType;
 
 #[Route('/formation')]
 final class FormationController extends AbstractController
@@ -28,37 +29,8 @@ final class FormationController extends AbstractController
     {
         $formation = new Formation();
         
-        $form = $this->createFormBuilder($formation)
-            ->add('nomf', TextType::class, [
-                'label' => 'Nom de la formation',
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('descriptionf', TextType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('niveauf', TextType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('dateDebut', DateType::class, [
-                'widget' => 'single_text',
-                'label' => 'Date de début',
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('dateFin', DateType::class, [
-                'widget' => 'single_text',
-                'label' => 'Date de fin',
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('capacitef', IntegerType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('prixf', IntegerType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('idu', IntegerType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->getForm();
+        $form = $this->createForm(FormationType::class, $formation);
+
 
         $form->handleRequest($request);
 
@@ -83,41 +55,11 @@ final class FormationController extends AbstractController
         ]);
     }
 
-    #[Route('/{idf}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
+    
     #[Route('/{idf}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Formation $formation, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createFormBuilder($formation)
-            ->add('nomf', TextType::class, [
-                'label' => 'Nom de la formation',
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('descriptionf', TextType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('niveauf', TextType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('dateDebut', DateType::class, [
-                'widget' => 'single_text',
-                'label' => 'Date de début',
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('dateFin', DateType::class, [
-                'widget' => 'single_text',
-                'label' => 'Date de fin',
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('capacitef', IntegerType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('prixf', IntegerType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('idu', IntegerType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->getForm();
+        $form = $this->createForm(FormationType::class, $formation);
     
         $form->handleRequest($request);
     

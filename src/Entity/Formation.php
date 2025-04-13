@@ -5,6 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\FormationRepository;
+use App\Entity\Utilisateur;
+use App\Repository\UtilisateurRepository;
+
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
 #[ORM\Table(name: 'formation')]
@@ -42,6 +45,7 @@ class Formation
     private ?string $niveauf = null;
 
     #[ORM\Column(name: 'dateDebutf', type: 'date', nullable: false)]
+   
     #[Assert\NotNull(message: "La date de début est obligatoire.")]
     #[Assert\Type(type: "DateTimeInterface", message: "La date de début doit être valide.")]
     #[Assert\GreaterThan("today", message: "La date de début doit être ultérieure à aujourd'hui.")]
@@ -63,10 +67,10 @@ class Formation
     #[Assert\PositiveOrZero(message: "Le prix ne peut pas être négatif.")]
     private ?int $prixf = null;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    #[Assert\NotNull(message: "L'ID utilisateur est obligatoire.")]
-    #[Assert\Positive(message: "L'ID utilisateur doit être un nombre positif.")]
-    private ?int $idu = null;
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: "idu", referencedColumnName: "idu", nullable: false)]
+    private ?Utilisateur $utilisateur = null;
+
 
     public function getIdf(): ?int
     {
@@ -110,18 +114,17 @@ class Formation
     {
         return $this->dateDebut;
     }
-
+    
     public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
         $this->dateDebut = $dateDebut;
         return $this;
     }
-
     public function getDateFin(): ?\DateTimeInterface
     {
         return $this->dateFin;
     }
-
+    
     public function setDateFin(\DateTimeInterface $dateFin): self
     {
         $this->dateFin = $dateFin;
@@ -150,14 +153,6 @@ class Formation
         return $this;
     }
 
-    public function getIdu(): ?int
-    {
-        return $this->idu;
-    }
-
-    public function setIdu(int $idu): self
-    {
-        $this->idu = $idu;
-        return $this;
-    }
+    public function getUtilisateur(): ?Utilisateur { return $this->utilisateur; }
+    public function setUtilisateur(?Utilisateur $utilisateur): self { $this->utilisateur = $utilisateur; return $this; }
 }
