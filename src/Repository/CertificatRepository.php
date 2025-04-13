@@ -40,4 +40,30 @@ class CertificatRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findWithRelations(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.utilisateur', 'u')
+            ->addSelect('u')
+            ->leftJoin('c.formation', 'f')
+            ->addSelect('f')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Certificats uniquement pour les utilisateurs de type joueur.
+     */
+    public function findByJoueur(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.utilisateur', 'u')
+            ->andWhere('u.typeu = :type')
+            ->setParameter('type', 'joueur')
+            ->addSelect('u')
+            ->leftJoin('c.formation', 'f')
+            ->addSelect('f')
+            ->getQuery()
+            ->getResult();
+    }
 }

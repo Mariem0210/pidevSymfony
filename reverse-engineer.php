@@ -11,7 +11,7 @@ $dbPort = 3306;
 
 // Entity namespace and output directory
 $namespace = 'App\\Entity';
-$outputDir = __DIR__ . '/src/Entity';
+$outputDir = __DIR__. '/src/Entity';
 
 // Create output directory if it doesn't exist
 if (!is_dir($outputDir)) {
@@ -53,7 +53,7 @@ foreach ($tables as $table) {
     }
 
     // Get table columns
-    $stmt = $pdo->query("DESCRIBE `$table`");
+    $stmt = $pdo->query("DESCRIBE $table");
     $columns = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Get primary key

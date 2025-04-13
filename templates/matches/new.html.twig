@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Match{% endblock %}
+
+{% block content %}
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">
+                                <i class="material-icons opacity-10 me-2">sports_soccer</i>
+                                Créer un nouveau match
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="px-4 py-3">
+                            {{ include('matches/_form.html.twig') }}
+                        </div>
+                    </div>
+                    <div class="card-footer p-3">
+                        <a href="{{ path('app_matches_index') }}" class="btn btn-outline-secondary">
+                            <i class="material-icons text-sm me-2">arrow_back</i>
+                            Retour à la liste
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

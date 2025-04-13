@@ -221,4 +221,19 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->dateinscriu = new \DateTime(); // Date/heure actuelle par défaut
     }
-}
+    public function synchronizeTypeAndRoles(): void
+{
+    switch ($this->typeu) {
+        case 'ADMIN':
+            $this->roles = ['ROLE_ADMIN'];
+            break;
+        case 'COACH':
+            $this->roles = ['ROLE_COACH'];
+            break;
+        case 'JOUEUR':
+            $this->roles = ['ROLE_JOUEUR'];
+            break;
+        default:
+            $this->roles = ['ROLE_USER'];
+    }
+}}

@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\FormationRepository;
+use App\Entity\Utilisateur;
+use App\Repository\UtilisateurRepository;
+
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
 #[ORM\Table(name: 'formation')]
@@ -18,19 +18,64 @@ class Formation
     #[ORM\Column(type: 'integer')]
     private ?int $idf = null;
 
+    #[ORM\Column(type: 'string', nullable: false)]
+    #[Assert\NotBlank(message: "Le nom de la formation est obligatoire.")]
+    #[Assert\Length(
+        min: 3,
+        max: 100,
+        minMessage: "Le nom doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom ne doit pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/",
+        message: "Le nom ne peut contenir que des lettres et des espaces."
+    )]
+    private ?string $nomf = null;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    #[Assert\NotBlank(message: "La description est obligatoire.")]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/",
+        message: "La description ne peut contenir que des lettres et des espaces."
+    )]
+    private ?string $descriptionf = null;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    #[Assert\NotBlank(message: "Le niveau est obligatoire.")]
+    private ?string $niveauf = null;
+
+    #[ORM\Column(name: 'dateDebutf', type: 'date', nullable: false)]
+   
+    #[Assert\NotNull(message: "La date de début est obligatoire.")]
+    #[Assert\Type(type: "DateTimeInterface", message: "La date de début doit être valide.")]
+    #[Assert\GreaterThan("today", message: "La date de début doit être ultérieure à aujourd'hui.")]
+    private ?\DateTimeInterface $dateDebut = null;
+    
+    #[ORM\Column(name: 'dateFinf', type: 'date', nullable: false)]
+    #[Assert\NotNull(message: "La date de fin est obligatoire.")]
+    #[Assert\Type(type: "DateTimeInterface", message: "La date de fin doit être valide.")]
+    #[Assert\GreaterThan(propertyPath: "dateDebut", message: "La date de fin doit être après la date de début.")]
+    private ?\DateTimeInterface $dateFin = null;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    #[Assert\NotNull(message: "La capacité est obligatoire.")]
+    #[Assert\Positive(message: "La capacité doit être un nombre positif.")]
+    private ?int $capacitef = null;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    #[Assert\NotNull(message: "Le prix est obligatoire.")]
+    #[Assert\PositiveOrZero(message: "Le prix ne peut pas être négatif.")]
+    private ?int $prixf = null;
+
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: "idu", referencedColumnName: "idu", nullable: false)]
+    private ?Utilisateur $utilisateur = null;
+
+
     public function getIdf(): ?int
     {
         return $this->idf;
     }
-
-    public function setIdf(int $idf): self
-    {
-        $this->idf = $idf;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $nomf = null;
 
     public function getNomf(): ?string
     {
@@ -43,9 +88,6 @@ class Formation
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $descriptionf = null;
-
     public function getDescriptionf(): ?string
     {
         return $this->descriptionf;
@@ -56,9 +98,6 @@ class Formation
         $this->descriptionf = $descriptionf;
         return $this;
     }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $niveauf = null;
 
     public function getNiveauf(): ?string
     {
@@ -71,36 +110,26 @@ class Formation
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $dateDebutf = null;
-
-    public function getDateDebutf(): ?\DateTimeInterface
+    public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->dateDebutf;
+        return $this->dateDebut;
     }
-
-    public function setDateDebutf(\DateTimeInterface $dateDebutf): self
+    
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
-        $this->dateDebutf = $dateDebutf;
+        $this->dateDebut = $dateDebut;
         return $this;
     }
-
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $dateFinf = null;
-
-    public function getDateFinf(): ?\DateTimeInterface
+    public function getDateFin(): ?\DateTimeInterface
     {
-        return $this->dateFinf;
+        return $this->dateFin;
     }
-
-    public function setDateFinf(\DateTimeInterface $dateFinf): self
+    
+    public function setDateFin(\DateTimeInterface $dateFin): self
     {
-        $this->dateFinf = $dateFinf;
+        $this->dateFin = $dateFin;
         return $this;
     }
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $capacitef = null;
 
     public function getCapacitef(): ?int
     {
@@ -113,9 +142,6 @@ class Formation
         return $this;
     }
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $prixf = null;
-
     public function getPrixf(): ?int
     {
         return $this->prixf;
@@ -127,18 +153,6 @@ class Formation
         return $this;
     }
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $idu = null;
-
-    public function getIdu(): ?int
-    {
-        return $this->idu;
-    }
-
-    public function setIdu(int $idu): self
-    {
-        $this->idu = $idu;
-        return $this;
-    }
-
+    public function getUtilisateur(): ?Utilisateur { return $this->utilisateur; }
+    public function setUtilisateur(?Utilisateur $utilisateur): self { $this->utilisateur = $utilisateur; return $this; }
 }

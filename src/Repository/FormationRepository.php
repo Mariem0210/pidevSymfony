@@ -40,4 +40,14 @@ class FormationRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findFormationsWithCoach(): array
+{
+    return $this->createQueryBuilder('f')
+        ->leftJoin('f.utilisateur', 'u')
+        ->addSelect('u')
+        ->where('u.typeu = :type')
+        ->setParameter('type', 'coach')
+        ->getQuery()
+        ->getResult();
+}
 }

@@ -1,0 +1,67 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.prix, 'Prix (DT)', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.stock, 'Stock', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.stock, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.categorie, 'Catégorie', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.date_creation, 'Date création', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.date_creation, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.image_produit, 'Image produit', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.image_produit, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12 mb-3">
+            <div class="input-group input-group-static mb-4">
+                {{ form_label(form.description, 'Description', {'label_attr': {'class': 'ms-0'}}) }}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': '4'}}) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <button type="submit" class="btn bg-gradient-primary">
+                <i class="material-icons text-sm me-2">save</i>
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+    </div>
+{{ form_end(form) }}

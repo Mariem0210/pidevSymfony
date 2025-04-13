@@ -8,13 +8,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route("/home", name: "app_home")]
+    #[Route("/home1", name: "app_home")]
    
     
     public function index(): Response
     {
         // You can pass data to your template here if needed
-        return $this->render('home.html.twig', [
+        return $this->render('home1.html.twig', [
             'controller_name' => 'HomeController',
             // Add any other variables you want to pass to the template
         ]);

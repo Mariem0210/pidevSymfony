@@ -127,39 +127,6 @@ class Produit
         return $this;
     }
 
-    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'produit')]
-    private Collection $paniers;
-
-    public function __construct()
-    {
-        $this->paniers = new ArrayCollection();
-    }
-
-    /**
-     * @return Collection<int, Panier>
-     */
-    public function getPaniers(): Collection
-    {
-        if (!$this->paniers instanceof Collection) {
-            $this->paniers = new ArrayCollection();
-        }
-        return $this->paniers;
-    }
-
-    public function addPanier(Panier $panier): self
-    {
-        if (!$this->getPaniers()->contains($panier)) {
-            $this->getPaniers()->add($panier);
-        }
-        return $this;
-    }
-
-    public function removePanier(Panier $panier): self
-    {
-        $this->getPaniers()->removeElement($panier);
-        return $this;
-    }
-
     public function getIdProduit(): ?int
     {
         return $this->id_produit;

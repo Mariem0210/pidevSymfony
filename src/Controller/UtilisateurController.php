@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/utilisateur')]
 final class UtilisateurController extends AbstractController
@@ -68,7 +67,7 @@ final class UtilisateurController extends AbstractController
             'form' => $form,
         ]);
     }
-/*
+
     #[Route('/{idu}', name: 'app_utilisateur_delete', methods: ['POST'])]
     public function delete(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
@@ -78,6 +77,5 @@ final class UtilisateurController extends AbstractController
         }
 
         return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
-    }*/
-
+    }
 }

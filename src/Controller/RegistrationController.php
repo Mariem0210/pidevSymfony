@@ -27,6 +27,25 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupération et définition du type d'utilisateur
+            $typeu = $form->get('typeu')->getData();
+            $user->setTypeu($typeu);
+
+            // Synchronisation avec les rôles
+            switch ($typeu) {
+                case 'ADMIN':
+                    $user->setRoles(['ROLE_ADMIN']);
+                    break;
+                case 'COACH':
+                    $user->setRoles(['ROLE_COACH']);
+                    break;
+                case 'JOUEUR':
+                    $user->setRoles(['ROLE_JOUEUR']);
+                    break;
+                default:
+                    $user->setRoles(['ROLE_USER']);
+            }
+
             // Hachage du mot de passe
             $user->setMdpu(
                 $userPasswordHasher->hashPassword(
