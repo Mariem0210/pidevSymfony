@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Formations{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Gestion des Formations</h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Niveau</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Début</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Fin</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Capacité</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Coach</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for formation in formations %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <p class="text-xs font-weight-bold mb-0">{{ formation.idf }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ formation.nomf }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ formation.descriptionf|slice(0, 30) ~ (formation.descriptionf|length > 30 ? '...' : '') }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ formation.niveauf }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ formation.dateDebut|date('Y-m-d') }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ formation.dateFin|date('Y-m-d') }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ formation.capacitef }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ formation.prixf }} DT</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ formation.utilisateur.idu  }}</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="{{ path('app_formation_edit', {'idf': formation.idf}) }}" class="btn btn-link text-dark px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">edit</i>Modifier
+                                        </a>
+                                        <a href="{{ path('app_formation_delete', {'idf': formation.idf}) }}" class="btn btn-link text-danger px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">delete</i>Supprimer
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="11" class="text-center p-4">
+                                        <p class="text-xs font-weight-bold mb-0">Aucune formation trouvée</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer p-3">
+                    <a href="{{ path('app_formation_new') }}" class="btn bg-gradient-primary">
+                        <i class="material-icons text-sm me-2">add</i> Nouvelle Formation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

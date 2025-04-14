@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Certificats{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">
+                            <i class="material-icons opacity-10">verified</i>
+                            Gestion des Certificats
+                        </h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Score</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Expiration</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Formation</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Utilisateur</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for certificat in certificats %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <p class="text-xs font-weight-bold mb-0">{{ certificat.idc }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ certificat.nomc }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ certificat.typec }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ certificat.scorec }}</p>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-sm bg-gradient-{{ certificat.etatc == 'valide' ? 'success' : 'danger' }}">
+                                            {{ certificat.etatc }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">
+                                            {{ certificat.dateExpirationc ? certificat.dateExpirationc|date('Y-m-d') : 'N/A' }}
+                                        </p>
+                                    </td>
+                                  <td>
+                                         <p class="text-xs font-weight-bold mb-0">#{{ certificat.formation.nomf }}</p>
+</td>
+<td>
+    <p class="text-xs font-weight-bold mb-0">#{{ certificat.utilisateur.nomu }}</p>
+</td>
+                                    <td class="align-middle">
+                                        <a href="{{ path('app_certificat_edit', {'id': certificat.idc}) }}" class="btn btn-link text-dark px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">edit</i>
+                                        </a>
+                                        <a href="{{ path('app_certificat_delete', {'id': certificat.idc}) }}" class="btn btn-link text-danger px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9" class="text-center p-4">
+                                        <p class="text-xs font-weight-bold mb-0">Aucun certificat trouvé</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer p-3">
+                    <a href="{{ path('app_certificat_new') }}" class="btn bg-gradient-primary">
+                        <i class="material-icons text-sm me-2">add</i> Nouveau Certificat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

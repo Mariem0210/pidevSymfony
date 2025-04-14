@@ -1,0 +1,55 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Détails de l'offre - {{ offre_de_rectrutement.poste_recherche }}{% endblock %}
+
+{% block content %}
+<!-- breadcrumb start-->
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner text-center">
+                    <div class="breadcrumb_iner_item">
+                        <h2>{{ offre_de_rectrutement.poste_recherche }}</h2>
+                        <p>Détails de l'offre</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb end-->
+
+<!-- offre details section -->
+<section class="about_us section_padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-6 col-lg-5">
+                <div class="about_img">
+                    <img src="{{ asset('assets1/img/recruitment-placeholder.jpg') }}" alt="{{ offre_de_rectrutement.poste_recherche }}">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="about_text">
+                    <h3>Description du poste</h3>
+                    <p>Nous recherchons un(e) {{ offre_de_rectrutement.poste_recherche }} pour rejoindre notre équipe.</p>
+                    
+                    <div class="about_single_item">
+                        <h4>Détails de l'offre</h4>
+                        <ul class="list-unstyled">
+                            <li><i class="ti-check"></i> <span>Niveau requis:</span> {{ offre_de_rectrutement.niveu_requis }}</li>
+                            <li><i class="ti-check"></i> <span>Salaire proposé:</span> {{ offre_de_rectrutement.salaire_propose }} DT</li>
+                            <li><i class="ti-check"></i> <span>Type de contrat:</span> {{ offre_de_rectrutement.contrat }}</li>
+                            <li><i class="ti-check"></i> <span>Statut:</span> {{ offre_de_rectrutement.status }}</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="{{ path('app_offre_de_rectrutement_index_frontend') }}" class="btn_1">Retour à la liste</a>
+                    <a href="#" class="btn_2 ml-3">Postuler</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- offre details section end -->
+{% endblock %}

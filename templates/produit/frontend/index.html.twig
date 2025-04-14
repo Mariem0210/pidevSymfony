@@ -1,0 +1,64 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Liste des Produits{% endblock %}
+
+{% block content %}
+<!-- banner part start-->
+<section class="banner_part">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-10">
+                <div class="banner_text text-center">
+                    <div class="banner_text_iner">
+                        <h1>Nos Produits</h1>
+                        <p>Découvrez notre sélection de produits disponibles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner part end-->
+
+<!-- produits list section -->
+<section class="learning_part section_padding">
+    <div class="container">
+        <div class="row">
+            {% for produit in produits %}
+                <div class="col-md-4 mb-4">
+                    <div class="single_gaming gaming_section">
+                        <div class="learning_member_text text-center">
+                            {% if produit.imageProduit %}
+                                <img src="{{ asset('uploads/produits/' ~ produit.imageProduit) }}" alt="{{ produit.nom }}" class="img-fluid mb-3" style="max-height: 200px;">
+                            {% endif %}
+                            <h4>{{ produit.nom }}</h4>
+                            <p>
+                                <strong>Catégorie :</strong> {{ produit.categorie }}<br>
+                                <strong>Prix :</strong> {{ produit.prix }} €<br>
+                                <strong>Stock :</strong> {{ produit.stock }}<br>
+                                <strong>Créé le :</strong> {{ produit.dateCreation ? produit.dateCreation|date('d/m/Y') : 'N/A' }}
+                            </p>
+                            <a href="{{ path('app_produit_show_frontend', {'id_produit': produit.idProduit}) }}" class="btn_2">Voir Détails</a>
+
+                            {# === Bouton Ajouter au Panier === #}
+                             <form action="{{ path('ajouter_au_panier', {'id': produit.idProduit}) }}" method="POST" style="margin-top: 10px;">
+                             <button class="btn_1" type="submit">Ajouter au panier</button>
+                             </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center">
+                    <div class="no_data">
+                        <h3>Aucun produit disponible pour le moment.</h3>
+                        <p>Veuillez revenir ultérieurement pour découvrir nos nouveautés.</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- produits list section end -->
+{% endblock %}

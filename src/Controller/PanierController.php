@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Panier;
 use App\Form\PanierType;
+use App\Repository\PanierRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,10 @@ use Symfony\Component\Routing\Attribute\Route;
 final class PanierController extends AbstractController
 {
     #[Route(name: 'app_panier_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(PanierRepository $panierRepository): Response
     {
-        $paniers = $entityManager
-            ->getRepository(Panier::class)
-            ->findAll();
-
         return $this->render('panier/index.html.twig', [
-            'paniers' => $paniers,
+            'paniers' => $panierRepository->findAll(),
         ]);
     }
 
@@ -81,4 +78,35 @@ final class PanierController extends AbstractController
 
         return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/ajouter-au-panier/{id}', name: 'ajouter_au_panier', methods: ['POST'])]
+public function ajouterAuPanier(int $id, EntityManagerInterface $em): Response
+{
+    $panier = new Panier();
+    $panier->setIdu(31); // ID utilisateur fixe
+    $panier->setIdProduit($id);
+    $panier->setQuantite(1);
+    $panier->setDateAjout(new \DateTime());
+
+    $em->persist($panier);
+    $em->flush();
+
+    return $this->redirectToRoute('app_produit_index_frontend');
 }
+#[Route('/frontend/panier', name: 'app_panier_index_frontend', methods: ['GET'])]
+public function indexFrontend(PanierRepository $panierRepository): Response
+{
+    return $this->render('panier/frontend/index.html.twig', [
+        'paniers' => $panierRepository->findAll(),
+    ]);
+}
+
+#[Route('/frontend/panier/{id_panier}', name: 'app_panier_show_frontend', methods: ['GET'])]
+public function showFrontend(Panier $panier): Response
+{
+    return $this->render('panier/frontend/show.html.twig', [
+        'panier' => $panier,
+    ]);
+}
+
+}
+

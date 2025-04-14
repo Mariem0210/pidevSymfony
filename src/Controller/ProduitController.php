@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Produit;
 use App\Form\ProduitType;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,17 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/produit')]
-class ProduitController extends AbstractController
+final class ProduitController extends AbstractController
 {
-    #[Route('/', name: 'app_produit_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route(name: 'app_produit_index', methods: ['GET'])]
+    public function index(ProduitRepository $produitRepository): Response
     {
-        $produits = $entityManager
-            ->getRepository(Produit::class)
-            ->findAll();
-
         return $this->render('produit/index.html.twig', [
-            'produits' => $produits,
+            'produits' => $produitRepository->findAll(),
         ]);
     }
 
@@ -74,11 +71,26 @@ class ProduitController extends AbstractController
     #[Route('/{id_produit}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$produit->getIdProduit(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$produit->getId_produit(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($produit);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/frontend/produit', name: 'app_produit_index_frontend', methods: ['GET'])]
+    public function indexFrontend(ProduitRepository $produitRepository): Response
+    {
+        return $this->render('produit/frontend/index.html.twig', [
+            'produits' => $produitRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/frontend/produit/{id_produit}', name: 'app_produit_show_frontend', methods: ['GET'])]
+    public function showFrontend(Produit $produit): Response
+    {
+        return $this->render('produit/frontend/show.html.twig', [
+            'produit' => $produit,
+        ]);
     }
 }

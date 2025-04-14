@@ -2,65 +2,103 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
-use App\Entity\Utilisateur;
+use App\Repository\CommandeRepository;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: CommandeRepository::class)]
+#[ORM\Table(name: 'commande')]
 class Commande
 {
-
     #[ORM\Id]
-    #[ORM\Column(type: "integer")]
-    private int $id_commande;
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id_commande = null;
 
-        #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: "commandes")]
-    #[ORM\JoinColumn(name: 'idu', referencedColumnName: 'idu', onDelete: 'CASCADE')]
-    private Utilisateur $idu;
-
-    #[ORM\Column(type: "date")]
-    private \DateTimeInterface $date_commande;
-
-    #[ORM\Column(type: "float")]
-    private float $montant_total;
-
-    public function getId_commande()
+    public function getId_commande(): ?int
     {
         return $this->id_commande;
     }
 
-    public function setId_commande($value)
+    public function setId_commande(int $id_commande): self
     {
-        $this->id_commande = $value;
+        $this->id_commande = $id_commande;
+        return $this;
     }
 
-    public function getIdu()
-    {
-        return $this->idu;
-    }
+    #[ORM\Column(type: 'date', nullable: true)]
+    private ?\DateTimeInterface $date_commande = null;
 
-    public function setIdu($value)
-    {
-        $this->idu = $value;
-    }
-
-    public function getDate_commande()
+    public function getDate_commande(): ?\DateTimeInterface
     {
         return $this->date_commande;
     }
 
-    public function setDate_commande($value)
+    public function setDate_commande(?\DateTimeInterface $date_commande): self
     {
-        $this->date_commande = $value;
+        $this->date_commande = $date_commande;
+        return $this;
     }
 
-    public function getMontant_total()
+    #[ORM\Column(type: 'float', nullable: true)]
+    private ?float $montant_total = null;
+
+    public function getMontant_total(): ?float
     {
         return $this->montant_total;
     }
 
-    public function setMontant_total($value)
+    public function setMontant_total(?float $montant_total): self
     {
-        $this->montant_total = $value;
+        $this->montant_total = $montant_total;
+        return $this;
     }
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $idu = null;
+
+    public function getIdu(): ?int
+    {
+        return $this->idu;
+    }
+
+    public function setIdu(int $idu): self
+    {
+        $this->idu = $idu;
+        return $this;
+    }
+
+    public function getIdCommande(): ?int
+    {
+        return $this->id_commande;
+    }
+
+    public function getDateCommande(): ?\DateTimeInterface
+    {
+        return $this->date_commande;
+    }
+
+    public function setDateCommande(?\DateTimeInterface $date_commande): static
+    {
+        $this->date_commande = $date_commande;
+
+        return $this;
+    }
+
+    public function getMontantTotal(): ?float
+    {
+        return $this->montant_total;
+    }
+
+    public function setMontantTotal(?float $montant_total): static
+    {
+        $this->montant_total = $montant_total;
+
+        return $this;
+    }
+ 
+    
 }

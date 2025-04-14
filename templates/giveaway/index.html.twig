@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Giveaways{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Gestion des Giveaways</h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Titre</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Début</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Fin</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for giveaway in giveaways %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <p class="text-xs font-weight-bold mb-0">{{ giveaway.idg }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ giveaway.titreg }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ giveaway.descg|slice(0, 30) ~ (giveaway.descg|length > 30 ? '...' : '') }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ giveaway.datedg ? giveaway.datedg|date('Y-m-d') : '' }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ giveaway.datefg ? giveaway.datefg|date('Y-m-d') : '' }}</p>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-sm bg-gradient-{{ giveaway.statusg == 'actif' ? 'success' : 'secondary' }}">
+                                            {{ giveaway.statusg }}
+                                        </span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="{{ path('app_giveaway_show', {'idg': giveaway.idg}) }}" class="btn btn-link text-info px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">visibility</i>Voir
+                                        </a>
+                                        <a href="{{ path('app_giveaway_edit', {'idg': giveaway.idg}) }}" class="btn btn-link text-dark px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">edit</i>Modifier
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7" class="text-center p-4">
+                                        <p class="text-xs font-weight-bold mb-0">Aucun giveaway trouvé</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer p-3">
+                    <a href="{{ path('app_giveaway_new') }}" class="btn bg-gradient-primary">
+                        <i class="material-icons text-sm me-2">add</i> Nouveau Giveaway
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

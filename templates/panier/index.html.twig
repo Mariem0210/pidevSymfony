@@ -9,6 +9,8 @@
         <thead>
             <tr>
                 <th>Id_panier</th>
+                <th>Idu</th>
+                <th>Id_produit</th>
                 <th>Quantite</th>
                 <th>Date_ajout</th>
                 <th>actions</th>
@@ -18,6 +20,8 @@
         {% for panier in paniers %}
             <tr>
                 <td>{{ panier.idPanier }}</td>
+                <td>{{ panier.idu }}</td>
+                <td>{{ panier.idProduit }}</td>
                 <td>{{ panier.quantite }}</td>
                 <td>{{ panier.dateAjout ? panier.dateAjout|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
@@ -27,7 +31,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

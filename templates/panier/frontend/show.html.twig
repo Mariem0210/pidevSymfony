@@ -1,0 +1,20 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Détail du panier{% endblock %}
+
+{% block content %}
+<section class="section_padding">
+    <div class="container">
+        <h2 class="text-center mb-4">Détail du Panier #{{ panier.idPanier }}</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><strong>ID Utilisateur:</strong> {{ panier.idu }}</li>
+            <li class="list-group-item"><strong>ID Produit:</strong> {{ panier.idProduit }}</li>
+            <li class="list-group-item"><strong>Quantité:</strong> {{ panier.quantite ?? 1 }}</li>
+            <li class="list-group-item"><strong>Date d'ajout:</strong> {{ panier.dateAjout|date('d/m/Y H:i') }}</li>
+        </ul>
+        <div class="mt-4 text-center">
+            <a href="{{ path('app_panier_index_frontend') }}" class="btn_1">← Retour à la liste</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

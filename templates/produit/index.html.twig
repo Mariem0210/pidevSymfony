@@ -1,47 +1,88 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
+{% block title %}Liste des Produits{% endblock %}
 
-{% block body %}
-    <h1>Produit index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Stock</th>
-                <th>Date_creation</th>
-                <th>Categorie</th>
-                <th>Image_produit</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td>{{ produit.idProduit }}</td>
-                <td>{{ produit.nom }}</td>
-                <td>{{ produit.description }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>{{ produit.stock }}</td>
-               
-                <td>{{ produit.categorie }}</td>
-                
-                <td>
-                    <a href="{{ path('app_produit_show', {'id_produit': produit.idProduit}) }}">show</a>
-                    <a href="{{ path('app_produit_edit', {'id_produit': produit.idProduit}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">
+                            <i class="material-icons opacity-10 me-2">inventory_2</i>
+                            Gestion des Produits
+                        </h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stock</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Création</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Catégorie</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for produit in produits %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.idProduit }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.nom }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.description|slice(0, 30) ~ (produit.description|length > 30 ? '...' : '') }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.prix }} DT</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.stock }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.dateCreation ? produit.dateCreation|date('Y-m-d') : '' }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.categorie }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ produit.imageProduit|slice(0, 15) ~ (produit.imageProduit|length > 15 ? '...' : '') }}</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="{{ path('app_produit_show', {'id_produit': produit.id_produit}) }}" class="btn btn-link text-info px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">visibility</i>Voir
+                                        </a>
+                                        <a href="{{ path('app_produit_edit', {'id_produit': produit.id_produit}) }}" class="btn btn-link text-dark px-3 mb-0">
+                                            <i class="material-icons text-sm me-2">edit</i>Modifier
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9" class="text-center p-4">
+                                        <p class="text-xs font-weight-bold mb-0">Aucun produit trouvé</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer p-3">
+                    <a href="{{ path('app_produit_new') }}" class="btn bg-gradient-primary">
+                        <i class="material-icons text-sm me-2">add</i> Nouveau Produit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
