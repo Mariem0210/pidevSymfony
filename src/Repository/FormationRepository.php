@@ -41,13 +41,14 @@ class FormationRepository extends ServiceEntityRepository
     //        ;
     //    }
     public function findFormationsWithCoach(): array
-{
-    return $this->createQueryBuilder('f')
-        ->leftJoin('f.utilisateur', 'u')
-        ->addSelect('u')
-        ->where('u.typeu = :type')
-        ->setParameter('type', 'coach')
-        ->getQuery()
-        ->getResult();
-}
+    {
+        return $this->createQueryBuilder('f')
+            ->leftJoin('f.utilisateur', 'u')
+            ->select('f.idf', 'u.nomu', 'u.prenomu')
+            ->where('u.typeu = :type')
+            ->setParameter('type', 'coach')
+            ->getQuery()
+            ->getArrayResult(); // returns plain array with formation id and coach names
+    }
+    
 }

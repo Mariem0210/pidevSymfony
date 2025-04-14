@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Form;
 
 use App\Entity\Utilisateur;
@@ -17,6 +16,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -25,36 +26,87 @@ class RegistrationFormType extends AbstractType
         $builder
         ->add('mailu', EmailType::class, [
             'label' => 'Email address',
-            'required' => true
+            'required' => true,
+            'constraints' => [
+                new NotBlank(['message' => 'L\'email est obligatoire']),
+                new Email(['message' => 'Veuillez entrer un email valide'])
+            ]
         ])
-            ->add('nomu', TextType::class)
-            ->add('prenomu', TextType::class)
-            ->add('numtelu', TextType::class)
-            ->add('datenaissanceu', DateType::class)
+        ->add('nomu', TextType::class, [
+            'constraints' => [
+                new NotBlank(['message' => 'Le nom est obligatoire']),
+                new Length([
+                    'min' => 2,
+                    'max' => 50,
+                    'minMessage' => 'Le nom doit contenir au moins {{ limit }} caractères',
+                    'maxMessage' => 'Le nom ne peut pas dépasser {{ limit }} caractères'
+                ]),
+                // Contrainte Regex pour n'accepter que des lettres (pas de chiffres ou caractères spéciaux)
+                new Regex([
+                    'pattern' => '/^[a-zA-ZÀ-ÿ\s-]+$/',  // Permet les lettres et les espaces et tirets
+                    'message' => 'Le nom ne doit contenir que des lettres, des espaces ou des tirets.'
+                ])
+            ]
+        ])
+        
+        ->add('prenomu', TextType::class, [
+            'constraints' => [
+                new NotBlank(['message' => 'Le prénom est obligatoire']),
+                new Length([
+                    'min' => 2,
+                    'max' => 50,
+                    'minMessage' => 'Le prénom doit contenir au moins {{ limit }} caractères',
+                    'maxMessage' => 'Le prénom ne peut pas dépasser {{ limit }} caractères'
+                ]),
+                // Contrainte Regex pour n'accepter que des lettres (pas de chiffres ou caractères spéciaux)
+                new Regex([
+                    'pattern' => '/^[a-zA-ZÀ-ÿ\s-]+$/',  // Permet les lettres et les espaces et tirets
+                    'message' => 'Le prénom ne doit contenir que des lettres, des espaces ou des tirets.'
+                ])
+            ]
+        ])
+        
+            ->add('numtelu', TextType::class, [
+                'constraints' => [
+                    new NotBlank(['message' => 'Le numéro de téléphone est obligatoire']),
+                    new Regex([
+                        'pattern' => '/^[0-9]{8,15}$/',
+                        'message' => 'Le numéro de téléphone doit être composé de 8 à 15 chiffres'
+                    ])
+                ]
+            ])
+            ->add('datenaissanceu', DateType::class, [
+                'widget' => 'choice',  // Utilise des listes déroulantes pour jour, mois et année
+                'years' => range(date('Y') - 100, date('Y') - 18), // Plage d'années allant de 100 ans avant l'année actuelle jusqu'à 18 ans avant l'année actuelle
+                'constraints' => [
+                    new NotBlank(['message' => 'La date de naissance est obligatoire']),
+                    new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
+                        'value' => '-18 years',
+                        'message' => 'Vous devez avoir au moins 18 ans'
+                    ])
+                ]
+            ])
+            
             ->add('typeu', ChoiceType::class, [
                 'label' => 'Type d\'utilisateur',
                 'choices' => [
                     'Administrateur' => 'ADMIN',
-                    'Joueur' => 'JOUEUR', 
+                    'Joueur' => 'JOUEUR',
                     'Coach' => 'COACH'
                 ],
                 'attr' => [
-                    'class' => 'form-select'
+                    'class' => 'form-select' // Classe Bootstrap pour les listes déroulantes
                 ],
-                // Ajoutez cette option pour déclencher la synchronisation
-                'setter' => function(Utilisateur $user, $typeu) {
-                    $user->setTypeu($typeu);
-                    // Appel explicite à la synchronisation
-                    $user->synchronizeTypeAndRoles();
-                }
+                'constraints' => [
+                    new NotBlank(['message' => 'Le type d\'utilisateur est obligatoire']),
+                ]
             ])
-            
             // Champ texte à la place de la checkbox "agreeTerms"
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter nos conditions.',
                     ]),
                 ],
             ])
@@ -62,9 +114,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez entrer un mot de passe',
-                    ]),
+                    new NotBlank(['message' => 'Veuillez entrer un mot de passe']),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères',
@@ -72,7 +122,6 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-
             // Champ upload image
             ->add('photo_profilu', FileType::class, [
                 'label' => 'Photo de profil (JPG, PNG)',

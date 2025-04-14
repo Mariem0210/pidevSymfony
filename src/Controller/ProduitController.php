@@ -78,4 +78,19 @@ final class ProduitController extends AbstractController
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/frontend/produit', name: 'app_produit_index_frontend', methods: ['GET'])]
+    public function indexFrontend(ProduitRepository $produitRepository): Response
+    {
+        return $this->render('produit/frontend/index.html.twig', [
+            'produits' => $produitRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/frontend/produit/{id_produit}', name: 'app_produit_show_frontend', methods: ['GET'])]
+    public function showFrontend(Produit $produit): Response
+    {
+        return $this->render('produit/frontend/show.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
 }

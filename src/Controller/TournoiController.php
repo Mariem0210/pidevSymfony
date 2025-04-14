@@ -78,4 +78,19 @@ final class TournoiController extends AbstractController
 
         return $this->redirectToRoute('app_tournoi_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/frontend/tournoi', name: 'app_tournoi_index_frontend', methods: ['GET'])]
+    public function indexFrontend(TournoiRepository $tournoiRepository): Response
+    {
+        return $this->render('tournoi/frontend/index.html.twig', [
+            'tournois' => $tournoiRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/frontend/tournoi/{idt}', name: 'app_tournoi_show_frontend', methods: ['GET'])]
+    public function showFrontend(Tournoi $tournoi): Response
+    {
+        return $this->render('tournoi/frontend/show.html.twig', [
+            'tournoi' => $tournoi,
+        ]);
+    }
 }

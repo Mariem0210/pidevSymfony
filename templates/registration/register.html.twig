@@ -221,17 +221,24 @@
                 <div class="signup_form">
                     <h2>Create Account</h2>
                     {{ form_start(registrationForm, {'attr': {'enctype': 'multipart/form-data'}}) }}
+                    
                     <div class="row form_row">
                         <div class="col-md-6 form_col">
                             <div class="form_group">
                                 {{ form_label(registrationForm.nomu) }}
                                 {{ form_widget(registrationForm.nomu, {'attr': {'class': 'form_control', 'placeholder': 'Enter your last name'}}) }}
+                                {% for error in registrationForm.nomu.vars.errors %}
+                                    <div class="alert alert-danger">{{ error.message }}</div>
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="col-md-6 form_col">
                             <div class="form_group">
                                 {{ form_label(registrationForm.prenomu) }}
                                 {{ form_widget(registrationForm.prenomu, {'attr': {'class': 'form_control', 'placeholder': 'Enter your first name'}}) }}
+                                {% for error in registrationForm.prenomu.vars.errors %}
+                                    <div class="alert alert-danger">{{ error.message }}</div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -239,11 +246,17 @@
                     <div class="form_group">
                         {{ form_label(registrationForm.mailu) }}
                         {{ form_widget(registrationForm.mailu, {'attr': {'class': 'form_control', 'placeholder': 'Enter your email'}}) }}
+                        {% for error in registrationForm.mailu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
                     </div>
 
                     <div class="form_group">
                         {{ form_label(registrationForm.numtelu) }}
                         {{ form_widget(registrationForm.numtelu, {'attr': {'class': 'form_control', 'placeholder': 'Enter your phone number'}}) }}
+                        {% for error in registrationForm.numtelu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
                     </div>
 
                     <div class="form_group">
@@ -252,16 +265,25 @@
                             'attr': {'class': 'form_control'},
                             'years': range('now'|date('Y') - 100, 'now'|date('Y') - 10)
                         }) }}
+                        {% for error in registrationForm.datenaissanceu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
                     </div>
 
                     <div class="form_group">
                         {{ form_label(registrationForm.typeu) }}
                         {{ form_widget(registrationForm.typeu, {'attr': {'class': 'form_control'}}) }}
+                        {% for error in registrationForm.typeu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
                     </div>
 
                     <div class="form_group">
                         {{ form_label(registrationForm.plainPassword) }}
                         {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form_control', 'placeholder': 'Enter your password (min. 6 characters)'}}) }}
+                        {% for error in registrationForm.plainPassword.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
                     </div>
 
                     <div class="form_group">
@@ -271,12 +293,18 @@
                             {{ form_widget(registrationForm.photo_profilu, {'attr': {'class': 'custom_file_input'}}) }}
                         </div>
                         <div class="file_name" id="fileName">No file selected</div>
+                        {% for error in registrationForm.photo_profilu.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
                     </div>
 
                     {% if registrationForm.agreeTerms is defined %}
                     <div class="terms_checkbox">
                         {{ form_widget(registrationForm.agreeTerms) }}
                         {{ form_label(registrationForm.agreeTerms) }}
+                        {% for error in registrationForm.agreeTerms.vars.errors %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endfor %}
                     </div>
                     {% endif %}
 
@@ -285,12 +313,14 @@
                     <div class="form_footer">
                         <p>Already have an account? <a href="{{ path('app_login') }}">Sign In</a></p>
                     </div>
+
                     {{ form_end(registrationForm) }}
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}

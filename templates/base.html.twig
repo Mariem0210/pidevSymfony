@@ -49,6 +49,15 @@
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
+            {% block choix %}
+       <li class="nav-item">
+  <a class="nav-link text-white {{ app.request.get('_route') == 'app_dashboard' ? 'active bg-gradient-primary' }}" href="{{ path('app_dashboard') }}">
+    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+      <i class="material-icons opacity-10">dashboard</i>
+    </div>
+    <span class="nav-link-text ms-1">Dashboard</span>
+  </a>
+</li>
         <li class="nav-item">
           <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_giveaway_' ? 'active bg-gradient-primary' }}" href="{{ path('app_giveaway_index') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -105,6 +114,15 @@
             <span class="nav-link-text ms-1">Les Tournois</span>
           </a>
         </li>
+        </li>
+           <li class="nav-item">
+         <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_commande_' ? 'active bg-gradient-primary' }}" href="{{ path('app_commande_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Les commandes</span>
+          </a>
+        </li>
            <li class="nav-item">
           <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_matches_' ? 'active bg-gradient-primary' }}" href="{{ path('app_matches_index') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -133,6 +151,7 @@
             <span class="nav-link-text ms-1">Users</span>
           </a>
         </li>
+              {% endblock %}
        
       
       </ul>

@@ -77,4 +77,19 @@ final class MatchesController extends AbstractController{
 
         return $this->redirectToRoute('app_matches_index', [], Response::HTTP_SEE_OTHER);
     }
-} 
+    #[Route('/frontend/matches', name: 'app_matches_index_frontend', methods: ['GET'])]
+    public function indexFrontend(MatchesRepository $matchesRepository): Response
+    {
+        return $this->render('matches/frontend/index.html.twig', [
+            'matches' => $matchesRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/frontend/matches/{idm}', name: 'app_matches_show_frontend', methods: ['GET'])]
+    public function showFrontend(Matches $match): Response
+    {
+        return $this->render('matches/frontend/show.html.twig', [
+            'match' => $match,
+        ]);
+    }
+}

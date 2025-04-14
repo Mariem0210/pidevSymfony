@@ -1,0 +1,31 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Liste des paniers{% endblock %}
+
+{% block content %}
+<section class="section_padding">
+    <div class="container">
+        <h2 class="text-center mb-4">Liste des paniers</h2>
+        <div class="row">
+            {% for panier in paniers %}
+                <div class="col-md-4 mb-4">
+                    <div class="single_gaming gaming_section text-center">
+                        <p><strong>ID Produit:</strong> {{ panier.idProduit }}</p>
+                        <p><strong>Quantité:</strong> {{ panier.quantite ?? 1 }}</p>
+                        <p><strong>Date d'ajout:</strong> {{ panier.dateAjout|date('d/m/Y H:i') }}</p>
+                        <a href="{{ path('app_panier_show_frontend', {'id_panier': panier.idPanier}) }}" class="btn_2">Voir Détails</a>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center">Aucun panier trouvé.</p>
+            {% endfor %}
+        </div>
+
+        {% if paniers|length > 0 %}
+            <div class="text-center mt-4">
+                <a href="{{ path('valider_panier') }}" class="btn_1">Valider le panier</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
