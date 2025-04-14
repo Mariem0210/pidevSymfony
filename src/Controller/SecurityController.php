@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
             throw new \LogicException('L\'utilisateur doit avoir une méthode getTypeu()');
         }
         
-        $userType = $user->getTypeu();
+        $userType = $user->getRoles();
         
         // Redirection en fonction du type d'utilisateur
         switch ($userType) {

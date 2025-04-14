@@ -1,129 +1,124 @@
 <?php
 
 namespace App\Form;
-
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class UtilisateurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nomu', TextType::class, [
+        ->add('mailu', EmailType::class, [
+            'label' => 'Email address',
+            'required' => true,
+            'constraints' => [
+                new NotBlank(['message' => 'L\'email est obligatoire']),
+                new Email(['message' => 'Veuillez entrer un email valide'])
+            ]
+        ])
+        ->add('nomu', TextType::class, [
+            'constraints' => [
+                new NotBlank(['message' => 'Le nom est obligatoire']),
+                new Length([
+                    'min' => 2,
+                    'max' => 50,
+                    'minMessage' => 'Le nom doit contenir au moins {{ limit }} caractères',
+                    'maxMessage' => 'Le nom ne peut pas dépasser {{ limit }} caractères'
+                ]),
+                // Contrainte Regex pour n'accepter que des lettres (pas de chiffres ou caractères spéciaux)
+                new Regex([
+                    'pattern' => '/^[a-zA-ZÀ-ÿ\s-]+$/',  // Permet les lettres et les espaces et tirets
+                    'message' => 'Le nom ne doit contenir que des lettres, des espaces ou des tirets.'
+                ])
+            ]
+        ])
+        
+        ->add('prenomu', TextType::class, [
+            'constraints' => [
+                new NotBlank(['message' => 'Le prénom est obligatoire']),
+                new Length([
+                    'min' => 2,
+                    'max' => 50,
+                    'minMessage' => 'Le prénom doit contenir au moins {{ limit }} caractères',
+                    'maxMessage' => 'Le prénom ne peut pas dépasser {{ limit }} caractères'
+                ]),
+                // Contrainte Regex pour n'accepter que des lettres (pas de chiffres ou caractères spéciaux)
+                new Regex([
+                    'pattern' => '/^[a-zA-ZÀ-ÿ\s-]+$/',  // Permet les lettres et les espaces et tirets
+                    'message' => 'Le prénom ne doit contenir que des lettres, des espaces ou des tirets.'
+                ])
+            ]
+        ])
+        
+            ->add('numtelu', TextType::class, [
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'Le nom est obligatoire']),
-                    new Assert\Length([
-                        'min' => 2,
-                        'max' => 50,
-                        'minMessage' => 'Le nom doit contenir au moins {{ limit }} caractères',
-                        'maxMessage' => 'Le nom ne peut pas dépasser {{ limit }} caractères'
-                    ])
-                ]
-            ])
-            ->add('prenomu', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(['message' => 'Le prénom est obligatoire']),
-                    new Assert\Length([
-                        'min' => 2,
-                        'max' => 50,
-                        'minMessage' => 'Le prénom doit contenir au moins {{ limit }} caractères',
-                        'maxMessage' => 'Le prénom ne peut pas dépasser {{ limit }} caractères'
-                    ])
-                ]
-            ])
-            ->add('typeu', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(['message' => 'Le type d\'utilisateur est obligatoire']),
-                    new Assert\Choice([
-                        'choices' => ['admin', 'coach', 'joueur'],
-                        'message' => 'Type d\'utilisateur invalide'
-                    ])
-                ]
-            ])
-            ->add('mailu', EmailType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(['message' => 'L\'email est obligatoire']),
-                    new Assert\Email(['message' => 'Veuillez entrer un email valide'])
-                ]
-            ])
-            ->add('mdpu', PasswordType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(['message' => 'Le mot de passe est obligatoire']),
-                    new Assert\Length([
-                        'min' => 6,
-                        'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères'
+                    new NotBlank(['message' => 'Le numéro de téléphone est obligatoire']),
+                    new Regex([
+                        'pattern' => '/^[0-9]{8,15}$/',
+                        'message' => 'Le numéro de téléphone doit être composé de 8 à 15 chiffres'
                     ])
                 ]
             ])
             ->add('datenaissanceu', DateType::class, [
-                'widget' => 'single_text',
+                'widget' => 'choice',  // Utilise des listes déroulantes pour jour, mois et année
+                'years' => range(date('Y') - 100, date('Y') - 18), // Plage d'années allant de 100 ans avant l'année actuelle jusqu'à 18 ans avant l'année actuelle
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'La date de naissance est obligatoire']),
-                    new Assert\LessThanOrEqual([
+                    new NotBlank(['message' => 'La date de naissance est obligatoire']),
+                    new \Symfony\Component\Validator\Constraints\LessThanOrEqual([
                         'value' => '-18 years',
                         'message' => 'Vous devez avoir au moins 18 ans'
                     ])
                 ]
             ])
-            ->add('dateinscriu', DateType::class, [
-                'widget' => 'single_text',
+            
+            ->add('typeu', ChoiceType::class, [
+                'label' => 'Type d\'utilisateur',
+                'choices' => [
+                    'Administrateur' => 'ADMIN',
+                    'Joueur' => 'JOUEUR',
+                    'Coach' => 'COACH'
+                ],
+                'attr' => [
+                    'class' => 'form-select' // Classe Bootstrap pour les listes déroulantes
+                ],
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'La date d\'inscription est obligatoire']),
-                    new Assert\LessThanOrEqual([
-                        'value' => 'today',
-                        'message' => 'La date d\'inscription ne peut pas être dans le futur'
-                    ])
-                ]
-            ])
-            ->add('numtelu', TelType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(['message' => 'Le numéro de téléphone est obligatoire']),
-                    new Assert\Regex([
-                        'pattern' => '/^[0-9]{8,15}$/',
-                        'message' => 'Numéro de téléphone invalide'
-                    ])
+                    new NotBlank(['message' => 'Le type d\'utilisateur est obligatoire']),
                 ]
             ])
             ->add('photo_profilu', FileType::class, [
+                'label' => 'Photo de profil (JPG, PNG)',
+                'mapped' => false, // car ce n'est pas une string directement dans l'objet (c'est un fichier)
                 'required' => false,
                 'constraints' => [
-                    new Assert\File([
-                        'maxSize' => '2M',
-                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif'],
-                        'mimeTypesMessage' => 'Veuillez uploader une image valide (JPEG, PNG ou GIF)',
-                        'maxSizeMessage' => 'L\'image ne peut pas dépasser {{ limit }}'
+                    new File([
+                        'maxSize' => '3M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez uploader une image JPG ou PNG',
                     ])
-                ]
+                ],
             ])
-            ->add('reset_code', TextType::class, [
-                'required' => false,
-                'constraints' => [
-                    new Assert\Length([
-                        'max' => 50,
-                        'maxMessage' => 'Le code ne peut pas dépasser {{ limit }} caractères'
-                    ])
-                ]
-            ])
-            ->add('code_expiration', DateType::class, [
-                'widget' => 'single_text',
-                'required' => false,
-                'constraints' => [
-                    new Assert\GreaterThanOrEqual([
-                        'value' => 'today',
-                        'message' => 'La date d\'expiration doit être aujourd\'hui ou dans le futur'
-                    ])
-                ]
-            ])
+        
+        
+         
         ;
     }
 

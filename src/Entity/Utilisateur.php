@@ -96,7 +96,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function getMailu(): ?string
     {
         return $this->mailu;
-    }
+    }       
 
     public function setMailu(string $mailu): self
     {
