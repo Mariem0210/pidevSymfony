@@ -1,0 +1,107 @@
+{{ form_start(form, {'attr': {'id': 'certificatForm', 'class': 'needs-validation'}}) }}
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="input-group input-group-static mb-4">
+            {{ form_label(form.nomc, 'Nom du certificat', {'label_attr': {'class': 'ms-0'}}) }}
+            {{ form_widget(form.nomc, {'attr': {'class': 'form-control', 'oninput': 'validateField(this)'}}) }}
+            <span class="text-danger error-message">{{ form_errors(form.nomc) }}</span>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <div class="input-group input-group-static mb-4">
+            {{ form_label(form.typec, 'Type', {'label_attr': {'class': 'ms-0'}}) }}
+            {{ form_widget(form.typec, {'attr': {'class': 'form-control', 'oninput': 'validateField(this)'}}) }}
+            <span class="text-danger error-message">{{ form_errors(form.typec) }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="input-group input-group-static mb-4">
+            {{ form_label(form.scorec, 'Score', {'label_attr': {'class': 'ms-0'}}) }}
+            {{ form_widget(form.scorec, {'attr': {'class': 'form-control', 'min': '0', 'max': '100', 'oninput': 'validateField(this)'}}) }}
+            <span class="text-danger error-message">{{ form_errors(form.scorec) }}</span>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="input-group input-group-static mb-4">
+            {{ form_label(form.etatc, 'Statut', {'label_attr': {'class': 'ms-0'}}) }}
+            {{ form_widget(form.etatc, {'attr': {'class': 'form-control', 'onchange': 'validateField(this)'}}) }}
+            <span class="text-danger error-message">{{ form_errors(form.etatc) }}</span>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="input-group input-group-static mb-4">
+            {{ form_label(form.dateExpirationc, 'Date d\'expiration', {'label_attr': {'class': 'ms-0'}}) }}
+            {{ form_widget(form.dateExpirationc, {'attr': {'class': 'form-control', 'onchange': 'validateField(this)'}}) }}
+            <span class="text-danger error-message">{{ form_errors(form.dateExpirationc) }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="input-group input-group-static mb-4">
+            {{ form_label(form.formation, 'Formation', {'label_attr': {'class': 'ms-0'}}) }}
+            {{ form_widget(form.formation, {'attr': {'class': 'form-control', 'onchange': 'validateField(this)'}}) }}
+            <span class="text-danger error-message">{{ form_errors(form.formation) }}</span>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <div class="input-group input-group-static mb-4">
+            {{ form_label(form.utilisateur, 'Utilisateur', {'label_attr': {'class': 'ms-0'}}) }}
+            {{ form_widget(form.utilisateur, {'attr': {'class': 'form-control', 'onchange': 'validateField(this)'}}) }}
+            <span class="text-danger error-message">{{ form_errors(form.utilisateur) }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <button type="submit" class="btn bg-gradient-primary">
+            <i class="material-icons text-sm me-2">save</i>
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+</div>
+
+{{ form_end(form) }}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date().toISOString().split('T')[0];
+    const expirationField = document.querySelector('input[id$="_dateExpirationc"]');
+    if (expirationField) {
+        expirationField.setAttribute("min", today);
+    }
+});
+
+function validateField(field) {
+    let errorSpan = field.closest('.input-group').querySelector('.error-message');
+    if (!field.checkValidity()) {
+        errorSpan.textContent = field.validationMessage;
+        field.classList.add('is-invalid');
+    } else {
+        errorSpan.textContent = "";
+        field.classList.remove('is-invalid');
+    }
+}
+</script>
+
+<style>
+.error-message {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.is-invalid {
+    border-color: #f44335 !important;
+}
+</style>

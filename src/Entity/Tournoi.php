@@ -2,12 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TournoiRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
-use App\Repository\TournoiRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TournoiRepository::class)]
 #[ORM\Table(name: 'tournois')]
@@ -17,6 +15,41 @@ class Tournoi
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $idt = null;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $nomt = null;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $descriptiont = null;
+
+    #[ORM\Column(type: 'date')]
+    private ?\DateTimeInterface $date_debutt = null;
+
+    #[ORM\Column(type: 'date')]
+    private ?\DateTimeInterface $date_fint = null;
+
+    #[ORM\Column(type: 'integer')]
+    private ?int $nbr_equipes = null;
+
+    #[ORM\Column(type: 'float')]
+    private ?float $prixt = null;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $statutt = null;
+
+    #[ORM\OneToMany(mappedBy: 'tournoi', targetEntity: Matches::class)]
+    private Collection $matches;
+
+    public function __construct()
+    {
+        $this->matches = new ArrayCollection();
+    }
+
+    // Important: getId pour compatibilité avec Symfony
+    public function getId(): ?int
+    {
+        return $this->idt;
+    }
 
     public function getIdt(): ?int
     {
@@ -29,9 +62,6 @@ class Tournoi
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $nomt = null;
-
     public function getNomt(): ?string
     {
         return $this->nomt;
@@ -42,9 +72,6 @@ class Tournoi
         $this->nomt = $nomt;
         return $this;
     }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $descriptiont = null;
 
     public function getDescriptiont(): ?string
     {
@@ -57,50 +84,38 @@ class Tournoi
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $date_debutt = null;
-
-    public function getDate_debutt(): ?\DateTimeInterface
+    public function getDateDebutt(): ?\DateTimeInterface
     {
         return $this->date_debutt;
     }
 
-    public function setDate_debutt(\DateTimeInterface $date_debutt): self
+    public function setDateDebutt(\DateTimeInterface $date_debutt): self
     {
         $this->date_debutt = $date_debutt;
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $date_fint = null;
-
-    public function getDate_fint(): ?\DateTimeInterface
+    public function getDateFint(): ?\DateTimeInterface
     {
         return $this->date_fint;
     }
 
-    public function setDate_fint(\DateTimeInterface $date_fint): self
+    public function setDateFint(\DateTimeInterface $date_fint): self
     {
         $this->date_fint = $date_fint;
         return $this;
     }
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $nbr_equipes = null;
-
-    public function getNbr_equipes(): ?int
+    public function getNbrEquipes(): ?int
     {
         return $this->nbr_equipes;
     }
 
-    public function setNbr_equipes(int $nbr_equipes): self
+    public function setNbrEquipes(int $nbr_equipes): self
     {
         $this->nbr_equipes = $nbr_equipes;
         return $this;
     }
-
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $prixt = null;
 
     public function getPrixt(): ?float
     {
@@ -113,9 +128,6 @@ class Tournoi
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $statutt = null;
-
     public function getStatutt(): ?string
     {
         return $this->statutt;
@@ -127,40 +139,35 @@ class Tournoi
         return $this;
     }
 
-    public function getDateDebutt(): ?\DateTimeInterface
+    /**
+     * @return Collection<int, Matches>
+     */
+    public function getMatches(): Collection
     {
-        return $this->date_debutt;
+        return $this->matches;
     }
 
-    public function setDateDebutt(\DateTimeInterface $date_debutt): static
+    public function addMatch(Matches $match): self
     {
-        $this->date_debutt = $date_debutt;
-
+        if (!$this->matches->contains($match)) {
+            $this->matches->add($match);
+            $match->setTournoi($this);
+        }
         return $this;
     }
 
-    public function getDateFint(): ?\DateTimeInterface
+    public function removeMatch(Matches $match): self
     {
-        return $this->date_fint;
-    }
-
-    public function setDateFint(\DateTimeInterface $date_fint): static
-    {
-        $this->date_fint = $date_fint;
-
+        if ($this->matches->removeElement($match)) {
+            if ($match->getTournoi() === $this) {
+                $match->setTournoi(null);
+            }
+        }
         return $this;
     }
 
-    public function getNbrEquipes(): ?int
+    public function __toString(): string
     {
-        return $this->nbr_equipes;
+        return $this->nomt ?? 'Tournoi';
     }
-
-    public function setNbrEquipes(int $nbr_equipes): static
-    {
-        $this->nbr_equipes = $nbr_equipes;
-
-        return $this;
-    }
-
 }

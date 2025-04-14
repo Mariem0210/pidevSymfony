@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 use App\Repository\OffreDeRectrutementRepository;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OffreDeRectrutementRepository::class)]
 #[ORM\Table(name: 'offre_de_rectrutement')]
@@ -69,7 +71,6 @@ class OffreDeRectrutement
     }
 
     #[ORM\Column(type: 'float', nullable: false)]
-    #[Assert\Positive(message: 'Le salaire proposé doit être un nombre réel strictement positif.')]
     private ?float $salaire_propose = null;
 
     public function getSalaire_propose(): ?float
@@ -111,8 +112,6 @@ class OffreDeRectrutement
         return $this;
     }
 
-    // Méthodes en doublon (conserver les plus lisibles)
-
     public function getPosteRecherche(): ?string
     {
         return $this->poste_recherche;
@@ -121,6 +120,7 @@ class OffreDeRectrutement
     public function setPosteRecherche(string $poste_recherche): static
     {
         $this->poste_recherche = $poste_recherche;
+
         return $this;
     }
 
@@ -132,6 +132,7 @@ class OffreDeRectrutement
     public function setNiveuRequis(string $niveu_requis): static
     {
         $this->niveu_requis = $niveu_requis;
+
         return $this;
     }
 
@@ -143,6 +144,8 @@ class OffreDeRectrutement
     public function setSalairePropose(float $salaire_propose): static
     {
         $this->salaire_propose = $salaire_propose;
+
         return $this;
     }
+
 }

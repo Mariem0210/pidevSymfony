@@ -1,0 +1,49 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Liste des tournois{% endblock %}
+
+{% block content %}
+<!-- banner part start-->
+<section class="banner_part">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-10">
+                <div class="banner_text text-center">
+                    <div class="banner_text_iner">
+                        <h1>Nos Tournois</h1>
+                        <p>Découvrez nos tournois à venir et participez à la compétition</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner part end-->
+
+<!-- tournois list section -->
+<section class="learning_part section_padding">
+    <div class="container">
+        <div class="row">
+            {% for tournoi in tournois %}
+                <div class="col-md-4 mb-4">
+                    <div class="single_gaming gaming_section">
+                        <div class="learning_member_text">
+                            <h4>{{ tournoi.nomt }}</h4>
+                            <p>{{ tournoi.descriptiont|slice(0, 120) }}{% if tournoi.descriptiont|length > 120 %}...{% endif %}</p>
+                            <a href="{{ path('app_tournoi_show_frontend', {'idt': tournoi.idt}) }}" class="btn_2">Voir Détails</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center">
+                    <div class="no_data">
+                        <h3>Aucun tournoi disponible pour le moment.</h3>
+                        <p>Veuillez revenir ultérieurement pour découvrir nos nouveaux tournois.</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- tournois list section end -->
+{% endblock %}

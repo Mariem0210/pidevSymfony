@@ -57,18 +57,17 @@ class Commande
         return $this;
     }
 
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'commandes')]
-    #[ORM\JoinColumn(name: 'idu', referencedColumnName: 'idu')]
-    private ?Utilisateur $utilisateur = null;
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $idu = null;
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getIdu(): ?int
     {
-        return $this->utilisateur;
+        return $this->idu;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self
+    public function setIdu(int $idu): self
     {
-        $this->utilisateur = $utilisateur;
+        $this->idu = $idu;
         return $this;
     }
 

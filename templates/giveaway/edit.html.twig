@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un Giveaway{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">
+                            <i class="material-icons opacity-10 me-2">edit</i>
+                            Modification du Giveaway #{{ giveaway.idg }}
+                        </h6>
+                    </div>
+                </div>
+                <div class="card-body px-4 pb-2">
+                    {{ form_start(form, {'attr': {'id': 'giveaway-form', 'class': 'needs-validation'}}) }}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group input-group-static mb-4">
+                                {{ form_label(form.titreg, 'Titre', {'label_attr': {'class': 'ms-0'}}) }}
+                                {{ form_widget(form.titreg, {'attr': {'class': 'form-control'}}) }}
+                                <span class="text-danger error-message">{{ form_errors(form.titreg) }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group input-group-static mb-4">
+                                {{ form_label(form.statusg, 'Statut', {'label_attr': {'class': 'ms-0'}}) }}
+                                {{ form_widget(form.statusg, {'attr': {'class': 'form-control'}}) }}
+                                <span class="text-danger error-message">{{ form_errors(form.statusg) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="input-group input-group-static mb-4">
+                                {{ form_label(form.descg, 'Description', {'label_attr': {'class': 'ms-0'}}) }}
+                                {{ form_widget(form.descg, {'attr': {'class': 'form-control', 'rows': '4'}}) }}
+                                <span class="text-danger error-message">{{ form_errors(form.descg) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group input-group-static mb-4">
+                                {{ form_label(form.datedg, 'Date de début', {'label_attr': {'class': 'ms-0'}}) }}
+                                {{ form_widget(form.datedg, {'attr': {'class': 'form-control'}}) }}
+                                <span class="text-danger error-message">{{ form_errors(form.datedg) }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group input-group-static mb-4">
+                                {{ form_label(form.datefg, 'Date de fin', {'label_attr': {'class': 'ms-0'}}) }}
+                                {{ form_widget(form.datefg, {'attr': {'class': 'form-control'}}) }}
+                                <span class="text-danger error-message">{{ form_errors(form.datefg) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <div class="card-footer p-3 d-flex justify-content-between align-items-center">
+                    <a href="{{ path('app_giveaway_index') }}" class="btn btn-outline-secondary">
+                        <i class="material-icons text-sm me-2">arrow_back</i>
+                        Retour à la liste
+                    </a>
+                    <div class="d-flex">
+                        <button type="submit" form="giveaway-form" class="btn bg-gradient-success me-2">
+                            <i class="material-icons text-sm me-2">save</i>
+                            Enregistrer
+                        </button>
+                        {{ include('giveaway/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

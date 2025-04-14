@@ -29,13 +29,11 @@ final class EquipeController extends AbstractController
         $form = $this->createForm(EquipeType::class, $equipe);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $entityManager->persist($equipe);
-                $entityManager->flush();
-                return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
-            }
-            $this->addFlash('error', 'Veuillez remplir tous les champs obligatoires correctement.');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($equipe);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('equipe/new.html.twig', [
@@ -58,12 +56,10 @@ final class EquipeController extends AbstractController
         $form = $this->createForm(EquipeType::class, $equipe);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $entityManager->flush();
-                return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
-            }
-            $this->addFlash('error', 'Veuillez corriger les erreurs dans le formulaire.');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('equipe/edit.html.twig', [
@@ -75,11 +71,26 @@ final class EquipeController extends AbstractController
     #[Route('/{ideq}', name: 'app_equipe_delete', methods: ['POST'])]
     public function delete(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$equipe->getIdeq(), $request->getPayload()->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$equipe->getIdeq(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($equipe);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/frontend/equipe', name: 'app_equipe_index_frontend', methods: ['GET'])]
+    public function indexFrontend(EquipeRepository $equipeRepository): Response
+    {
+        return $this->render('equipe/frontend/index.html.twig', [
+            'equipes' => $equipeRepository->findAll(),
+        ]);
+    }
+    
+    #[Route('/frontend/equipe/{ideq}', name: 'app_equipe_show_frontend', methods: ['GET'])]
+    public function showFrontend(Equipe $equipe): Response
+    {
+        return $this->render('equipe/frontend/show.html.twig', [
+            'equipe' => $equipe,
+        ]);
     }
 }

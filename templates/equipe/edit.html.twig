@@ -1,20 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Equipe{% endblock %}
+{% block title %}Modifier une Équipe{% endblock %}
 
-{% block body %}
-    <h1>Edit Equipe</h1>
-
-    {# Affichage des messages d'erreur globaux #}
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">
-            {{ message }}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Modifier une Équipe</h6>
+                    </div>
+                </div>
+                <div class="card-body px-4 pb-2">
+                    {{ include('equipe/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+                </div>
+                <div class="card-footer p-3">
+                    <a href="{{ path('app_equipe_index') }}" class="btn btn-outline-secondary">
+                        <i class="material-icons text-sm me-2">arrow_back</i> Retour à la liste
+                    </a>
+                    {{ include('equipe/_delete_form.html.twig') }}
+                </div>
+            </div>
         </div>
-    {% endfor %}
-
-    {{ include('equipe/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_equipe_index') }}">back to list</a>
-
-    {{ include('equipe/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

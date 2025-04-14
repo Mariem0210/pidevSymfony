@@ -1,34 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Equipe{% endblock %}
+{% block title %}Détails de l'Équipe{% endblock %}
 
-{% block body %}
-    <h1>Equipe</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Ideq</th>
-                <td>{{ equipe.ideq }}</td>
-            </tr>
-            <tr>
-                <th>Nom_equipe</th>
-                <td>{{ equipe.nomEquipe }}</td>
-            </tr>
-            <tr>
-                <th>Date_creation</th>
-                <td>{{ equipe.dateCreation ? equipe.dateCreation|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Idu</th>
-                <td>{{ equipe.idu }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_equipe_index') }}">back to list</a>
-
-    <a href="{{ path('app_equipe_edit', {'ideq': equipe.ideq}) }}">edit</a>
-
-    {{ include('equipe/_delete_form.html.twig') }}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Détails de l'Équipe</h6>
+                    </div>
+                </div>
+                <div class="card-body px-4 pb-2">
+                    <table class="table align-items-center mb-0">
+                        <tbody>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                <td class="px-4">{{ equipe.ideq }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                                <td class="px-4">{{ equipe.nomEquipe }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date création</th>
+                                <td class="px-4">{{ equipe.dateCreation ? equipe.dateCreation|date('Y-m-d') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID Utilisateur</th>
+                                <td class="px-4">{{ equipe.idu }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer p-3 d-flex justify-content-between">
+                    <a href="{{ path('app_equipe_index') }}" class="btn btn-outline-secondary">
+                        <i class="material-icons text-sm me-2">arrow_back</i> Retour à la liste
+                    </a>
+                    <div>
+                        <a href="{{ path('app_equipe_edit', {'ideq': equipe.ideq}) }}" class="btn btn-outline-primary me-2">
+                            <i class="material-icons text-sm me-2">edit</i> Modifier
+                        </a>
+                        {{ include('equipe/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

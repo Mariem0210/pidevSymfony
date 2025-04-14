@@ -1,19 +1,332 @@
+{# templates/base.html.twig #}
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="fr">
+<head>
+    {% block meta %}
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="{% block meta_description %}Application Symfony avec Material Dashboard{% endblock %}">
+        <meta name="author" content="{% block meta_author %}Votre Nom{% endblock %}">
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block favicon %}
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
+    {% endblock %}
+
+    <title>{% block title %}Material Dashboard 2 - Symfony{% endblock %}</title>
+
+    {% block fonts %}
+        <!-- Fonts and icons -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700"/>
+        <!-- Material Icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    {% endblock %}
+
+    {% block stylesheets %}
+        <!-- Nucleo Icons -->
+        <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet"/>
+        <!-- Font Awesome Icons -->
+        <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+        <!-- Main CSS -->
+        <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.0.0') }}" rel="stylesheet"/>
+        <!-- Custom CSS -->
+        <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet"/>
+    {% endblock %}
+</head>
+
+<body class="g-sidenav-show bg-gray-200">
+{% block body %}
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
+        <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
+      </a>
+    </div>
+    <hr class="horizontal light mt-0 mb-2">
+    <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_giveaway_' ? 'active bg-gradient-primary' }}" href="{{ path('app_giveaway_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
+            </div>
+            <span class="nav-link-text ms-1">Giveaway</span>
+          </a>
+        </li>
+        <li class="nav-item">
+         <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_formation_' ? 'active bg-gradient-primary' }}" href="{{ path('app_formation_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">table_view</i>
+            </div>
+            <span class="nav-link-text ms-1">Formation</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_certificat_' ? 'active bg-gradient-primary' }}" href="{{ path('app_certificat_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">receipt_long</i>
+            </div>
+            <span class="nav-link-text ms-1">Certificat</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_equipe_' ? 'active bg-gradient-primary' }}" href="{{ path('app_equipe_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">view_in_ar</i>
+            </div>
+            <span class="nav-link-text ms-1">Equipes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_transfert_' ? 'active bg-gradient-primary' }}" href="{{ path('app_transfert_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+            </div>
+            <span class="nav-link-text ms-1">Transferts</span>
+          </a>
+        </li>
+        <li class="nav-item">
+         <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_offre_de_rectrutement_' ? 'active bg-gradient-primary' }}" href="{{ path('app_offre_de_rectrutement_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Les Offres de recrutement</span>
+          </a>
+        </li>
+           <li class="nav-item">
+         <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_tournoi_' ? 'active bg-gradient-primary' }}" href="{{ path('app_tournoi_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Les Tournois</span>
+          </a>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_matches_' ? 'active bg-gradient-primary' }}" href="{{ path('app_matches_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Les matchs</span>
+          </a>
+        </li>
+          </li>
+           <li class="nav-item">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_produit_' ? 'active bg-gradient-primary' }}" href="{{ path('app_produit_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Les produits</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link text-white {{ app.request.get('_route') starts with 'app_utilisateur_' ? 'active bg-gradient-primary' }}" href="{{ path('app_utilisateur_index') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Users</span>
+          </a>
+        </li>
+       
+      
+      </ul>
+    </div>
+    <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+      <div class="mx-3">
+        <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
+      </div>
+    </div>
+  </aside>
+    
+
+    <!-- Main Content -->
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+        <!-- Navbar en haut -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+                    </ol>
+                    <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+                </nav>
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                        <div class="input-group input-group-outline">
+                            <label class="form-label">Type here...</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <ul class="navbar-nav justify-content-end">
+                        <li class="nav-item d-flex align-items-center">
+  <a href="{{ path('app_logout') }}" 
+     class="nav-link text-white px-0 font-weight-bold {{ app.request.get('_route') starts with 'app_logout' ? 'active bg-gradient-primary' }}">
+    <i class="fa fa-user me-sm-1"></i>
+    <span class="d-sm-inline d-none">Logout</span>
+  </a>
+</li>
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenu principal -->
+        <div class="container-fluid py-4">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Core JS Files -->
+    <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
+    <!-- Control Center for Material Dashboard -->
+    <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.0.0') }}"></script>
+
+    <script>
+        // Fonction de debounce améliorée
+        function debounce(func, wait, immediate) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                const later = function() {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                const callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion de la sidebar
+            const iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
+            const iconSidenav = document.getElementById('iconSidenav');
+            const sidenavMain = document.getElementById('sidenav-main');
+            const mainContent = document.querySelector('.main-content');
+
+            if (iconNavbarSidenav && sidenavMain) {
+                iconNavbarSidenav.addEventListener('click', function() {
+                    sidenavMain.classList.toggle('d-none');
+                    mainContent.classList.toggle('main-content-margin');
+                });
+            }
+
+            if (iconSidenav && sidenavMain) {
+                iconSidenav.addEventListener('click', function() {
+                    sidenavMain.classList.toggle('d-none');
+                    mainContent.classList.toggle('main-content-margin');
+                });
+            }
+
+            // Gestion de la recherche
+            const searchInput = document.querySelector('.navbar .form-control');
+            
+            if (searchInput) {
+                // Activer le label lorsque l'input est focus ou contient du texte
+                searchInput.addEventListener('focus', function() {
+                    this.parentNode.classList.add('is-focused');
+                });
+
+                searchInput.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentNode.classList.remove('is-focused');
+                    }
+                });
+
+                // Gestionnaire de recherche avec debounce
+                const processSearch = debounce(function(e) {
+                    const searchTerm = e.target.value.trim().toLowerCase();
+                    const noResultsMessage = document.getElementById('no-results-message');
+                    
+                    // Cachez le message "no results" s'il existe
+                    if (noResultsMessage) {
+                        noResultsMessage.remove();
+                    }
+                    
+                    // Sélectionnez tous les éléments à filtrer
+                    const itemsToFilter = document.querySelectorAll('.card, .table-responsive, table tbody tr, .dashboard-item');
+                    let hasResults = false;
+
+                    itemsToFilter.forEach(item => {
+                        const textContent = item.textContent.toLowerCase();
+                        const isMatch = textContent.includes(searchTerm);
+                        
+                        if (searchTerm === '') {
+                            item.style.display = '';
+                            hasResults = true;
+                        } else if (isMatch) {
+                            item.style.display = '';
+                            hasResults = true;
+                            
+                            // Mettez en surbrillance les correspondances
+                            highlightMatches(item, searchTerm);
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    // Afficher un message si aucun résultat n'est trouvé
+                    if (!hasResults && searchTerm !== '') {
+                        showNoResultsMessage(searchTerm);
+                    }
+                }, 300);
+
+                searchInput.addEventListener('input', processSearch);
+            }
+
+            function highlightMatches(element, searchTerm) {
+                // Ne traitez que les éléments texte pour éviter de casser le HTML
+                if (element.nodeType === Node.TEXT_NODE && element.textContent.toLowerCase().includes(searchTerm)) {
+                    const span = document.createElement('span');
+                    span.className = 'highlight-match bg-yellow-100 text-dark';
+                    element.parentNode.replaceChild(span, element);
+                    span.appendChild(document.createTextNode(element.textContent));
+                } else if (element.childNodes && element.childNodes.length > 0) {
+                    element.childNodes.forEach(child => {
+                        highlightMatches(child, searchTerm);
+                    });
+                }
+            }
+
+            function showNoResultsMessage(searchTerm) {
+                const container = document.querySelector('.container-fluid.py-4');
+                if (!container) return;
+                
+                const existingMessage = document.getElementById('no-results-message');
+                if (existingMessage) return;
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.id = 'no-results-message';
+                messageDiv.className = 'alert alert-warning mt-4';
+                messageDiv.textContent = `Aucun résultat trouvé pour "${searchTerm}"`;
+                
+                container.prepend(messageDiv);
+            }
+        });
+    </script>
+{% endblock %}
+</body>
 </html>
