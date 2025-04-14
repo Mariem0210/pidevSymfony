@@ -92,14 +92,26 @@
                                     </li>
                                    
                                     {% if app.user %}
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                                    </li>
-                                    {% else %}
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('app_login') }}">Login</a>
-                                    </li>
-                                    {% endif %}
+                                <!-- Profile section with dropdown -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile"
+                                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <!-- Display user's profile picture -->
+                                        <img src="{{ asset('uploads/photos/' ~ app.user.photoProfilu) }}" alt="Profile" class="profile-photo">
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
+                                        <p class="dropdown-item">{{ app.user.nomu }} {{ app.user.prenomu }}</p>
+                                        <p class="dropdown-item">Type: {{ app.user.typeu }}</p>
+                                        <div class="dropdown-divider"></div>
+                                       <a class="dropdown-item" href="{{ path('app_profile_show') }}">Profile</a>
+                                        <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                                </li>
+                            {% endif %}
                                 </ul>
                             </div>
                            

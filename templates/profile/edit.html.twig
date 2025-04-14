@@ -1,0 +1,102 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Edit Profile - {{ app.user.nomu }}{% endblock %}
+
+{% block content %}
+<!-- breadcrumb start-->
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner text-center">
+                    <div class="breadcrumb_iner_item">
+                        <h2>Edit Your Profile</h2>
+                        <p>Update Your Profile Information</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb end-->
+
+<!-- Profile details section -->
+<section class="about_us section_padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-6 col-lg-5">
+                <div class="about_img">
+                    <!-- Display the user's profile picture -->
+                    <label for="profile-pic-upload">
+                        <img src="{{ asset('uploads/photos/' ~ app.user.photoProfilu) }}" alt="Profile" class="profile-photo" id="profile-photo" style="cursor: pointer;">
+                    </label>
+                    <!-- Hidden file input to upload the profile picture -->
+                    <input type="file" id="profile-pic-upload" name="photo_profilu" style="display: none;" accept="image/*" onchange="this.form.submit()">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="about_text">
+                    <h3>Personal Information</h3>
+
+                    <!-- Start Form Tag -->
+                    <form method="POST" action="{{ path('app_profile_edit') }}" enctype="multipart/form-data">
+                        <!-- Name -->
+                        <div class="form-group">
+                            <label for="nomu">Name</label>
+                            <input type="text" id="nomu" name="nomu" class="form-control" value="{{ app.user.nomu }}" />
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="form-group">
+                            <label for="prenomu">Last Name</label>
+                            <input type="text" id="prenomu" name="prenomu" class="form-control" value="{{ app.user.prenomu }}" />
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="mailu">Email</label>
+                            <input type="email" id="mailu" name="mailu" class="form-control" value="{{ app.user.mailu }}" />
+                        </div>
+
+                        <!-- Type -->
+                        <div class="form-group">
+                            <label for="typeu">Type</label>
+                            <input type="text" id="typeu" name="typeu" class="form-control" value="{{ app.user.typeu }}" />
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label for="numtelu">Phone Number</label>
+                            <input type="text" id="numtelu" name="numtelu" class="form-control" value="{{ app.user.numtelu }}" />
+                        </div>
+
+                        <!-- Date of Birth -->
+                        <div class="form-group">
+                            <label for="datenaissanceu">Date of Birth</label>
+                            <input type="date" id="datenaissanceu" name="datenaissanceu" class="form-control" value="{{ app.user.datenaissanceu|date('Y-m-d') }}" />
+                        </div>
+
+                        <!-- Registration Date (just for display) -->
+                        <div class="form-group">
+                            <p><strong>Registration Date:</strong> {{ app.user.dateinscriu|date('d/m/Y') }}</p>
+                        </div>
+
+                        <!-- Save Button -->
+                        <form method="POST" action="{{ path('app_profile_edit') }}" enctype="multipart/form-data">
+    <!-- other form fields here -->
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+                    </form> <!-- End Form Tag -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Profile details section end -->
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+
+{% endblock %}

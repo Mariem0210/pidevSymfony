@@ -1,0 +1,53 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Profile - {{ app.user.nomu }}{% endblock %}
+
+{% block content %}
+<!-- breadcrumb start-->
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner text-center">
+                    <div class="breadcrumb_iner_item">
+                        <h2>Your Profile</h2>
+                        <p>View and Edit Your Profile</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb end-->
+
+<!-- Profile details section -->
+<section class="about_us section_padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-6 col-lg-5">
+                <div class="about_img">
+                    <!-- Display the user's profile picture -->
+                    <img src="{{ asset('uploads/photos/' ~ app.user.photoProfilu) }}" alt="Profile" class="profile-photo">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="about_text">
+                    <h3>Personal Information</h3>
+                    <p>Name: {{ app.user.nomu }} {{ app.user.prenomu }}</p>
+                    <p>Email: {{ app.user.mailu }}</p>
+                    <p>Type: {{ app.user.typeu }}</p>
+                    <p><strong>Phone Number:</strong> {{ app.user.numtelu }}</p>
+                    <p><strong>Date of Birth:</strong> {{ app.user.datenaissanceu|date('d/m/Y') }}</p>
+                    <p><strong>Registration Date:</strong> {{ app.user.dateinscriu|date('d/m/Y') }}</p>
+                    
+                  
+                    
+                    <!-- Buttons to Edit or View Profile -->
+                    <a href="{{ path('app_profile_edit') }}" class="btn_1">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Profile details section end -->
+{% endblock %}
