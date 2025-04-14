@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 #[Route('/certificat')]
 final class CertificatController extends AbstractController
@@ -77,4 +79,36 @@ final class CertificatController extends AbstractController
 
         return $this->redirectToRoute('app_certificat_index');
     }
+    #[Route('/{id}/pdf', name: 'app_certificat_pdf', methods: ['GET'])]
+    public function generatePdf(Certificat $certificat): Response
+    {
+        // 1. Options Dompdf
+        $options = new Options();
+        $options->set('isRemoteEnabled', true); // Pour charger les images (ex: background)
+        $options->set('defaultFont', 'Arial');
+    
+        // 2. Création de Dompdf avec options
+        $dompdf = new Dompdf($options);
+    
+        // 3. Rendu du HTML depuis Twig
+        $html = $this->renderView('certificat/pdf.html.twig', [
+            'certificat' => $certificat,
+        ]);
+    
+        // 4. Générer le PDF
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape'); // ou portrait
+        $dompdf->render();
+    
+        // 5. Retourner le PDF au navigateur (téléchargement direct)
+        return new Response(
+            $dompdf->output(),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="certificat_' . $certificat->getIdc() . '.pdf"',
+            ]
+        );
+    }
+
 }

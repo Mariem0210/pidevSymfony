@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Certificat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&display=swap');
+
+        @page { margin: 0cm; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("{{ absolute_url(asset('images/finalCertificate.png')) }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .name {
+            position: absolute;
+            top: 400px;
+            width: 100%;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            font-weight: bold;
+            color: #002b36;
+        }
+
+        .formation, .score, .expiration {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            color: #002b36;
+        }
+
+        .formation { top: 480px; }
+        .score { top: 520px; }
+        .expiration { top: 540px; }
+
+        .highlight {
+            font-weight: 600;
+        }
+
+        .signature-block {
+            position: absolute;
+            bottom: 110px;
+            left: 350px;
+            text-align: center;
+        }
+
+        .signature-block img {
+            width: 150px;
+            height: auto;
+        }
+
+        .signature-label {
+            font-size: 0px; /* cachée car image utilisée */
+        }
+
+        .date {
+            position: absolute;
+            bottom: 110px;
+            right: 400px;
+            text-align: center;
+            font-size: 14px;
+            color: #002b36;
+        }
+    </style>
+</head>
+<body>
+    <!-- Nom -->
+    <div class="name">{{ certificat.utilisateur.nomu|upper }}</div>
+
+    <!-- Détails -->
+    <div class="formation">
+        A complété avec succès la formation : <span class="highlight">{{ certificat.formation.nomf }}</span>
+    </div>
+    <div class="score">
+        Score obtenu : <span class="highlight">{{ certificat.scorec }}</span>
+    </div>
+    <div class="expiration">
+        Date d'expiration : <span class="highlight">{{ certificat.dateExpirationc|date('d/m/Y') }}</span>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature-block">
+        <img src="{{ absolute_url(asset('images/image.png')) }}" alt="Signature">
+        <div class="signature-label">Signature</div>
+    </div>
+
+    <!-- Date du jour -->
+    <div class="date">
+         {{ "now"|date("d/m/Y") }}
+    </div>
+</body>
+</html>
