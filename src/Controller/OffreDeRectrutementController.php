@@ -78,4 +78,19 @@ final class OffreDeRectrutementController extends AbstractController
 
         return $this->redirectToRoute('app_offre_de_rectrutement_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/frontend/offre_de_rectrutement', name: 'app_offre_de_rectrutement_index_frontend', methods: ['GET'])]
+    public function indexFrontend(OffreDeRectrutementRepository $offreDeRectrutementRepository): Response
+    {
+        return $this->render('offre_de_rectrutement/frontend/index.html.twig', [
+            'offre_de_rectrutements' => $offreDeRectrutementRepository->findAll(),
+        ]);
+    }
+    
+    #[Route('/frontend/offre_de_rectrutement/{ido}', name: 'app_offre_de_rectrutement_show_frontend', methods: ['GET'])]
+    public function showFrontend(OffreDeRectrutement $offreDeRectrutement): Response
+    {
+        return $this->render('offre_de_rectrutement/frontend/show.html.twig', [
+            'offre_de_rectrutement' => $offreDeRectrutement,
+        ]);
+    }
 }

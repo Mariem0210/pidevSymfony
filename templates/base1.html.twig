@@ -1,0 +1,133 @@
+{# templates/base1.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard | Statistiques{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-header p-3 pt-2">
+          <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+            <i class="material-icons opacity-10">school</i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Formations</p>
+            <h4 class="mb-0">{{ formations_count }}</h4>
+          </div>
+        </div>
+        <hr class="dark horizontal my-0">
+        <div class="card-footer p-3">
+          <p class="mb-0">Total des formations enregistrées</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-header p-3 pt-2">
+          <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+            <i class="material-icons opacity-10">groups</i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Utilisateurs</p>
+            <h4 class="mb-0">{{ utilisateurs_count }}</h4>
+          </div>
+        </div>
+        <hr class="dark horizontal my-0">
+        <div class="card-footer p-3">
+          <p class="mb-0">Nombre total d'utilisateurs</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-sm-6">
+      <div class="card">
+        <div class="card-header p-3 pt-2">
+          <div class="icon icon-lg icon-shape bg-gradient-warning shadow-warning text-center border-radius-xl mt-n4 position-absolute">
+            <i class="material-icons opacity-10">verified</i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Certificats</p>
+            <h4 class="mb-0">{{ certificats_count }}</h4>
+          </div>
+        </div>
+        <hr class="dark horizontal my-0">
+        <div class="card-footer p-3">
+          <p class="mb-0">Certificats délivrés</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-lg-6 mb-4">
+      <div class="card z-index-2">
+        <div class="card-header pb-0">
+          <h6>Vue des utilisateurs</h6>
+        </div>
+        <div class="card-body p-3">
+          <div class="chart">
+            <canvas id="userChart" class="chart-canvas" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+      <div class="card z-index-2">
+        <div class="card-header pb-0">
+          <h6>Certificats délivrés par mois</h6>
+        </div>
+        <div class="card-body p-3">
+          <div class="chart">
+            <canvas id="certificatChart" class="chart-canvas" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+    const userCtx = document.getElementById('userChart').getContext('2d');
+    new Chart(userCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Utilisateurs',
+          data: [120, 150, 180, 140, 200, 170],
+          backgroundColor: '#4caf50'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    const certCtx = document.getElementById('certificatChart').getContext('2d');
+    new Chart(certCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Certificats',
+          data: [30, 45, 50, 60, 80, 70],
+          borderColor: '#fbc02d',
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+{% endblock %}

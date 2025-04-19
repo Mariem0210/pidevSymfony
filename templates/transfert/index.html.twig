@@ -3,75 +3,71 @@
 {% block title %}Liste des Transferts{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-12">
-            <div class="card my-4">
-                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">Gestion des Transferts</h6>
+<div class="row">
+    <div class="col-12">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <h6 class="text-white text-capitalize ps-3">Gestion des Transferts</h6>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                    <div class="d-flex justify-content-end mb-3 px-4">
+                        <a href="{{ path('app_transfert_index', {'tri': 'montant'}) }}" class="btn btn-outline-primary btn-sm me-2">
+                            Trier par Montant
+                        </a>
+                        <a href="{{ path('app_transfert_index', {'tri': 'date'}) }}" class="btn btn-outline-primary btn-sm">
+                            Trier par Date
+                        </a>
                     </div>
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Utilisateur</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ancienne Équipe</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nouvelle Équipe</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Montant</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for transfert in transferts %}
+                            <tr>
+                                <td class="ps-4"><p class="text-xs font-weight-bold mb-0">{{ transfert.idtr }}</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0">{{ transfert.idu }}</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0">{{ transfert.ancienneEquipe }}</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0">{{ transfert.nouvelleEquipe }}</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0">{{ transfert.montantt }}</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0">{{ transfert.datet ? transfert.datet|date('Y-m-d') : '' }}</p></td>
+                                <td class="align-middle">
+                                    <a href="{{ path('app_transfert_show', {'idtr': transfert.idtr}) }}" class="btn btn-link text-info px-3 mb-0">
+                                        <i class="material-icons text-sm me-2">visibility</i>Voir
+                                    </a>
+                                    <a href="{{ path('app_transfert_edit', {'idtr': transfert.idtr}) }}" class="btn btn-link text-dark px-3 mb-0">
+                                        <i class="material-icons text-sm me-2">edit</i>Modifier
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center p-4">
+                                    <p class="text-xs font-weight-bold mb-0">Aucun transfert trouvé</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                <div class="card-body px-0 pb-2">
-                    <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Utilisateur</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ancienne Équipe</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nouvelle Équipe</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Montant</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for transfert in transferts %}
-                                <tr>
-                                    <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">{{ transfert.idtr }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ transfert.idu }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ transfert.ancienneEquipe }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ transfert.nouvelleEquipe }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ transfert.montantt }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ transfert.datet ? transfert.datet|date('Y-m-d') : '' }}</p>
-                                    </td>
-                                    <td class="align-middle">
-                                        <a href="{{ path('app_transfert_show', {'idtr': transfert.idtr}) }}" class="btn btn-link text-info px-3 mb-0">
-                                            <i class="material-icons text-sm me-2">visibility</i>Voir
-                                        </a>
-                                        <a href="{{ path('app_transfert_edit', {'idtr': transfert.idtr}) }}" class="btn btn-link text-dark px-3 mb-0">
-                                            <i class="material-icons text-sm me-2">edit</i>Modifier
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% else %}
-                                <tr>
-                                    <td colspan="7" class="text-center p-4">
-                                        <p class="text-xs font-weight-bold mb-0">Aucun transfert trouvé</p>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card-footer p-3">
-                    <a href="{{ path('app_transfert_new') }}" class="btn bg-gradient-primary">
-                        <i class="material-icons text-sm me-2">add</i> Nouveau Transfert
-                    </a>
-                </div>
+            </div>
+            <div class="card-footer p-3">
+                <a href="{{ path('app_transfert_new') }}" class="btn bg-gradient-primary">
+                    <i class="material-icons text-sm me-2">add</i> Nouveau Transfert
+                </a>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

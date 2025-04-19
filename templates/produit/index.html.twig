@@ -15,6 +15,23 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pb-2">
+                 <div class="px-4 py-3">
+                    <form method="get" class="form-inline">
+    <label for="sort" class="me-2 fw-bold">Trier par :</label>
+    
+    <select name="sort" id="sort" class="form-select d-inline w-auto" onchange="this.form.submit()">
+        <option value="date_creation" {% if app.request.get('sort') == 'date_creation' %}selected{% endif %}>Date Création</option>
+        <option value="prix" {% if app.request.get('sort') == 'prix' %}selected{% endif %}>Prix</option>
+        <option value="stock" {% if app.request.get('sort') == 'stock' %}selected{% endif %}>Stock</option>
+    </select>
+
+    <select name="order" id="order" class="form-select d-inline w-auto ms-3" onchange="this.form.submit()">
+        <option value="asc" {% if app.request.get('order') == 'asc' %}selected{% endif %}>Ascendant</option>
+        <option value="desc" {% if app.request.get('order') == 'desc' %}selected{% endif %}>Descendant</option>
+    </select>
+</form>
+
+                    </div>
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>

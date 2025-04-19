@@ -15,10 +15,20 @@ use Symfony\Component\Routing\Attribute\Route;
 final class TransfertController extends AbstractController
 {
     #[Route(name: 'app_transfert_index', methods: ['GET'])]
-    public function index(TransfertRepository $transfertRepository): Response
+    public function index(Request $request, TransfertRepository $transfertRepository): Response
     {
+        $tri = $request->query->get('tri');
+
+        if ($tri === 'montant') {
+            $transferts = $transfertRepository->findBy([], ['montantt' => 'ASC']);
+        } elseif ($tri === 'date') {
+            $transferts = $transfertRepository->findBy([], ['datet' => 'ASC']);
+        } else {
+            $transferts = $transfertRepository->findAll();
+        }
+
         return $this->render('transfert/index.html.twig', [
-            'transferts' => $transfertRepository->findAll(),
+            'transferts' => $transferts,
         ]);
     }
 

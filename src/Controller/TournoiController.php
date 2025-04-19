@@ -15,10 +15,17 @@ use Symfony\Component\Routing\Attribute\Route;
 final class TournoiController extends AbstractController
 {
     #[Route(name: 'app_tournoi_index', methods: ['GET'])]
-    public function index(TournoiRepository $tournoiRepository): Response
+    public function index(Request $request, TournoiRepository $tournoiRepository): Response
     {
+        $sort = $request->query->get('sort', 'date'); // default sort
+        $orderBy = match ($sort) {
+            'statutt' => ['statutt' => 'ASC'],
+            'date' => ['date_debutt' => 'ASC'],
+            default => ['date_debutt' => 'ASC'],
+        };
+
         return $this->render('tournoi/index.html.twig', [
-            'tournois' => $tournoiRepository->findAll(),
+            'tournois' => $tournoiRepository->findBy([], $orderBy),
         ]);
     }
 
@@ -78,6 +85,7 @@ final class TournoiController extends AbstractController
 
         return $this->redirectToRoute('app_tournoi_index', [], Response::HTTP_SEE_OTHER);
     }
+
     #[Route('/frontend/tournoi', name: 'app_tournoi_index_frontend', methods: ['GET'])]
     public function indexFrontend(TournoiRepository $tournoiRepository): Response
     {

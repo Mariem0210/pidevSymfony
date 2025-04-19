@@ -12,6 +12,19 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pb-2">
+                   </div>
+            <div class="card-body px-0 pb-2">
+                <div class="px-4 py-3">
+                    <form method="get" class="form-inline">
+                        <label for="sort" class="me-2 fw-bold">Trier par :</label>
+                        <select name="sort" id="sort" class="form-select d-inline w-auto" onchange="this.form.submit()">
+                            <option value="date" {% if app.request.get('sort') == 'date' %}selected{% endif %}>Date de début</option>
+                            <option value="prix" {% if app.request.get('sort') == 'prix' %}selected{% endif %}>Prix</option>
+                            <option value="capacite" {% if app.request.get('sort') == 'capacite' %}selected{% endif %}>Capacité</option>
+                            <option value="niveau" {% if app.request.get('sort') == 'niveau' %}selected{% endif %}>Niveau</option>
+                        </select>
+                    </form>
+                </div>
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
@@ -56,7 +69,7 @@
                                         <p class="text-xs font-weight-bold mb-0">{{ formation.prixf }} DT</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ formation.utilisateur.idu  }}</p>
+                                        <p class="text-xs font-weight-bold mb-0"> {{ formation.utilisateur.nomu }} {{ formation.utilisateur.prenomu }}</p>
                                     </td>
                                     <td class="align-middle">
                                         <a href="{{ path('app_formation_edit', {'idf': formation.idf}) }}" class="btn btn-link text-dark px-3 mb-0">

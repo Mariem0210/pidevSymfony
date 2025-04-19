@@ -1,0 +1,54 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Détails de l'équipe - {{ equipe.nomEquipe }}{% endblock %}
+
+{% block content %}
+<!-- breadcrumb start-->
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner text-center">
+                    <div class="breadcrumb_iner_item">
+                        <h2>{{ equipe.nomEquipe }}</h2>
+                        <p>Détails de l'équipe</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb end-->
+
+<!-- équipe details section -->
+<section class="about_us section_padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-6 col-lg-5">
+                <div class="about_img">
+                    <img src="{{ asset('assets1/img/equipe-placeholder.jpg') }}" alt="{{ equipe.nomEquipe }}">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="about_text">
+                    <h3>Présentation</h3>
+                    <p>Nom de l'équipe : <strong>{{ equipe.nomEquipe }}</strong></p>
+
+                    <div class="about_single_item">
+                        <h4>Détails</h4>
+                        <ul class="list-unstyled">
+                            <li><i class="ti-check"></i> <span>Date de création :</span> {{ equipe.dateCreation|date('d/m/Y') }}</li>
+                            {% if equipe.idu %}
+                                <li><i class="ti-check"></i> <span>ID Utilisateur :</span> {{ equipe.idu }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <a href="{{ path('app_equipe_index_frontend') }}" class="btn_1">Retour à la liste</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- équipe details section end -->
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Liste des commandes{% endblock %}
+
+{% block content %}
+<section class="section_padding">
+    <div class="container">
+        <h2 class="text-center mb-4">Liste des Commandes</h2>
+        <div class="row">
+            {% for commande in commandes %}
+                <div class="col-md-4 mb-4">
+                    <div class="single_gaming gaming_section text-center">
+                        <h4>Commande #{{ commande.idCommande }}</h4>
+                        <p><strong>Date de commande:</strong> {{ commande.dateCommande|date('d/m/Y') }}</p>
+                        <p><strong>Montant total:</strong> {{ commande.montantTotal | number_format(2, ',', ' ') }} €</p>
+                        <a href="{{ path('app_commande_show_frontend', {'id_commande': commande.idCommande}) }}" class="btn_2">Voir Détails</a>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center">Aucune commande trouvée.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

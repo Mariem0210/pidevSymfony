@@ -78,4 +78,19 @@ final class EquipeController extends AbstractController
 
         return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/frontend/equipe', name: 'app_equipe_index_frontend', methods: ['GET'])]
+    public function indexFrontend(EquipeRepository $equipeRepository): Response
+    {
+        return $this->render('equipe/frontend/index.html.twig', [
+            'equipes' => $equipeRepository->findAll(),
+        ]);
+    }
+    
+    #[Route('/frontend/equipe/{ideq}', name: 'app_equipe_show_frontend', methods: ['GET'])]
+    public function showFrontend(Equipe $equipe): Response
+    {
+        return $this->render('equipe/frontend/show.html.twig', [
+            'equipe' => $equipe,
+        ]);
+    }
 }

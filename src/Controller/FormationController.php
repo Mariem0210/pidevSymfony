@@ -6,9 +6,6 @@ use App\Entity\Formation;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,20 +15,27 @@ use App\Form\FormationType;
 final class FormationController extends AbstractController
 {
     #[Route(name: 'app_formation_index', methods: ['GET'])]
-    public function index(FormationRepository $formationRepository): Response
+    public function index(Request $request, FormationRepository $formationRepository): Response
     {
+        $sort = $request->query->get('sort', 'date');
+        
+        $orderBy = match ($sort) {
+            'prix' => ['prixf' => 'ASC'],
+            'capacite' => ['capacitef' => 'ASC'],
+            'niveau' => ['niveauf' => 'ASC'],
+            default => ['dateDebut' => 'ASC'], // 'date'
+        };
+
         return $this->render('formation/index.html.twig', [
-            'formations' => $formationRepository->findAll(),
+            'formations' => $formationRepository->findBy([], $orderBy),
         ]);
     }
+
     #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $formation = new Formation();
-        
         $form = $this->createForm(FormationType::class, $formation);
-
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,24 +59,23 @@ final class FormationController extends AbstractController
         ]);
     }
 
-    
     #[Route('/{idf}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Formation $formation, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(FormationType::class, $formation);
-    
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
             return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
         }
-    
+
         return $this->render('formation/edit.html.twig', [
             'formation' => $formation,
             'form' => $form->createView(),
         ]);
     }
+
     #[Route('/{idf}', name: 'app_formation_delete', methods: ['POST'])]
     public function delete(Request $request, Formation $formation, EntityManagerInterface $entityManager): Response
     {
@@ -83,6 +86,7 @@ final class FormationController extends AbstractController
 
         return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
     }
+
     #[Route('/frontend/formation', name: 'app_formation_index_frontend', methods: ['GET'])]
     public function indexFrontend(FormationRepository $formationRepository): Response
     {
@@ -90,7 +94,7 @@ final class FormationController extends AbstractController
             'formations' => $formationRepository->findAll(),
         ]);
     }
-    
+
     #[Route('/frontend/formation/{idf}', name: 'app_formation_show_frontend', methods: ['GET'])]
     public function showFrontend(Formation $formation): Response
     {
@@ -98,5 +102,4 @@ final class FormationController extends AbstractController
             'formation' => $formation,
         ]);
     }
-    
 }

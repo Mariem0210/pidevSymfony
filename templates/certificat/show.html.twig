@@ -1,49 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Certificat{% endblock %}
+{% block title %}Détails du Certificat{% endblock %}
 
-{% block body %}
-    <h1>Certificat</h1>
-
-    <table class="table">
-        <tbody>
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card my-4">
+      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+          <h6 class="text-white text-capitalize ps-3">Détails du Certificat</h6>
+        </div>
+      </div>
+      <div class="card-body px-4 pb-2">
+        <table class="table align-items-center mb-0">
+          <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ certificat.idc }}</td>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+              <td class="px-4">{{ certificat.idc }}</td>
             </tr>
             <tr>
-                    <th>Formation</th>
-                    <td>{{ certificat.formation.nomf }}</td>
-                </tr>
-                <tr>
-                    <th>Utilisateur</th>
-                    <td>{{ certificat.utilisateur.nomu }}</td>
-                </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ certificat.nomc }}</td>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Formation</th>
+              <td class="px-4">{{ certificat.formation.nomf }}</td>
             </tr>
             <tr>
-                <th>Type</th>
-                <td>{{ certificat.typec }}</td>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Utilisateur</th>
+              <td class="px-4">{{ certificat.utilisateur.nomu }} {{ certificat.utilisateur.prenomu }}</td>
             </tr>
             <tr>
-                <th>Score</th>
-                <td>{{ certificat.scorec }}</td>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+              <td class="px-4">{{ certificat.nomc }}</td>
             </tr>
             <tr>
-                <th>Etat</th>
-                <td>{{ certificat.etatc }}</td>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
+              <td class="px-4">{{ certificat.typec }}</td>
             </tr>
             <tr>
-                <th>DateExpiration</th>
-                <td>{{ certificat.dateExpirationc ? certificat.dateExpirationc|date('Y-m-d') : '' }}</td>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Score</th>
+              <td class="px-4">{{ certificat.scorec }}</td>
             </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_certificat_index') }}">Retour à la liste</a>
-    <a href="{{ path('app_certificat_edit', {'id': certificat.idc}) }}">Modifier</a>
-
-    {{ include('certificat/_delete_form.html.twig') }}
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Etat</th>
+              <td class="px-4">{{ certificat.etatc }}</td>
+            </tr>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date d'expiration</th>
+              <td class="px-4">{{ certificat.dateExpirationc ? certificat.dateExpirationc|date('Y-m-d') : '' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer p-3 d-flex justify-content-between">
+        <a href="{{ path('app_certificat_index') }}" class="btn btn-outline-secondary">
+          <i class="material-icons text-sm me-2">arrow_back</i> Retour à la liste
+        </a>
+        <div>
+          <a href="{{ path('app_certificat_edit', {'id': certificat.idc}) }}" class="btn btn-outline-primary me-2">
+            <i class="material-icons text-sm me-2">edit</i> Modifier
+          </a>
+          {{ include('certificat/_delete_form.html.twig') }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -25,12 +25,14 @@ class FormationType extends AbstractType
             ->add('prixf')
             ->add('utilisateur', EntityType::class, [
                 'class' => Utilisateur::class,
-                'choice_label' => 'nomu',
+                'choice_label' => function ($user) {
+                    return $user->getNomu() . ' ' . $user->getPrenomu();
+                },
                 'placeholder' => 'Choisir un coach',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
+                'query_builder' => function (EntityRepository $repo) {
+                    return $repo->createQueryBuilder('u')
                         ->where('u.typeu = :type')
-                        ->setParameter('type', 'coach'); // changer selon besoin
+                        ->setParameter('type', 'coach');
                 },
             ]);
     }

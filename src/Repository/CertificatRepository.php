@@ -58,12 +58,12 @@ class CertificatRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.utilisateur', 'u')
+            ->leftJoin('c.formation', 'f')
             ->andWhere('u.typeu = :type')
             ->setParameter('type', 'joueur')
-            ->addSelect('u')
-            ->leftJoin('c.formation', 'f')
-            ->addSelect('f')
+            ->select('c', 'u.nomu', 'u.prenomu', 'f') // Sélectionne uniquement les champs nécessaires
             ->getQuery()
             ->getResult();
     }
+    
 }

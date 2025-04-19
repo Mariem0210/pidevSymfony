@@ -1,5 +1,7 @@
 <?php
 
+// src/Controller/ProduitController.php
+
 namespace App\Controller;
 
 use App\Entity\Produit;
@@ -9,16 +11,25 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/produit')]
 final class ProduitController extends AbstractController
 {
-    #[Route(name: 'app_produit_index', methods: ['GET'])]
-    public function index(ProduitRepository $produitRepository): Response
+    #[Route('/', name: 'app_produit_index', methods: ['GET'])]
+    public function index(ProduitRepository $produitRepository, Request $request): Response
     {
+        // Récupérer le critère de tri à partir de l'URL (par défaut tri par prix)
+        $sort = $request->query->get('sort', 'prix'); // Par défaut, trier par prix
+        $order = $request->query->get('order', 'asc'); // Par défaut, ordre ascendant
+
+        // Appliquer le tri dynamique en fonction du critère et de l'ordre
+        $produits = $produitRepository->findBy([], [$sort => $order]);
+
         return $this->render('produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produits,
+            'sort' => $sort,
+            'order' => $order,
         ]);
     }
 
@@ -77,5 +88,21 @@ final class ProduitController extends AbstractController
         }
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/frontend/produit', name: 'app_produit_index_frontend', methods: ['GET'])]
+    public function indexFrontend(ProduitRepository $produitRepository): Response
+    {
+        return $this->render('produit/frontend/index.html.twig', [
+            'produits' => $produitRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/frontend/produit/{id_produit}', name: 'app_produit_show_frontend', methods: ['GET'])]
+    public function showFrontend(Produit $produit): Response
+    {
+        return $this->render('produit/frontend/show.html.twig', [
+            'produit' => $produit,
+        ]);
     }
 }

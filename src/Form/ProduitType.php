@@ -6,6 +6,7 @@ use App\Entity\Produit;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ProduitType extends AbstractType
 {
@@ -20,7 +21,11 @@ class ProduitType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('categorie')
-            ->add('image_produit')
+            ->add('image_produit', FileType::class, [
+                'label' => 'Image produit',
+                'mapped' => false, // si ce champ n’est pas lié directement à une entité
+                'required' => false,
+            ]);
         ;
     }
 
