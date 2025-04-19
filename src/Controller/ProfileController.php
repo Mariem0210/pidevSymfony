@@ -21,57 +21,32 @@ class ProfileController extends AbstractController
      #[Route('/profile/edit', name: 'app_profile_edit', methods: ['GET', 'POST'])]
      public function edit(Request $request, EntityManagerInterface $entityManager): Response
      {
-         // Get the current logged-in user
+         // Récupérer l'utilisateur connecté
          $user = $this->getUser();
      
-         // If the user is not logged in, redirect to the login page
+         // Redirection si non connecté
          if (!$user) {
              return $this->redirectToRoute('app_login');
          }
      
-         // Create the form and handle the request
+         // Créer et gérer le formulaire
          $form = $this->createForm(UtilisateurType::class, $user);
          $form->handleRequest($request);
      
-         // If the form is submitted and valid
          if ($form->isSubmitted() && $form->isValid()) {
-             // Handle profile picture upload
-             $imageFile = $form->get('photo_profilu')->getData();
-             if ($imageFile) {
-                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                 $safeFilename = preg_replace('/[^A-Za-z0-9-]/', '', $originalFilename);  // Clean filename
-                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
-     
-                 try {
-                     // Move the file to the directory you want
-                     $imageFile->move(
-                         $this->getParameter('images_directory'), // Define this in services.yaml
-                         $newFilename
-                     );
-     
-                     // Set the filename in the user's profile
-                     $user->setPhotoProfilu($newFilename);
-                 } catch (FileException $e) {
-                     // Handle the error
-                     $this->addFlash('error', 'Failed to upload the image.');
-                     return $this->redirectToRoute('app_profile_show');
-                 }
-             }
-     
-             // Persist changes to the database
-             $entityManager->persist($user);
+             // Persister les changements
              $entityManager->flush();
      
-             // Add a success message and redirect to the profile page
-             $this->addFlash('success', 'Your profile has been updated successfully.');
-             return $this->redirectToRoute('app_profile_show');
+             // Rediriger vers la page profil
+             return $this->redirectToRoute('app_profile_show', [], Response::HTTP_SEE_OTHER);
          }
      
-         // Render the edit profile form if not submitted or errors occurred
+         // Rendu du formulaire
          return $this->render('profile/edit.html.twig', [
              'form' => $form->createView(),
          ]);
      }
+     
      
 
     

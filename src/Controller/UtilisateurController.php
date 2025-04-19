@@ -50,23 +50,7 @@ final class UtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/{idu}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(UtilisateurType::class, $utilisateur);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('utilisateur/edit.html.twig', [
-            'utilisateur' => $utilisateur,
-            'form' => $form,
-        ]);
-    }
+    
 
     #[Route('/{idu}', name: 'app_utilisateur_delete', methods: ['POST'])]
     public function delete(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response

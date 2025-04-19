@@ -18,6 +18,19 @@
         </div>
     </div>
 </section>
+
+<style>
+ 
+    .profile-photop {
+        width: 280px;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto 20px;
+        border: 3px solid #ff5e00;
+    }
+</style>
 <!-- breadcrumb end-->
 
 <!-- Profile details section -->
@@ -27,7 +40,7 @@
             <div class="col-md-6 col-lg-5">
                 <div class="about_img">
                     <!-- Display the user's profile picture -->
-                    <img src="{{ asset('uploads/photos/' ~ app.user.photoProfilu) }}" alt="Profile" class="profile-photo">
+                    <img src="{{ asset('uploads/photos/' ~ app.user.photoProfilu) }}" alt="Profile" class="profile-photop">
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">

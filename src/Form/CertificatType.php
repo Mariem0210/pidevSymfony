@@ -45,16 +45,17 @@ class CertificatType extends AbstractType
             ])
             ->add('utilisateur', EntityType::class, [
                 'class' => Utilisateur::class,
-                'choice_label' => 'nomu',
-                'label' => 'Utilisateur (joueur)',
-                'placeholder' => 'Sélectionner un joueur',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
+                'choice_label' => function ($user) {
+                    return $user->getNomu() . ' ' . $user->getPrenomu();
+                },
+                'placeholder' => 'Choisir un joueur',
+                'query_builder' => function (EntityRepository $repo) {
+                    return $repo->createQueryBuilder('u')
                         ->where('u.typeu = :type')
                         ->setParameter('type', 'joueur');
                 },
             ]);
-    }
+        }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
